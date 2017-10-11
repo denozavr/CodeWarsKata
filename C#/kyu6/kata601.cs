@@ -87,3 +87,35 @@ Examples:
         }
 //3)  http://bit.ly/2xb8Xva 
 //4) http://bit.ly/2xTgl1F 
+
+
+/*003  Round by 0.5 steps
+ Description:
+Round any given number to the closest 0.5 step
+    solution(4.2) = 4
+    solution(4.3) = 4.5
+    solution(4.6) = 4.5
+    solution(4.8) = 5
+Round up if number is as close to previous and next 0.5 steps.
+    solution(4.75) == 5
+   */
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static double Solution(double n)
+      {
+            double num = n % 1.0 < 0.25 ? 0.0 : n % 1.0 > 0.75 ? 1.0 : 0.5;
+            return (int) n + num;
+      }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2g9e2By
+    public static double Solution(double n) => Math.Round(n * 2) / 2;
+//2) http://bit.ly/2yfsOwI
+    public static double Solution(double n)  {
+        return Math.Round(2 * n, MidpointRounding.AwayFromZero) / 2;
+    }
