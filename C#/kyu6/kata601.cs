@@ -119,3 +119,58 @@ Round up if number is as close to previous and next 0.5 steps.
     public static double Solution(double n)  {
         return Math.Round(2 * n, MidpointRounding.AwayFromZero) / 2;
     }
+
+
+
+/*004  Multiples of 3 and 5 (https://www.codewars.com/kata/multiples-of-3-and-5/csharp)
+ Description:
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in.
+    Note: If the number is a multiple of both 3 and 5, only count it once.
+*/
+
+//My solution    
+    public static class Kata
+    {
+            public static int Solution(int value)
+            {
+                int sum = 0;
+                for (int i = 0; i < value; i++)
+                {
+                    if (i % 3 == 0 && i % 5 == 0)
+                        sum += i;
+                    else if (i % 3 == 0)
+                        sum += i;
+                    else if (i % 5 == 0)
+                        sum += i;
+                }
+                return sum;
+            }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2guWbSo
+    public static int Solution(int value)  {
+        int max = value - 1;
+        int count3 = max / 3;
+        int count5 = max / 5;
+        int count15 = max / 15;
+        return 3 * Sum(count3) + 5 * Sum(count5) - 15 * Sum(count15);
+    }
+    
+    private static int Sum(int value) {
+        return (1 + value) * value / 2;
+    }
+//2) http://bitly.com/2g1Ot1K The MOST clever by votes, BUT USE MUCH CPU and MEMORY for large numbers
+      public static int Solution(int n)  {
+        return Enumerable.Range(0, n).Where(e => e % 3 == 0 || e % 5 == 0).Sum();
+      }
+//3) http://bit.ly/2gaOFiR
+       public static int Solution(int value)  {
+            var sum = 0;
+            for(int i = 3; i < value; i++)
+            {
+            if(i % 3 == 0 || i % 5 == 0) sum += i;
+            }
+            return sum;
+        }  
