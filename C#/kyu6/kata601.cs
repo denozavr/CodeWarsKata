@@ -1,3 +1,4 @@
+#region 001 Time-like string format
 /* 001 Time-like string format
 Description:
 Build up a method that takes an integer and formats it to a 'time - like' format.
@@ -34,9 +35,9 @@ Example:
         if (100 <= hours || hours <= 0) { throw new ArgumentException("hour is out of range!"); }
         return $"{hours}:{minutes.ToString().PadLeft(2, '0')}";
       }        
+#endregion
 
-
-
+#region 002 Split Strings
 /*002 Split Strings
 Description:
 Complete the solution so that it splits the string into pairs of two characters. If the string contains an odd number of characters then it should replace the missing second character of the final pair with an underscore ('_').
@@ -87,8 +88,9 @@ Examples:
         }
 //3)  http://bit.ly/2xb8Xva 
 //4) http://bit.ly/2xTgl1F 
+#endregion
 
-
+#region 003 Round by 0.5 steps
 /*003  Round by 0.5 steps
  Description:
 Round any given number to the closest 0.5 step
@@ -119,9 +121,9 @@ Round up if number is as close to previous and next 0.5 steps.
     public static double Solution(double n)  {
         return Math.Round(2 * n, MidpointRounding.AwayFromZero) / 2;
     }
+#endregion
 
-
-
+#region 004  Multiples of 3 and 5
 /*004  Multiples of 3 and 5 (https://www.codewars.com/kata/multiples-of-3-and-5/csharp)
  Description:
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -174,3 +176,79 @@ Finish the solution so that it returns the sum of all the multiples of 3 or 5 be
             }
             return sum;
         }  
+#endregion
+
+#region 005 Format words into a sentence
+/*005  Format words into a sentence (https://www.codewars.com/kata/format-words-into-a-sentence/csharp)
+ Description:
+Complete the method so that it formats the words into a single comma separated value. The last word should be separated by the word 
+'and' instead of a comma. The method takes in an array of strings and returns a single formatted string. Empty string values should be ignored. 
+Empty arrays or null/nil values being passed into the method should result in an empty string being returned.
+
+    Kata.FormatWords(new string[] {"ninja", "samurai", "ronin"}) => "ninja, samurai and ronin"
+    Kata.FormatWords(new string[] {"ninja", "", "ronin"}) => "ninja and ronin"
+    Kata.FormatWords(new string[] {}) => ""
+*/
+
+//My solution 
+    using System.Linq;
+
+    public static class Kata
+    {
+        public static string FormatWords(string[] words)
+        {
+            string result = "";
+            words = words?.Where(x => !string.IsNullOrEmpty(x)).ToArray();//delete empty values
+            
+            int size = words?.Length ?? 0;
+            if (size > 0)
+            {
+                for (int i = 0; i <size; i++)
+                {
+                    if (size==1) { result = words[i]; break; }
+
+                    if (i == size - 1)
+                        result += " and " + words[i];
+                    else if (i == size - 2)
+                        result += words[i];
+                    else result += words[i] + ", ";
+                }
+            }
+
+            return result;
+        }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2gGZztN
+    using System.Text.RegularExpressions;
+    using System.Linq;
+    using System;
+
+    public static class Kata
+    {
+        public static string FormatWords(string[] words)
+        {
+            if (words == null || !words.Any()) return "";
+            return Regex.Replace(string.Join(", ", words.Where(x => !string.IsNullOrEmpty(x))), ", (?=\\w+$)", " and ");
+        }
+    }
+//2) http://bit.ly/2yM4qnX
+    using System;
+    using System.Linq;
+
+    public static class Kata
+    {
+        public static string FormatWords(string[] words)
+        {
+                if (words == null) return string.Empty;
+                    words = words.Where(w => !string.IsNullOrEmpty(w) && w!=null).ToArray();
+                    return (words==null || words.Count() == 0) ? string.Empty :
+                            words.Count() == 1 ? words[0] : 
+                            words.Count() == 2 ? string.Join(" and ", words) :
+                            $"{string.Join(", ", words.Where(w => !string.IsNullOrEmpty(w) && !w.Equals(words.Last())))} and {words.Last()}";
+        }
+    }
+//3)http://bit.ly/2xHUmre (too long)
+
+#endregion
