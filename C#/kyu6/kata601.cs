@@ -252,3 +252,36 @@ Empty arrays or null/nil values being passed into the method should result in an
 //3)http://bit.ly/2xHUmre (too long)
 
 #endregion
+
+
+#region 006 Reversed Words
+/*006  Format words into a sentence (https://www.codewars.com/kata/reversed-words/csharp)
+ Description:
+Complete the solution so that it reverses all of the words within the string passed in.
+
+Example:
+    reverseWords("The greatest victory is that which requires no battle")
+    // should return "battle no requires which that is victory greatest The""
+*/
+
+//My solution 
+
+    using System.Linq;
+
+    public class Kata
+    {
+        public static string ReverseWords(string str)
+        {
+            return string.Join(" ", str.Split(' ').Reverse());
+        }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2hRKw0a
+  public static string ReverseWords(string str)
+  {
+    return str.Split().Aggregate( (x , y) => y + " " + x);
+  }
+//2) http://bit.ly/2ywg4CN 
+    public static string ReverseWords(string str)  => string.Join(" " ,str.Split(' ').Reverse());
+#endregion
