@@ -94,3 +94,38 @@ For example:
         });
         return sum;
     }
+
+/*004 Short Long Short   https://www.codewars.com/kata/short-long-short
+Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length0).
+
+For example:
+    ShortLongShort.Solution("1", "22"); // returns "1221"
+    ShortLongShort.Solution("22", "1"); // returns "1221"
+ */
+
+ //My solution (just delete () for len,len2 )
+    function solution(a, b){
+        var len = a.length;
+        var len2 = b.length;
+    
+        if(len<len2) {return a+b+a;}
+        else {return b+a+b; }
+    }
+   
+
+//Solutions I like:
+//1) BEST PRACTICE(41 vote) + THE MOST CLEVER () http://bit.ly/2h2DrtY 
+    function solution(a, b) {
+        return a.length < b.length ? a + b + a : b + a + b
+      }
+//2) http://bit.ly/2l9h0Yv
+    const solution = (a, b) =>  a < b ? a + b + a : b + a + b;      
+//3) http://bit.ly/2h2soAR 
+    function solution(a, b) {
+        return a + b + a;
+    }
+//4) http://bit.ly/2i1VfVw
+    function solution(a, b){
+        return a.length == Math.max(a.length, b.length) ? b + a + b : a + b + a;
+    }
+  //  https://www.codewars.com/kata/reviews/5197f818d2822fb530000082/groups/519b0f3c8ea1715cef00004d 
