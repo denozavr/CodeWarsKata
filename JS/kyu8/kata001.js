@@ -118,8 +118,10 @@ For example:
     function solution(a, b) {
         return a.length < b.length ? a + b + a : b + a + b
       }
-//2) http://bit.ly/2l9h0Yv
-    const solution = (a, b) =>  a < b ? a + b + a : b + a + b;      
+//2a) http://bit.ly/2l9h0Yv
+    const solution = (a, b) =>  a < b ? a + b + a : b + a + b; 
+//2b) http://bit.ly/2z2h0Q4   
+    const solution = ([a, b]) => (Math.min(a, b)+Math.max(a, b)+Math.min(a, b)).toString();
 //3) http://bit.ly/2h2soAR 
     function solution(a, b) {
         return a + b + a;
@@ -128,4 +130,13 @@ For example:
     function solution(a, b){
         return a.length == Math.max(a.length, b.length) ? b + a + b : a + b + a;
     }
-  //  https://www.codewars.com/kata/reviews/5197f818d2822fb530000082/groups/519b0f3c8ea1715cef00004d 
+//5) ???  http://bit.ly/2i2l4Vy 
+    function solution(a, b) {
+        return true;
+    }
+//6)   http://bit.ly/2y3aQKN  
+    function solution(a, b){
+        var short = a.length <= b.length ? a : b;
+        var long = b.length >=a.length  ? b :a;
+        return short  + long + short;
+    }

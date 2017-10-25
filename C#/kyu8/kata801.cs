@@ -100,3 +100,31 @@ No starting help here -- you'll need to know how to write a function that accept
 //Solution(s) I liked:
     public static int HowManyLightsabersDoYouOwn(string name) => name == "Zach" ? 18 : 0;  // http://bit.ly/2xMX0iV
 
+
+#region 004 Short Long Short
+/*004  Short Long Short (https://www.codewars.com/kata/short-long-short/train/csharp)
+ Description:
+Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length0).
+For example:
+    ShortLongShort.Solution("1", "22"); // returns "1221"
+    ShortLongShort.Solution("22", "1"); // returns "1221"
+*/
+//My solution 
+
+    public class ShortLongShort
+    {
+        public static string Solution(string a, string b)
+        {
+            return a.Length > b.Length ? (b + a + b) : (a + b + a);
+        }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2h41Dfq 
+    public static string Solution(string a, string b) => (a.Length>b.Length) ? b+a+b : a+b+a;
+//2) http://bit.ly/2y1sGTg 
+      public static string Solution(string a, string b)
+      { 
+         return (b.Length > a.Length) ? $"{a}{b}{a}" : $"{b}{a}{b}";
+      }
+#endregion
