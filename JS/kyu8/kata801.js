@@ -186,3 +186,31 @@ Why doesn't greet_abe() actually greet Abe?
     const greet = (name) => `Hello, ${name}!`
     const greet_abe = () => greet('Abe')
     const greet_ben = () => greet('Ben')   
+
+
+/*006 Basic Training: Add item to an Array   https://www.codewars.com/kata/basic-training-add-item-to-an-array
+Description:
+Add the value "codewars" to the websites array.
+After your code executes the websites array should == ["codewars"]
+The websites array has already been defined for you using the following code:
+
+    var websites = [];
+ */
+
+//My solution   
+    // add the value "codewars" to the already defined websites array
+    websites.push("codewars");  
+
+
+//Solutions I like:
+//1) BEST(42 votes) http://bit.ly/2hbtJWe 
+    // add the value "codewars" to the already defined websites array
+    websites.push('codewars')
+//2) http://bit.ly/2lhkM23
+    // add the value "codewars" to the already defined websites array
+    var codewars = ['c','o','d','e','w','a','r','s'];
+    websites.push(codewars.reduce(function(x,y){ return x+y;}, ''));   
+//3) + 4)
+    websites[0] = "codewars";
+    websites.unshift("codewars")
+    
