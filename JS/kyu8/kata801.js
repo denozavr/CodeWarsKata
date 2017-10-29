@@ -213,4 +213,33 @@ The websites array has already been defined for you using the following code:
 //3) + 4)
     websites[0] = "codewars";
     websites.unshift("codewars")
+
+
+/*007 Semi-Optional   https://www.codewars.com/kata/semi-optional 
+Description:
+We have implemented a function wrap(value) that takes a value of arbitrary type and wraps it in a new Javascript Object setting the 'value' key on the new Object to the passed-in value.
+So, for example, if we execute the following code:
+    var wrappedObj = wrap("MyWrappedString"); 
+    // wrappedObject should be  {"value":"MyWrappedString"}
+We would then expect the following statement to be true:
+    wrappedObj.value === "MyWrappedString"
+Unfortunately, the code is not working as designed. Please fix the code so that it behaves as specified.
+ */
+
+//My solution   
+    // move open { for return 1 line higher
+    function wrap(value) {
+        return {
+          value:value 
+        };
+      }
     
+//Solutions I like:    
+//1) Clever(5 votes) http://bit.ly/2gK6oKE
+    const wrap = value => ({value});
+//2) http://bit.ly/2iGlTaH 
+    function wrap(value) {
+        var newObj = {};
+        newObj["value"] = value; 
+        return newObj; 
+    }
