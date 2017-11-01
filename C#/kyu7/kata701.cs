@@ -38,7 +38,7 @@ Kata.GetNames(data) => new string[] {"Joe", "Bill", "Kate"};
   }  
 
 //Solution(s) I like:
-//1)    http://bit.ly/2x3rOYG  
+//1)    http://bit.ly/2gZDNVu 
     public static string[] GetNames(Person[] data) => data.Select(d => d.Name).ToArray();
       
 #endregion
