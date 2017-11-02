@@ -42,3 +42,43 @@ Kata.GetNames(data) => new string[] {"Joe", "Bill", "Kate"};
     public static string[] GetNames(Person[] data) => data.Select(d => d.Name).ToArray();
       
 #endregion
+
+#region 002 Two Oldest Ages
+/* 002 Two Oldest Ages (https://www.codewars.com/kata/two-oldest-ages-1/csharp)
+Description:
+The two oldest ages function/method needs to be completed. It should take an array of numbers as its argument and return the two highest
+ numbers within the array. The returned value should be an array in the format [second oldest age, oldest age].
+The order of the numbers passed in could be any order. The following are some examples of what the method should return 
+(shown in different languages but the logic will be the same between all three).
+
+    LargestTwo.TwoOldestAges(new int[] {1, 2, 10, 8}) => new int[] {8, 10}
+    ```nim twoOldestAges(@[1, 5, 87, 45, 8, 8]) # should return [45, 87]
+ */
+
+
+//My solution
+    using System.Linq;
+    public class LargestTwo
+    {
+      public static int[] TwoOldestAges(int[] ages)
+      {
+        return ages.OrderByDescending(x => x).Take(2).Reverse().ToArray();
+      }
+    }
+
+//Solution(s) I like:
+//1) http://bit.ly/2zaQbXr 
+    public static int[] TwoOldestAges(int[] ages)  {
+      return ages.OrderByDescending(u=>u).Take(2).OrderBy(u=>u).ToArray();
+    }
+//2) http://bit.ly/2lILNfa 
+    public static int[] TwoOldestAges(int[] ages)
+    {
+      List<int> Array = ages.ToList();
+      int Highest = Array.Max();
+      Array.Remove(Highest);
+      int SecondHighest = Array.Max();
+      return new int[] {SecondHighest, Highest};
+    }
+      
+#endregion
