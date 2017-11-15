@@ -37,12 +37,12 @@ The function is not returning the correct values. Can you figure out why?
                     name = "Neptune";
                     break;
             }
-            
+
             return name;
         }
     }
 
-//Solution(s) I like(links): http://bit.ly/2xGqjDL 
+//Solution(s) I like(links): http://bit.ly/2xGqjDL
 
 
 
@@ -58,9 +58,9 @@ For example:
     public static class Kata
     {
         public static int SquareSum(int[] n)
-        { 
+        {
             int sum = 0;
-        
+
             foreach (int num in n){
                 sum += num*num;
             }
@@ -68,7 +68,7 @@ For example:
         }
     }
 
- //Solution(s) I like(links): 
+ //Solution(s) I like(links):
     public static int SquareSum(int[] n) => n.Sum(i => i * i); // http://bit.ly/2xuqHG5
     public static int SquareSum(int[] n) => n.Select(x => x * x).Sum(o => o); // http://bit.ly/2xtpyhN
 
@@ -109,7 +109,7 @@ For example:
     ShortLongShort.Solution("1", "22"); // returns "1221"
     ShortLongShort.Solution("22", "1"); // returns "1221"
 */
-//My solution 
+//My solution
 
     public class ShortLongShort
     {
@@ -120,11 +120,35 @@ For example:
     }
 
 //Solution(s) I like:
-//1) http://bit.ly/2h41Dfq 
+//1) http://bit.ly/2h41Dfq
     public static string Solution(string a, string b) => (a.Length>b.Length) ? b+a+b : a+b+a;
-//2) http://bit.ly/2y1sGTg 
+//2) http://bit.ly/2y1sGTg
       public static string Solution(string a, string b)
-      { 
+      {
          return (b.Length > a.Length) ? $"{a}{b}{a}" : $"{b}{a}{b}";
       }
+#endregion
+
+#region 005 Function 1 - hello world
+/*005 Function 1 - hello world (https://www.codewars.com/kata/function-1-hello-world/train/csharp)
+ Description:
+  Make a simple function called greet that returns the most-famous "hello world!".
+Style Points
+  Sure, this is about as easy as it gets. But how clever can you be to create the most creative hello world you can think of?
+  What is a "hello world" solution you would want to show your friends?
+*/
+//My solution
+    using System;
+    public static class Kata
+    {
+      // Write a public static method "greet" that returns "hello world!"
+      public static string greet() => "hello world";
+    }
+
+//Solution(s) I like:
+//1) Clever(12) http://bit.ly/2mtCQXs
+//2) Clever(10) http://bit.ly/2hzCMne SineWave
+//3)
+    public static String greet()
+    { return "hello world";}
 #endregion
