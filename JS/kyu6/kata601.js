@@ -1,4 +1,5 @@
-/*601 Multiples of 3 and 5 (https://www.codewars.com/kata/multiples-of-3-and-5/train/csharp)
+//#region 6001 Multiples of 3 and 5
+/*6001 Multiples of 3 and 5 (https://www.codewars.com/kata/multiples-of-3-and-5/train/csharp)
 Description:
 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
 Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in.
@@ -22,10 +23,10 @@ Finish the solution so that it returns the sum of all the multiples of 3 or 5 be
       var n3 = Math.floor(--number/3), n5 = Math.floor(number/5), n15 = Math.floor(number/15);
       return (3 * n3 * (n3 + 1) + 5 * n5 * (n5 + 1) - 15 * n15 * (n15+1)) /2;
     }
+//#endregion
 
-
-
-/*602 Extract the IDs from the data set (https://www.codewars.com/kata/multiples-of-3-and-5/train/csharp)
+//#region 6002 Extract the IDs from the data set
+/*6002 Extract the IDs from the data set (https://www.codewars.com/kata/multiples-of-3-and-5/train/csharp)
 Description:
 Complete the method so that it returns an array of all ID's passed in. The data structure will be similar to the following:
 
@@ -79,3 +80,4 @@ Note: The only arrays that need to be traversed are those assigned to the "items
     function extractIds(data){
       return (JSON.stringify(data).match(/\d+/g)||[]).map(x=>+x)
     }
+//#endregion

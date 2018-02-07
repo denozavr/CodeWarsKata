@@ -1,5 +1,5 @@
-
-/*800 Return to Sanity (https://www.codewars.com/kata/return-to-sanity)
+//#region 8000
+/*8000 Return to Sanity (https://www.codewars.com/kata/return-to-sanity)
 Description: This function returns something strange. What's wrong?
     function mystery() {
     var results =
@@ -19,10 +19,10 @@ Description: This function returns something strange. What's wrong?
 //Solution(s) I like(links):
 //1) http://bit.ly/2yGgKWL
     var mystery = () => ({sanity: 'Hello'});
+//#endregion
 
-
-
-/*801
+//#region 8001
+/*8001
 Description: There is an object/class already created called MrFreeze.
 Mark this object as frozen so that no other changes can be made to it.
 */
@@ -32,9 +32,10 @@ Mark this object as frozen so that no other changes can be made to it.
     Object.freeze(MrFreeze);
 
 //Solution(s) I like(links): http://bit.ly/2fvP5ji
+//#endregion
 
-
-/*802 Get Planet Name By ID
+//#region 8002
+/*8002 Get Planet Name By ID
 Description:
 
 The function is not returning the correct values. Can you figure out why?
@@ -51,9 +52,10 @@ The function is not returning the correct values. Can you figure out why?
 
 //1) http://bit.ly/2fUmrFA
 //2) http://bit.ly/2hA2vM7
+//#endregion
 
-
-/*803 Square(n) Sum  https://www.codewars.com/kata/square-n-sum/train/javascript
+//#region 8003
+/*8003 Square(n) Sum  https://www.codewars.com/kata/square-n-sum/train/javascript
 Description:
 Complete the squareSum/square_sum/SquareSum method so that it squares each number passed into it and then sums the results together.
 
@@ -94,8 +96,10 @@ For example:
         });
         return sum;
     }
+//#endregion
 
-/*804 Short Long Short   https://www.codewars.com/kata/short-long-short
+//#region 8004
+/*8004 Short Long Short   https://www.codewars.com/kata/short-long-short
 Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length0).
 
 For example:
@@ -140,9 +144,10 @@ For example:
         var long = b.length >=a.length  ? b :a;
         return short  + long + short;
     }
+//#endregion
 
-
-/*805 Shifty Closures(BUG)   https://www.codewars.com/kata/shifty-closures/javascript
+//#region 8005
+/*8005 Shifty Closures(BUG)   https://www.codewars.com/kata/shifty-closures/javascript
 Description:
 Functional closures can get overly attached. Set them straight!
 Why doesn't greet_abe() actually greet Abe?
@@ -186,9 +191,10 @@ Why doesn't greet_abe() actually greet Abe?
     const greet = (name) => `Hello, ${name}!`
     const greet_abe = () => greet('Abe')
     const greet_ben = () => greet('Ben')
+//#endregion
 
-
-/*806 Basic Training: Add item to an Array   https://www.codewars.com/kata/basic-training-add-item-to-an-array
+//#region 8006
+/*8006 Basic Training: Add item to an Array   https://www.codewars.com/kata/basic-training-add-item-to-an-array
 Description:
 Add the value "codewars" to the websites array.
 After your code executes the websites array should == ["codewars"]
@@ -213,9 +219,10 @@ The websites array has already been defined for you using the following code:
 //3) + 4)
     websites[0] = "codewars";
     websites.unshift("codewars")
+//#endregion
 
-
-/*807 Semi-Optional   https://www.codewars.com/kata/semi-optional
+//#region 8007 Semi-Optional
+/*8007 Semi-Optional   https://www.codewars.com/kata/semi-optional
 Description:
 We have implemented a function wrap(value) that takes a value of arbitrary type and wraps it in a new Javascript Object setting the 'value' key on the new Object to the passed-in value.
 So, for example, if we execute the following code:
@@ -243,8 +250,10 @@ Unfortunately, the code is not working as designed. Please fix the code so that 
         newObj["value"] = value;
         return newObj;
     }
+//#endregion
 
-/*808 Function 1 - hello world   https://www.codewars.com/kata/function-1-hello-world
+ //#region 8008 Function 1 - hello world
+/*8008 Function 1 - hello world   https://www.codewars.com/kata/function-1-hello-world
 Description:
   Make a simple function called greet that returns the most-famous "hello world!".
 Style Points
@@ -267,3 +276,6 @@ Style Points
     }
 //3) CLEVER(21) http://bit.ly/2m670Qn
 //4) CLEVER(14) http://bit.ly/2zvcJSV
+//#endregion
+
+
