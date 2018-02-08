@@ -278,4 +278,34 @@ Style Points
 //4) CLEVER(14) http://bit.ly/2zvcJSV
 //#endregion
 
+ //#region 8009 Function 1 - hello world
+ /*8009Function 2 - squaring an argument https://www.codewars.com/kata/function-2-squaring-an-argument
+    Description:
+    Now you have to write a function called square that takes an argument and returns the square of it.
+ */
 
+ //My solution
+    const square = (x) => x*x;
+    //function square(x){ return x*x};
+
+//Solutions I like:
+//1) BEST(24 votes) https://www.codewars.com/kata/reviews/523b623152af8a30c600002a/groups/5245dbbe571408dd1b000c0d
+    var square = function(a){
+      return a*a;
+    }
+//2)CLEVER(5) https://www.codewars.com/kata/reviews/523b623152af8a30c600002a/groups/5245dbbe571408dd1b000c0d
+    function square(num){
+      var num = Math.pow(num, 2);
+      return num;
+    };
+//3) https://www.codewars.com/kata/reviews/523b623152af8a30c600002a/groups/56782d7195db0e169d00002a
+    const square = x => x ** 2;
+//4) Clever(3) https://www.codewars.com/kata/reviews/523b623152af8a30c600002a/groups/54b5cf3d48245d4968000369
+    function square(n) {
+      if (typeof n === 'number') {
+        return n*n;
+      } else {
+        return 'undefined';
+      }
+    }
+ //#endregion
