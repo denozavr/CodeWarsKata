@@ -278,7 +278,7 @@ Style Points
 //4) CLEVER(14) http://bit.ly/2zvcJSV
 //#endregion
 
- //#region 8009 Function 1 - hello world
+ //#region 8009 Function 2 - squaring an argument
  /*8009Function 2 - squaring an argument https://www.codewars.com/kata/function-2-squaring-an-argument
     Description:
     Now you have to write a function called square that takes an argument and returns the square of it.
@@ -307,5 +307,34 @@ Style Points
       } else {
         return 'undefined';
       }
+    }
+ //#endregion
+
+
+ //#region 8010 Function 3 - multiplying two numbers
+ /*8010 Function 3 - multiplying two numbers https://www.codewars.com/kata/function-3-multiplying-two-numbers
+    Description:
+    This function has to be called multiply and needs to take two numbers as arguments, and has to return the multiplication of the 2 arguments.
+ */
+
+ //My solution
+    // Write here your multiply-function
+    let multiply = (a,b) => a*b;
+
+ //Solutions I like:
+//1) BEST(48 votes) and CLEVER(7 votes) https://www.codewars.com/kata/reviews/523b66342d0c301ae400003e/groups/5258412ee62fb46d9b003795
+    function multiply(a, b){
+      if(typeof a == 'number' && typeof b == 'number')
+        return a * b;
+    }
+//2) https://www.codewars.com/kata/reviews/523b66342d0c301ae400003e/groups/55cb26207042715f3e000047
+    function multiply(a,b){
+      if(isNaN(a) || isNaN(b))
+        throw new TypeError("One of the arguments is not numeric.");
+      return a*b;
+    }
+//3) https://www.codewars.com/kata/reviews/523b66342d0c301ae400003e/groups/5245ddf54abb2f408700000e
+    function multiply(a, b){
+      return a*b;
     }
  //#endregion
