@@ -1,4 +1,5 @@
-/* 001
+#region 8001
+/* 8001
 Description:
 The function is not returning the correct values. Can you figure out why?
     getPlanetName(3); // should return 'Earth'
@@ -43,10 +44,10 @@ The function is not returning the correct values. Can you figure out why?
     }
 
 //Solution(s) I like(links): http://bit.ly/2xGqjDL
+#endregion
 
-
-
-/*002 https://www.codewars.com/kata/square-n-sum/csharp
+#region 8002 Square n sum
+/*8002 https://www.codewars.com/kata/square-n-sum/csharp
 Description:
 Complete the squareSum/square_sum/SquareSum method so that it squares each number passed into it and then sums the results together.
 
@@ -71,10 +72,10 @@ For example:
  //Solution(s) I like(links):
     public static int SquareSum(int[] n) => n.Sum(i => i * i); // http://bit.ly/2xuqHG5
     public static int SquareSum(int[] n) => n.Select(x => x * x).Sum(o => o); // http://bit.ly/2xtpyhN
+#endregion
 
-
-
-/*003 How many lightsabers do you own?
+#region 8003 How many lightsabers do you own?
+/*8003 How many lightsabers do you own?
 Description:
 Inspired by the development team at Vooza, write the function howManyLightsabersDoYouOwn that
 
@@ -99,10 +100,10 @@ No starting help here -- you'll need to know how to write a function that accept
 
 //Solution(s) I liked:
     public static int HowManyLightsabersDoYouOwn(string name) => name == "Zach" ? 18 : 0;  // http://bit.ly/2xMX0iV
+#endregion
 
-
-#region 004 Short Long Short
-/*004  Short Long Short (https://www.codewars.com/kata/short-long-short/train/csharp)
+#region 8004 Short Long Short
+/*8004  Short Long Short (https://www.codewars.com/kata/short-long-short/train/csharp)
  Description:
 Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length, but they may be empty (length0).
 For example:
@@ -129,8 +130,8 @@ For example:
       }
 #endregion
 
-#region 005 Function 1 - hello world
-/*005 Function 1 - hello world (https://www.codewars.com/kata/function-1-hello-world/train/csharp)
+#region 8005 Function 1 - hello world
+/*8005 Function 1 - hello world (https://www.codewars.com/kata/function-1-hello-world/train/csharp)
  Description:
   Make a simple function called greet that returns the most-famous "hello world!".
 Style Points
@@ -151,4 +152,29 @@ Style Points
 //3)
     public static String greet()
     { return "hello world";}
+#endregion
+
+
+#region 8006 Function 2 - squaring an argument
+/*8006 Function 2 - squaring an argument https://www.codewars.com/kata/function-2-squaring-an-argument
+    Description:
+    Now you have to write a function called square that takes an argument and returns the square of it.
+*/
+//My solution
+    public class Kata  {
+      public static double Square(double x) => x*x;
+    }
+
+//Solution(s) I like:
+//1) https://www.codewars.com/kata/reviews/599181e9fab78c44ad0006ea/groups/5a06566bf270a15db00001c7
+    public static int Square(int num)
+    {
+      return num * num;
+    }
+    public static double Square(double num)
+    {
+      return num * num;
+    }
+
+
 #endregion
