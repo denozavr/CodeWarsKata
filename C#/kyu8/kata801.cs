@@ -175,6 +175,27 @@ Style Points
     {
       return num * num;
     }
-
-
 #endregion
+
+#region 8007 Function 3 - multiplying two numbers
+ /*8007 Function 3 - multiplying two numbers https://www.codewars.com/kata/function-3-multiplying-two-numbers
+    Description:
+    This function has to be called multiply and needs to take two numbers as arguments, and has to return the multiplication of the 2 arguments.
+ */
+
+ //My solution
+    public static int Multiply(int a, int b) => a*b;
+
+//Solution(s) I like:
+//1) BEST(3 Votes) https://www.codewars.com/kata/reviews/59af32238c0e327bff0000bf/groups/59af322b8c0e327bff0000c3
+    public static int Multiply(int a, int b)
+    {
+      if (b == 0 || a == 0) { return 0; }
+      if (b == 1) { return a; }
+      if (b == -1) { return -a; }
+
+      if (b > 0) { return a + Multiply(a, --b); }
+      else { return -a + Multiply(a, ++b); }
+    }
+
+ #endregion
