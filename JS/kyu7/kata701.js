@@ -63,3 +63,42 @@ function twoOldestAges(ages) {
     }
 //3)http://bit.ly/2h7trTn
 //#endregion
+
+
+//#region 7003  JavaScript Array Filter
+/*7003 JavaScript Array Filter (https://www.codewars.com/kata/javascript-array-filter/javascript)
+Description:
+JavaScript Arrays support a filter function (starting in JavaScript 1.6). Use the filter functionality to complete the function given.
+The solution would work like the following:
+
+getEvenNumbers([2,4,5,6]) // should == [2,4,6]
+*/
+
+//My solution
+    function getEvenNumbers(numbersArray){
+      return numbersArray.filter(num => num%2 === 0);
+    }
+
+//Solution(s) I like(links):
+//1) Best(28) and Clever(35) https://www.codewars.com/kata/reviews/516f30227c907a79f200026c/groups/53872b454c45408f630011e9
+    function getEvenNumbers(numbersArray){
+      return numbersArray.filter(function(num){return !(num % 2) })  // 0 is falsy
+    }
+//2) Best(18) https://www.codewars.com/kata/reviews/516f30227c907a79f200026c/groups/516f30237c907a79f20002b3
+    function getEvenNumbers(numbersArray){
+      return numbersArray.filter(function(n){
+        return n % 2 == 0; //better use ===
+      });
+    }
+//3) https://www.codewars.com/kata/reviews/516f30227c907a79f200026c/groups/53a13d490a0810efc800025a
+    function isEven(num){
+      return num%2==0
+    }
+
+    function getEvenNumbers(numbersArray){
+      // filter out the odd numbers
+      var filtered = numbersArray.filter(isEven);
+      return filtered;
+    }
+
+//#endregion
