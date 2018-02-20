@@ -64,7 +64,6 @@ function twoOldestAges(ages) {
 //3)http://bit.ly/2h7trTn
 //#endregion
 
-
 //#region 7003  JavaScript Array Filter
 /*7003 JavaScript Array Filter (https://www.codewars.com/kata/javascript-array-filter/javascript)
 Description:
