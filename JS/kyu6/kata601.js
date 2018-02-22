@@ -81,3 +81,56 @@ Note: The only arrays that need to be traversed are those assigned to the "items
       return (JSON.stringify(data).match(/\d+/g)||[]).map(x=>+x)
     }
 //#endregion
+
+
+//#region 6003 Custom each() Array method
+/*6003 Custom each() Array method (https://www.codewars.com/kata/custom-each-array-method/train/javascript)
+Description:
+JavaScript provides an Array.prototype.forEach method that allows you to iterate over array values.
+ For this exercise you will create your own array method called 'each'. It will be similar to the forEach method,
+ except for one difference. If the callback function returns true then the loop will stop and no additional values will be iterated.
+The following shows a contrived example of how this new method would be used:
+
+    var letters = ['a', 'b', 'c', 'd', 'e']
+    var allowedLetters = []
+    letters.each(function(letter, index){
+      // break out of the loop if we reached a letter with the value 'd'
+      if(letter == 'd') {
+        return true;
+      }
+      allowedLetters.push(letter);
+    })
+
+// allowedLetters should equal ['a', 'b', 'c']
+*/
+
+//My solution
+    Array.prototype.each = function(array) {
+      var result = [];
+
+      for (let i = 0; i < this.length; i++) {
+        if(array(this[i], i))  break;
+      }
+
+      return result;
+    };
+
+//Solution(s) I like(links):
+//1) Clever(24) https://www.codewars.com/kata/reviews/516f30207c907a79f2000158/groups/52261ef0cac754e69e000350
+   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+    Array.prototype.each = function(callback) {
+      return this.some(callback);
+    }
+//2)Comments
+    Array.prototype.each = [].some;
+//3) https://www.codewars.com/kata/reviews/516f30207c907a79f2000158/groups/53b38bc4549d3217fd00022c
+    Array.prototype.each = function(callback){
+      for(var i in this){
+        if(callback(this[i],i,this)) break;
+      }
+    }
+//4)
+    Array.prototype.each = function(f) {
+      return this.some((item, idx) => f(item, idx));
+    };
+//#endregion
