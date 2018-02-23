@@ -134,3 +134,16 @@ The following shows a contrived example of how this new method would be used:
       return this.some((item, idx) => f(item, idx));
     };
 //#endregion
+
+
+//#region 6004
+/*6004
+Description:
+
+*/
+
+//My solution
+
+//Solution(s) I like(links):
+//1)
+//#endregion
