@@ -136,14 +136,71 @@ The following shows a contrived example of how this new method would be used:
 //#endregion
 
 
-//#region 6004
-/*6004
+//#region 6004 Fizz / Buzz
+/*6004 Fizz / Buzz (https://www.codewars.com/kata/fizz-slash-buzz/javascript)
 Description:
+Write a function that takes an integer and returns an array [A, B, C], where A is the number of multiples of 3 (but not 5) less than the given integer, B is the number of multiples of 5 (but not 3) less than the given integer and C is the number of multiples of 3 and 5 less than the given integer.
 
+For example, solution(20) should return [5, 2, 1]
+
+    # in R, returns a numeric vector
+    solution(20)
+    [1] 5 2 1
+
+    class(solution(20))
+    [1] "numeric"
 */
 
 //My solution
+    function solution(number){
+      let arr = [0,0,0];
+      //let a=0,b=0,c=0;
+      for(let i=1; i<number;i++){
+          if(i%3==0 && i%5!=0) arr[0]++; //a++
+          if(i%5==0 && i%3!=0) arr[1]++; //b++
+          if(i%15==0) arr[2]++; //c++
+      }
+      //arr.push(a,b,c);
+      return arr;
+    }
 
 //Solution(s) I like(links):
-//1)
+//1)Best(12) and Clever(16) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/55d9f1bdebca2ae4dd000077
+    function solution(n) {
+      --n;
+      const c15 = Math.floor(n / 15);
+      const c3 = Math.floor(n / 3) - c15;
+      const c5 = Math.floor(n / 5) - c15;
+      return [c3, c5, c15];
+    }
+//2) Clever(14) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/5380df130fcd7cc46f000c7e
+    function solution(number){
+      number--;
+      var a = [Math.floor(number/3), Math.floor(number/5), Math.floor(number/15)];
+      a[0] -= a[2];
+      a[1] -= a[2];
+      return a;
+    }
+//3) Best(8) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/56252bd010dc8515c4000004
+    function solution(number){
+      var ACount = 0,
+          BCount = 0,
+          CCount = 0;
+
+      for(var i = 1; i<number; i++) {
+        if(i % 3 == 0 && i % 5 == 0) {
+          CCount++;
+        }
+        else if(i % 3 == 0 && i % 5 !== 0) {
+          ACount++;
+        }
+        else if(i % 5 == 0 && i % 3 !== 0) {
+          BCount++;
+        }
+      }
+
+      return [ACount, BCount, CCount];
+    }
+//4) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/5a94602468e23a2328000f45
+    const solution=n=>[~~((n-1)/3)-~~((n-1)/15),~~((n-1)/5)-~~((n-1)/15),~~((n-1)/15)]
 //#endregion
