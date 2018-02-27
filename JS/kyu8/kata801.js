@@ -338,3 +338,39 @@ Style Points
       return a*b;
     }
  //#endregion
+
+
+
+  //#region 8011 Kata Example Twist
+ /*8011 Kata Example Twist (https://www.codewars.com/kata/kata-example-twist/javascript)
+    Description:
+    This is an easy twist to the example kata (provided by Codewars when learning how to create your own kata).
+    Add the value "codewars" to the array websites/Websites 1,000 times.
+
+        var websites = []
+ */
+
+ //My solution
+    // add the value "codewars" to the websites array 1,000 times
+    var websites = []
+    while(websites.length<1000){
+        websites.push('codewars');
+    }
+
+ //Solutions I like:
+//1) BEST(20 votes) and CLEVER(8 votes) https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/5758b68967f40138670001e3
+    var websites = new Array(1000).fill("codewars");
+//2) CLEVER(50) https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/538f495170f2f47d81000a4f
+    var websites = (new Array(1000)).map(function(e) {return 'codewars';});
+    //???This solution won't work because the .map-method won't be invoked for array entries containing undefined
+//3) Clever(9 and 8) https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/525ffe459a002276750007d6
+    var websites = Array.apply(null, Array(1000)).map(String.prototype.valueOf, 'codewars');
+    //https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/526e7dd0d90c08d4520002e6
+    var websites = Array(1000).join().split(',').map(function(){return 'codewars'});
+//4) https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/5617640ff6cc3d9fde00003c
+    var websites = Array.from({ length: 1000 }, () => 'codewars')
+//5) https://www.codewars.com/kata/reviews/525c1a07bb6dda6944000034/groups/53ff3f654a6ac118e0000c07
+    var websites = [];  websites.length=1000;
+    websites=websites.splice(0,1000,"codewars");
+
+ //#endregion
