@@ -199,3 +199,52 @@ Style Points
     }
 
  #endregion
+
+
+#region 8008 Kata Example Twist
+ /*8008 Kata Example Twist (https://www.codewars.com/kata/kata-example-twist/csharp)
+    Description:
+  This is an easy twist to the example kata (provided by Codewars when learning how to create your own kata).
+  Add the value "codewars" to the array websites/Websites 1,000 times.
+
+      public static class Kata
+      {
+        public static string[] Websites;
+      }
+ */
+
+ //My solution
+    using System;
+    public static class Kata
+    {
+      public static string[] Websites = WebsitesCodeWars();
+
+      public static string[] WebsitesCodeWars()
+      {
+          Websites = new string[1000];
+          for (int i = 0; i < Websites.Length; i++) {
+              Websites[i] = "codewars";
+          }
+          return Websites;
+      }
+    }
+
+//Solution(s) I like:
+//1) BEST(9 Votes) https://www.codewars.com/kata/reviews/5991a3ed53fd57051400005e/groups/5991a3ff53fd570514000062
+    //!! 5-20 times slower than FOR/While Loops
+    public static string[] Websites = Enumerable.Repeat("codewars", 1000).ToArray();
+//2) BEST(3) https://www.codewars.com/kata/reviews/5991a3ed53fd57051400005e/groups/59946c2d35939205c600109f
+    public static class Kata
+    {
+      public static string[] Websites = new string[1000];
+      static Kata()
+      {
+        for(int i = 0; i < 1000; i++)
+          Websites[i] = "codewars";
+      }
+    }
+//3)
+    public static string[] Websites {
+        get { return Enumerable.Repeat("codewars", 1000).ToArray(); }
+      }
+ #endregion
