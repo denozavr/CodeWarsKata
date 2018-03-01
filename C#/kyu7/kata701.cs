@@ -107,3 +107,42 @@ Kata.GetEvenNumbers(new int[] {2, 4, 5, 6}) => new int[] {2, 4, 6}
 //1) https://www.codewars.com/kata/reviews/5995892ca82c79580600001e/groups/59ba722671780d1c6a0020e7
     public static int[] GetEvenNumbers(int[] numbers) => numbers.Where(x => x % 2 == 0).ToArray();
 #endregion
+
+#region  7004 Reversed Strings
+/*7004 Reversed Strings (https://www.codewars.com/kata/reversed-strings/csharp)
+Description:
+Complete the solution so that it reverses the string value passed into it.
+    Kata.Solution("world") //return "dlrow"
+ */
+
+ //My solution
+    using System;
+    public static class Kata
+    {
+      public static string Solution(string str)
+      {
+          char[] arr = str.ToCharArray();
+          Array.Reverse(arr);
+          return new string(arr);
+          //!! this solution about 5times faster than new string(str.Reverse().ToArray()); (NEED using System.Linq;)
+      }
+    }
+
+ //Solution(s) I like:
+//1) Clever(4) https://www.codewars.com/kata/reviews/59ad726ac2479b7127000bcb/groups/59aebdb54aab41a685000da3
+    public static string Solution(string str)
+    {
+      string res="";
+      foreach(char s in str){
+      res=s+res;
+      }
+      return res;
+    }
+//2) https://www.codewars.com/kata/reviews/59ad726ac2479b7127000bcb/groups/59c23a7d322eed5d3c00097d
+    public static string Solution(string str)
+    {
+      char[] chars = str.ToCharArray();
+      Array.Reverse(chars);
+      return string.Join("", chars);
+    }
+#endregion
