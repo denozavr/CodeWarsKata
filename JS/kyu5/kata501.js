@@ -10,7 +10,7 @@ The following are examples of how this function would be used and what the expec
 */
 
 //My solution
-    // create your flatten method here
+    //https://davidwalsh.name/spread-operator (see comments also)
     function flatten(...a) { //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
       return [...a].join(",").split(",");
     }

@@ -353,7 +353,7 @@ Style Points
  //My solution
     // add the value "codewars" to the websites array 1,000 times
     var websites = []
-    while(websites.length<1000){
+    while(websites.length < 1000){
         websites.push('codewars');
     }
 
@@ -373,4 +373,66 @@ Style Points
     var websites = [];  websites.length=1000;
     websites=websites.splice(0,1000,"codewars");
 
+ //#endregion
+
+ //#region 8012 Broken Counter
+  /*8012 Broken Counter (https://www.codewars.com/kata/broken-counter/javascript)
+    Description:
+    Our counter prototype is broken. Can you spot, what's wrong here?
+  Original code:
+*/
+
+//My solution
+    function Counter() {
+      this.value = 0;
+    }
+
+    Counter.prototype.increase =function() { //add function was just Counter.prototype.increase() {
+      this.value++;
+    };
+
+    Counter.prototype.getValue=function() { //add function was just Counter.prototype.getValue()
+      return this.value;
+    };
+
+    Counter.prototype.reset=function() { //add function was just Counter.prototype.reset()
+      this.value = 0;
+    };
+ //Solutions I like:
+//1) Best(15) and Clever(29) https://www.codewars.com/kata/reviews/526471539d52735c620000c9/groups/527259a8b111ce0cc40005ba
+    function Counter() {
+      this.value = 0;
+    }
+
+    Counter.prototype = {
+      increase : function(){this.value++;},
+      getValue : function(){ return this.value;},
+      reset : function(){this.value = 0;}
+    };
+//2) Best(5) https://www.codewars.com/kata/reviews/526471539d52735c620000c9/groups/55f27d4807e290a0e2000015
+    class Counter {
+      constructor() {
+        this.value = 0;
+      }
+
+      increase() {
+        this.value++;
+      };
+
+      getValue() {
+        return this.value;
+      };
+
+      reset() {
+        this.value = 0;
+      };
+    }
+//3) https://www.codewars.com/kata/reviews/526471539d52735c620000c9/groups/55c2424ef957afb74500002b
+    function Counter() {
+      value = 0;
+    }
+
+    Counter.prototype.increase = () => this.value++;
+    Counter.prototype.reset = () =>  this.value = 0;
+    Counter.prototype.getValue = () => {return this.value;}
  //#endregion
