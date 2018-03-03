@@ -248,3 +248,45 @@ Style Points
         get { return Enumerable.Repeat("codewars", 1000).ToArray(); }
       }
  #endregion
+
+
+#region 8009 Broken Counter
+  /*8009 Broken Counter (https://www.codewars.com/kata/broken-counter/csharp)
+    Description:
+    Our counter prototype is broken. Can you spot, what's wrong here?
+    Counter.Value must have manually defined getter/setter methods, according to our company's style guide.
+*/
+
+//My solution
+  public class Counter
+  {
+    private int _value;//add backing field
+    public int Value
+    {
+      get
+      {
+        return _value; //was Value
+      }
+      private set
+      {
+        _value = value; //Was Value=value
+      }
+    }
+
+    public Counter()
+    {
+      Value = 0;
+    }
+
+    public void Increase()
+    {
+      ++Value;
+    }
+
+    public void Reset()
+    {
+      Value = 0;
+    }
+  }
+
+#endregion
