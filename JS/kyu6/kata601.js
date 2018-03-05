@@ -204,3 +204,104 @@ For example, solution(20) should return [5, 2, 1]
 //4) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/5a94602468e23a2328000f45
     const solution=n=>[~~((n-1)/3)-~~((n-1)/15),~~((n-1)/5)-~~((n-1)/15),~~((n-1)/15)]
 //#endregion
+
+
+//#region 6005 Make the Deadfish swim.
+/*6005 Make the Deadfish swim. (https://www.codewars.com/kata/make-the-deadfish-swim/javascript)
+Description:
+Write a simple parser that will parse and run Deadfish.
+Deadfish has 4 commands, each 1 character long.
+'i' will increment the value ( initially 0 ).
+'d' will decrement the value.
+'s' will square the value.
+'o' will output the value into the return array.
+Invalid characters should be ignored.
+
+    parse( "iiisdoso" ); // should == [ 8 , 64 ]
+*/
+
+//My solution
+// Return the output array, and ignore all non-op characters
+    function parse( data )
+    {
+      var result=[];
+      var temp=0;
+      for (let index = 0; index < data.length; index++) {
+          switch (data[index]) {
+          case 'i':
+              temp++;
+          break;
+          case 'd':
+              temp--;
+          break;
+          case 's':
+              temp*=temp;
+          break;
+          case 'o':
+            result.push(temp);
+          break;
+          default:
+          break;
+        }
+      }
+
+      return result.length>0 ? result : temp;
+    }
+
+
+//Solution(s) I like(links):
+//1)Best(6) and Clever(8)  https://www.codewars.com/kata/reviews/51e0007c1f9378fa810002ac/groups/53a91765947277ee260006e0
+    var map = {
+      'i' : function(x){return x + 1;},
+      'd' : function(x){return x - 1;},
+      's' : function(x){return x * x;}
+    }
+
+    function parse( data )
+    {
+      var array = [], val = 0;
+      data.split('').forEach(function(x){
+        if(x === 'o'){
+          array.push(val);
+        } else {
+          val = map[x](val);
+        }
+      });
+      return array;
+    }
+//2) https://www.codewars.com/kata/reviews/51e0007c1f9378fa810002ac/groups/587b0511a7ef2baafe0001e8
+    function parse(data) {
+      let res = [];
+
+      data.split('').reduce((cur, s) => {
+        if (s === 'i') cur++;
+        if (s === 'd') cur--;
+        if (s === 's') cur = Math.pow(cur, 2);
+        if (s === 'o') res.push(cur);
+
+        return cur;
+      }, 0);
+
+      return res;
+    }
+//3) https://www.codewars.com/kata/reviews/51e0007c1f9378fa810002ac/groups/51e6cad921c35210c700000a
+    function parse( data )
+    {
+      var state = {
+        output: [],
+        value: 0,
+        methods: {
+          o: function () { this.output.push(this.value); },
+          i: function () { this.value += 1; },
+          d: function () { this.value -= 1; },
+          s: function () { this.value *= this.value; },
+        },
+      };
+      data.split('').forEach( function (cmd) {
+        if (cmd in state.methods) {
+          state.methods[cmd].call(state);
+        }
+      });
+      return state.output;
+    }
+//#endregion
