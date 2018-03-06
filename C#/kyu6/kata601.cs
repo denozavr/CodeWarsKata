@@ -332,3 +332,91 @@ For example, solution(20) should return [5, 2, 1]
               };
     }
 #endregion
+
+
+#region 6008 Make the Deadfish swim.
+/*6008  Make the Deadfish swim. (https://www.codewars.com/kata/make-the-deadfish-swim/csharp)
+ Description:
+  Write a simple parser that will parse and run Deadfish.
+  Deadfish has 4 commands, each 1 character long.
+  'i' will increment the value ( initially 0 ).
+  'd' will decrement the value.
+  's' will square the value.
+  'o' will output the value into the return array.
+  Invalid characters should be ignored.
+
+    Deadfish.Parse("iiisdoso") => new int[] {8, 64};
+*/
+
+//My solution
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Deadfish
+    {
+      public static int[] Parse(string data)
+      {
+          // Return the output array, and ignore all non-op characters
+          List<int> result = new List<int>();
+          var temp = 0;
+          for (int index = 0; index < data.Length; index++)
+          {
+              switch (data[index])
+              {
+                  case 'i':
+                      temp++;
+                      break;
+                  case 'd':
+                      temp--;
+                      break;
+                  case 's':
+                      temp *= temp;
+                      break;
+                  case 'o':
+                      result.Add(temp);
+                      break;
+                  default:
+                      break;
+              }
+          }
+
+          return result.ToArray();
+      }
+    }
+
+//Solution(s) I like:
+//1) https://www.codewars.com/kata/reviews/5990589f8b984ece79000066/groups/5a7caeb83ef2b952cf001b0f
+    using System;
+    using System.Collections.Generic;
+
+    public class Deadfish
+    {
+      public static int[] Parse(string data)
+      {
+        var accum = 0;
+        var list = new List<int>();
+
+        foreach (var c in data.ToCharArray())
+        {
+          switch (c)
+          {
+            case 'i':
+              accum += 1;
+              break;
+            case 'd':
+              accum -= 1;
+              break;
+            case 's':
+              accum *= accum;
+              break;
+            case 'o':
+              list.Add(accum);
+              break;
+          }
+        }
+
+        return list.ToArray();
+      }
+    }
+
+#endregion
