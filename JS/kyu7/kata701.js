@@ -169,3 +169,36 @@ Complete the solution so that it reverses the string value passed into it.
     const solution = str => str.split('').reverse().join('');
 
 //#endregion
+
+
+//#region 7006 Sort Numbers
+/*7006 Sort Numbers (https://www.codewars.com/kata/sort-numbers)
+Finish the solution so that it sorts the passed in array of numbers. If the function passes in an empty array or null/nil value then it should return an empty array.
+    For example:
+    solution([1, 2, 10, 50, 5]); // should return [1,2,5,10,50]
+    solution(null); // should return []
+*/
+
+//My solution
+    function solution(nums){
+      return nums ? nums.sort(sortNumber) : []; //if NOT NULL sort
+    }
+
+    function sortNumber(a,b) {
+        return a - b;
+    }
+
+//Solution(s) I like(links):
+//1) Best(33) and Clever(17) https://www.codewars.com/kata/reviews/5174a68231d5270475000005/groups/5174a68231d5270475000004
+    function solution(nums){ //Clever, but works only if nums arg is null or array. I think (nums instanceof Array) check should be instead of "or". But still nice and easy.
+      return (nums || []).sort(function(a, b){
+        return a - b
+      });
+    }
+//2) https://www.codewars.com/kata/reviews/5174a68231d5270475000005/groups/5942d04db4513a285800023b
+    let solution = (nums) => (nums || []).sort((a,b) => (a-b))
+//3) https://www.codewars.com/kata/reviews/5174a68231d5270475000005/groups/5181c1ec05b9dbdee2000002
+    function solution(nums){
+      return nums !== null ? nums.sort(function(a,b){return a-b}) : [];
+    }
+//#endregion
