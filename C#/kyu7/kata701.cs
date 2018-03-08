@@ -146,3 +146,45 @@ Complete the solution so that it reverses the string value passed into it.
       return string.Join("", chars);
     }
 #endregion
+
+
+#region  7005 Sort Numbers
+/*7005 Sort Numbers (https://www.codewars.com/kata/sort-numbers/train/csharp)
+Description:
+    Finish the solution so that it sorts the passed in array of numbers. If the function passes in an empty array or null/nil value then it should return an empty array.
+
+    For example:
+        SortNumbers(new int[] { 1, 2, 10, 50, 5 }); // should return new int[] { 1, 2, 5, 10, 50 }
+        SortNumbers(null); // should return new int[] { }
+ */
+
+ //My solution
+    using System.Linq;
+
+    public class Kata
+    {
+      public static int[] SortNumbers(int[] nums)
+      {
+        return nums?.OrderBy(x => x).ToArray() ?? new int[0];
+      }
+    }
+
+ //Solution(s) I like:
+//1) Best(2)
+    public static int[] SortNumbers(int[] nums)
+    {
+      if(nums == null)
+        nums = new int[0];
+
+      Array.Sort(nums);
+      return nums;
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/57b9e2ee5b446c654e0000f4/groups/57cd31a9d542d356930000cb
+    public static int[] SortNumbers(int[] nums)
+    {
+        return nums == null || !nums.Any() ? new int[] { } : nums.OrderBy(n => n).ToArray();
+    }
+//3) https://www.codewars.com/kata/reviews/57b9e2ee5b446c654e0000f4/groups/5a16a0fcf2e3404b67002246
+    public static int[] SortNumbers(int[] nums)
+    => nums == null? new int[0] : nums.OrderBy(x=>x).ToArray();
+#endregion
