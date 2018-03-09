@@ -82,7 +82,6 @@ Note: The only arrays that need to be traversed are those assigned to the "items
     }
 //#endregion
 
-
 //#region 6003 Custom each() Array method
 /*6003 Custom each() Array method (https://www.codewars.com/kata/custom-each-array-method/train/javascript)
 Description:
@@ -134,7 +133,6 @@ The following shows a contrived example of how this new method would be used:
       return this.some((item, idx) => f(item, idx));
     };
 //#endregion
-
 
 //#region 6004 Fizz / Buzz
 /*6004 Fizz / Buzz (https://www.codewars.com/kata/fizz-slash-buzz/javascript)
@@ -204,7 +202,6 @@ For example, solution(20) should return [5, 2, 1]
 //4) https://www.codewars.com/kata/reviews/51dda85491f5b5608b0004d3/groups/5a94602468e23a2328000f45
     const solution=n=>[~~((n-1)/3)-~~((n-1)/15),~~((n-1)/5)-~~((n-1)/15),~~((n-1)/15)]
 //#endregion
-
 
 //#region 6005 Make the Deadfish swim.
 /*6005 Make the Deadfish swim. (https://www.codewars.com/kata/make-the-deadfish-swim/javascript)
@@ -304,4 +301,48 @@ Invalid characters should be ignored.
       });
       return state.output;
     }
+//#endregion
+
+//#region 6006 Find within array
+/*6006 Find within array (https://www.codewars.com/kata/find-within-array)
+Description:
+  Let's make an advanced version of Array.indexOf. We'll create a function that takes in two parameters:
+
+  an array (length and types of items are irrelevant), and a function (value, index) that will be called on members of the array. The function will return either true or false. Your function will iterate through the members of the array in order until the provided iterator function returns true; at which point your function will return that item's index.
+  If the iterator function returns false for all members of the array, your function should return -1.
+
+      var trueIfEven = function(value, index) { return (value % 2 === 0) };
+      findInArray([1,3,5,6,7], trueIfEven) // should === 3
+*/
+
+//My solution
+    let findInArray = function(array, iterator) {
+      for(let i=0;i<array.length;i++){
+        if(iterator(array[i],i)) //pass value, index for custom function
+            return i;
+      }
+      return -1;
+    };
+
+//Solution(s) I like(links):
+//1)Best(9) and Clever(52) https://www.codewars.com/kata/reviews/51f082ba7297b8f07f000004/groups/52447a6195c2a66b13000b92
+  var findInArray = function(array, iterator) { //TODO : Read explanation in comments
+    return array.map(iterator).indexOf(true);
+  };
+//2) https://www.codewars.com/kata/reviews/51f082ba7297b8f07f000004/groups/53bff019924571dfd00009c5
+  var findInArray = function(array, iterator) {
+    var idx
+    return array.some(function (v,i) {idx = i; return iterator(v,i);}) ? idx : -1
+  };
+//3) https://www.codewars.com/kata/reviews/51f082ba7297b8f07f000004/groups/5611f6c520a5745dfc00010d
+    require("babel/polyfill");
+    let findInArray = (arr, pred) => arr.findIndex(pred);
+//4) https://www.codewars.com/kata/reviews/51f082ba7297b8f07f000004/groups/54ba8f6403f70153e5000cbb
+    function findInArray(arr, f) {
+      return arr.indexOf(arr.filter(f)[0]);
+    }
+//5) https://www.codewars.com/kata/reviews/51f082ba7297b8f07f000004/groups/57d0e73642e44e78cd000094
+    var findInArray = function(array, iterator) {
+      return array.indexOf(array.find(iterator));
+    };
 //#endregion
