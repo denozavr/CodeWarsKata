@@ -88,3 +88,46 @@ Description:
                               .map(el => el === "0" ? "00" : el)
                               .join('');
 //#endregion
+
+//#region 5003 Extract the domain name from a URL
+/*5003 Extract the domain name from a URL (https://www.codewars.com/kata/extract-the-domain-name-from-a-url-1/javascriptn)
+Description:
+Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example:
+
+    domainName("http://github.com/carbonfive/raygun") == "github"
+    domainName("http://www.zombie-bites.com") == "zombie-bites"
+    domainName("https://www.cnet.com") == "cnet"
+*/
+
+//My solution
+    function domainName(url){
+      var urlNew = url.replace('www.','').replace('http://','').replace('https://','');
+      //urlNew = urlNew.substring(urlNew.indexOf('//') > 0 ? urlNew.indexOf('//') +2 : 0);
+      return urlNew.substring(0,urlNew.indexOf("."));
+    }
+
+//Solution(s) I like(links):
+//1) BEST(34) AND CLEVER(43) https://www.codewars.com/kata/reviews/553a8bb91e0399d6f70001b9/groups/553d374436a4caa623000079
+    function domainName(url){ //This looks like it will catch subdomains. Nice.
+      return url.match(/(?:http(?:s)?:\/\/)?(?:w{3}\.)?([^\.]+)/i)[1];
+    }
+//2) BEST(17) AND CLEVER(28) https://www.codewars.com/kata/reviews/553a8bb91e0399d6f70001b9/groups/556601041d41686b3800008e
+    function domainName(url){
+      return url.replace(/(https?:\/\/)?(www\.)?/, '').split('.')[0]
+    }
+//3) Clever(15) https://www.codewars.com/kata/reviews/553a8bb91e0399d6f70001b9/groups/597889c2fbf63d8e4a000070
+    function domainName(url){
+      return url.replace(/.+\/\/|www.|\..+/g, '')
+    }
+    // This is my favourite solution here. The first 2 parts are getting rid of the prefix (http:// or www. or both) the last bit is taking care of anything between a dot(.) till the end of the string. Mind that by the time it gets to that last part, www. does not exist anymore so the 1st dot(.) it sees is after the domain name. I was at first surprised that the | (OR) works here, but thanks to the g flag it repeats the loop one index at a time untill gets to the end of the string.
+//4) https://www.codewars.com/kata/reviews/553a8bb91e0399d6f70001b9/groups/577b4fc4ae2807af81000030
+    function domainName(url){
+      return url.replace("www.","").match(/[\w-]+(?=\.)/)[0];
+    }
+//5) https://www.codewars.com/kata/reviews/553a8bb91e0399d6f70001b9/groups/5aa8da8e6fbca5e15c004ce9
+    const domainName = url => url
+      .match(/^(?:https?:\/\/)?(.+?)(?:\/.+)?$/)[1]
+      .replace(/^www\./, '')
+      .split('.')
+      .shift()
+ //#endregion
