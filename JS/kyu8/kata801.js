@@ -436,3 +436,34 @@ Style Points
     Counter.prototype.reset = () =>  this.value = 0;
     Counter.prototype.getValue = () => {return this.value;}
  //#endregion
+
+
+  //#region 8013 Find the Remainder
+  /*8013 Find the Remainder (https://www.codewars.com/kata/find-the-remainder/javascript)
+    Description:
+    Write a function that accepts two arguments and returns the remainder after dividing the larger number by the smaller number. Division by zero should return NaN (in C#, throw a new DivideByZeroException instead). Arguments will both be integers.
+*/
+
+//My solution
+  function remainder(a, b){
+    return a > b ? a%b : b%a;
+  }
+
+//Solutions I like:
+//1) Best(101) and Clever(99) https://www.codewars.com/kata/reviews/524f5125ad9c12894e000042/groups/526857c682004e774f000173
+    //  -- SAME AS MINE
+//2) Best(30) https://www.codewars.com/kata/reviews/524f5125ad9c12894e000042/groups/53831e5e40f287739f000373
+    function remainder(a, b){
+      // Divide the larger argument by the smaller argument and return the remainder
+      var min = Math.min(a,b);
+      var max = Math.max(a,b);
+
+      return min ? max % min : NaN;
+    }
+//3) https://www.codewars.com/kata/reviews/524f5125ad9c12894e000042/groups/53a37cbc7a3a0de6c2000509
+    function remainder(a, b){
+      if(a<b) a=[b,b=a][0];
+      return b==0?NaN:a%b;
+    }
+
+//#endregion
