@@ -290,3 +290,34 @@ Style Points
   }
 
 #endregion
+
+#region 8010 Find the Remainder
+/*8013 Find the Remainder (https://www.codewars.com/kata/find-the-remainder)
+    Description:
+    Write a function that accepts two arguments and returns the remainder after dividing the larger number by the smaller number. Division by zero should return NaN (in C#, throw a new DivideByZeroException instead). Arguments will both be integers.
+*/
+
+//My solution
+    using System;
+    public class Kata
+    {
+      public static int Remainder(int a, int b)
+      {
+        return a > b ? a%b : b%a;
+      }
+    }
+
+//Solution(s) I like:
+//1) BEST(2 Votes)  https://www.codewars.com/kata/reviews/59af4e4bc311399190000a1f/groups/5a05e88115cd47cee4000f4c
+    public static int Remainder(int a, int b) => Math.Max(a, b) % Math.Min(a, b);
+//2) https://www.codewars.com/kata/reviews/59af4e4bc311399190000a1f/groups/59af4e51c311399190000a23
+    public static int Remainder(int a, int b) =>
+    a > b ? a % b : b % a;
+//3) https://www.codewars.com/kata/reviews/59af4e4bc311399190000a1f/groups/59b2448f8378092a7c00043b
+    public static int Remainder(int a, int b)
+    {
+      if(Math.Min(a, b) == 0) throw new DivideByZeroException();
+      return Math.Max(a, b) % Math.Min(a, b);
+    }
+
+#endregion
