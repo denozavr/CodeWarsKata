@@ -467,3 +467,31 @@ Style Points
     }
 
 //#endregion
+
+
+  //#region 8014 Convert a Number to a String!
+  /*8014 Convert a Number to a String! (https://www.codewars.com/kata/convert-a-number-to-a-string)
+    Description:
+    We need a function that can transform a number into a string.
+    What ways of achieving this do you know?
+    Examples:
+      numberToString(123); // returns '123';`
+      numberToString(999); // returns '999';`
+*/
+
+//My solution
+    function numberToString(num) {
+      return num+''; //if add empty string, Number is converted to string
+    }
+
+//Solutions I like:
+//1) Best(181) https://www.codewars.com/kata/reviews/5265326f5fda8eb1160004cb/groups/526bcb02236867a6ff0001e6
+    return num.toString();
+//2) CLEVER(100) https://www.codewars.com/kata/reviews/5265326f5fda8eb1160004cb/groups/528bd564e0c499fa2b000352
+    numberToString = String;
+//3) Best(31) https://www.codewars.com/kata/reviews/5265326f5fda8eb1160004cb/groups/526a9b66041c20c3ca000728
+    return String(num);
+
+//#endregion
+
+
