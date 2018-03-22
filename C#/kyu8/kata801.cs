@@ -321,3 +321,34 @@ Style Points
     }
 
 #endregion
+
+#region 8011 Convert a Number to a String!
+/*8011 Convert a Number to a String! (https://www.codewars.com/kata/convert-a-number-to-a-string)
+  Description:
+  We need a function that can transform a number into a string.
+  What ways of achieving this do you know?
+  Examples:
+    Kata.NumberToString(123) => "123";
+    Kata.NumberToString(999) => "999";
+*/
+
+//My solution
+    using System;
+    public class Kata
+    {
+      public static string NumberToString(int num)
+      {
+        return num.ToString();
+      }
+    }
+
+
+//Solution(s) I like:
+//1) BEST(5 Votes) AND Clever(11) https://www.codewars.com/kata/reviews/5991a8b253fd57e3b60000d9/groups/59946ad83593921b9f00107d
+    return $"{num}";
+//2) Clever(2) https://www.codewars.com/kata/reviews/5991a8b253fd57e3b60000d9/groups/59927c4ca55ac8ee2a0017da
+    public static string NumberToString(int num) => num + "";
+//3) https://www.codewars.com/kata/reviews/5991a8b253fd57e3b60000d9/groups/5991cfae2e9e59259700005f
+    return Convert.ToString(num);
+
+#endregion
