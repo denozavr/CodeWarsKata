@@ -346,3 +346,57 @@ Description:
       return array.indexOf(array.find(iterator));
     };
 //#endregion
+
+
+//#region 6007 Sort Arrays (Ignoring Case)
+/*6007 Sort Arrays (Ignoring Case) (https://www.codewars.com/kata/sort-arrays-ignoring-case)
+Description:
+  Simple sort, but this time sort regardless of upper / lower case.
+  So the input of
+    [ "Hello", "there", "I'm", "fine"]
+  is translated to
+    ["fine", "Hello", "I'm", "there" ]
+*/
+
+//My solution
+    // input: names - unsorted strings
+    // output: case-agnostic sort
+    sortme = function( names ){
+      return names.sort(function (a, b) {
+        /* Storing case insensitive comparison */
+        var comparison = a.toLowerCase().localeCompare(b.toLowerCase());
+        /* If strings are equal in case insensitive comparison */
+        if (comparison === 0) {
+            /* Return case sensitive comparison instead */
+            return a.localeCompare(b);
+        }
+        /* Otherwise return result */
+        return comparison;
+    });
+    }
+
+
+//Solution(s) I like(links):
+//1)Best(15) and Clever(10) https://www.codewars.com/kata/reviews/51f43ba4afadc30d690000c7/groups/5396d8d0afebea5c9500022c
+    sortme = function( names ){
+      return names.sort(function(first, second) {
+        return first.toLowerCase().localeCompare(second.toLowerCase())
+      })
+    }
+//2)Best(2) https://www.codewars.com/kata/reviews/51f43ba4afadc30d690000c7/groups/5395522bb8fa07073f000133
+    sortme = function( names ){
+      return  names.sort(function(a,b){
+        return CompareForSort(a.toLowerCase().charAt(0),b.toLowerCase().charAt(0));
+      });
+    }
+
+    function CompareForSort(first, second)
+    {
+        if (first == second)
+            return 0;
+        if (first < second)
+            return -1;
+        else
+            return 1;
+    }
+//#endregion
