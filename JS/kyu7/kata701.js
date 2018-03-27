@@ -202,3 +202,46 @@ Finish the solution so that it sorts the passed in array of numbers. If the func
       return nums !== null ? nums.sort(function(a,b){return a-b}) : [];
     }
 //#endregion
+
+
+//#region 7007 Ninja vs Samurai: Strike
+/*7007 Ninja vs Samurai: Strike (https://www.codewars.com/kata/ninja-vs-samurai-strike)
+Description:
+Something is wrong with our Warrior class. The strike method does not work correctly. The following shows an example of this code being used:
+    var ninja = new Warrior('Ninja');
+    var samurai = new Warrior('Samurai');
+
+    samurai.strike(ninja, 3);
+    // ninja.health should == 70
+Can you figure out what is wrong?
+*/
+
+//My solution
+    var Warrior = function(name){
+      this.name = name;
+      this.health = 100;
+    }
+    //WAS JUST Warrior.strike which is WRONG
+    Warrior.prototype.strike = function(enemy, swings){
+      enemy.health = Math.max(0, enemy.health - (swings * 10));
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/517b0f37cd023d848d000005/groups/57ff784a8f7ddac48b0001ce
+    function Warrior(name){
+      this.name = name;
+      this.health = 100;
+      this.strike = (enemy, swings) => enemy.health = Math.max(0, enemy.health - (Math.abs(swings) * 10));
+    }
+//2)  Best(2) https://www.codewars.com/kata/reviews/517b0f37cd023d848d000005/groups/55e883e6e52d86aa75000068
+    class Warrior {
+      constructor(name) {
+        this.name = name;
+        this.health = 100;
+      }
+
+      strike(enemy, swings) {
+        enemy.health = Math.max(0, enemy.health - (swings * 10));
+      }
+    }
+//#endregion
