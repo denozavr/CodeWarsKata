@@ -495,3 +495,17 @@ Style Points
 //#endregion
 
 
+  //#region 8015 Push a hash/an object into array
+  /*8015 Push a hash/an object into array (https://www.codewars.com/kata/push-a-hash-slash-an-object-into-array/train/javascript)
+    Description:
+    You are trying to put a hash in ruby or an object in javascript or java into an array, but it always returns error, solve it and keep it as simple as possible!
+*/
+
+//My solution
+  items = [];
+  items.push({a: "b", c: "d"}); //need brackets() and ; especially because PUSH is a method
+
+//Solutions I like:
+//1) Best(4) https://www.codewars.com/kata/reviews/527b3cd3492b6b15250060b3/groups/54c1fe9c3f06963dbc00006a
+    var items = [{a: "b", c: "d"}];
+//#endregion
