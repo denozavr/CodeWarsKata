@@ -188,3 +188,38 @@ Description:
     public static int[] SortNumbers(int[] nums)
     => nums == null? new int[0] : nums.OrderBy(x=>x).ToArray();
 #endregion
+
+
+#region 7006 Ninja vs Samurai: Strike
+/*7006 Ninja vs Samurai: Strike (https://www.codewars.com/kata/ninja-vs-samurai-strike)
+Description:
+Something is wrong with our Warrior class. The strike method does not work correctly. The following shows an example of this code being used:
+    var ninja = new Warrior("Ninja");
+    var samurai = new Warrior("Samurai");
+
+    samurai.Strike(ninja, 3);
+    // ninja.Health should == 70
+Can you figure out what is wrong?
+*/
+
+//My solution
+  using System;
+
+  public class Warrior
+  {
+      private string name;
+
+      public Warrior(string name) {
+          this.name = name;
+      }
+
+      public int Health { get; set; } = 100;
+      //WAS static KEYword which is WRONG ( public static void Strike)
+      public void Strike(Warrior enemy, int swings) {
+          enemy.Health = Math.Max(0, enemy.Health - (swings * 10));
+      }
+  }
+
+//Solution(s) I like(links):
+//All solutions are almost the same
+#endregion
