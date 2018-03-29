@@ -347,7 +347,6 @@ Description:
     };
 //#endregion
 
-
 //#region 6007 Sort Arrays (Ignoring Case)
 /*6007 Sort Arrays (Ignoring Case) (https://www.codewars.com/kata/sort-arrays-ignoring-case)
 Description:
@@ -399,4 +398,46 @@ Description:
         else
             return 1;
     }
+//#endregion
+
+//#region 6008 Arrays Similar
+/*6008 Arrays Similar (https://www.codewars.com/kata/arrays-similar)
+Description:
+  Write a function that determines whether the passed in arrays are similar. Similar means they contain the same elements, and the same number of occurrences of elements.
+    var arr1 = [1, 2, 2, 3, 4],
+        arr2 = [2, 1, 2, 4, 3],
+        arr3 = [1, 2, 3, 4],
+        arr4 = [1, 2, 3, "4"]
+
+    arraysSimilar(arr1, arr2); // Should equal true
+    arraysSimilar(arr2, arr3); // Should equal false
+    arraysSimilar(arr3, arr4); // Should equal false
+*/
+
+//My solution
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    //since all elements are integers, we will compare SUMs of arrays
+    function arraysSimilar(arr1, arr2) {
+      return arr1.length == arr2.length && arr1.reduce(reducer) === arr2.reduce(reducer);
+    }
+
+
+//Solution(s) I like(links):
+//1)Best(5) and Clever(7) https://www.codewars.com/kata/reviews/51e704f2d8dbace38900027d/groups/53dcbf5d2259edf9d10003a7
+    function arraysSimilar(arr1, arr2) {
+      arr1 = arr1.sort(sortFunc);
+      arr2 = arr2.sort(sortFunc);
+      return arr1.length == arr2.length && arr1.every(function(a,i) {return a === arr2[i];});
+    }
+
+    function sortFunc(a,b) {return a-b;}
+//2) https://www.codewars.com/kata/reviews/51e704f2d8dbace38900027d/groups/524364eb95c2a68da1000250
+    function arraysSimilar(arr1, arr2) {
+      return JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort());
+    }
+//3) https://www.codewars.com/kata/reviews/51e704f2d8dbace38900027d/groups/59a7fb074fa03429ad0033a8
+    function arraysSimilar(arr1, arr2) {
+      return JSON.stringify(arr1.slice().sort()) === JSON.stringify(arr2.slice().sort());
+    }
+
 //#endregion
