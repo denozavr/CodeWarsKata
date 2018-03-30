@@ -245,3 +245,49 @@ Can you figure out what is wrong?
       }
     }
 //#endregion
+
+
+//#region 7008 JavaScript class-like objects
+/*7008 JavaScript class-like objects (https://www.codewars.com/kata/javascript-class-like-objects)
+Description:
+  For this exercise you should create a JavaScript class like object called "Animal" that takes in "name" and "type" arguments. It should have a toString method that returns a human readable string indicating the argument information passed in. It should also allow the name property to be set.
+
+  The following is an example of how the final code would be used and what the expected return values should be:
+      var dog = new Animal('Max', 'dog');
+      dog.toString(); // should return 'Max is a dog'
+      dog.type; // should == 'dog'
+      dog.name; // should == 'Max'
+      dog.name = 'Lassie'; // should set name to 'Lassie'
+*/
+
+//My solution
+    class Animal {
+      constructor(name, type) {
+        this.name = name;
+        this.type = type;
+      }
+
+      // Method
+      toString() {
+        return this.name + ' is a ' + this.type;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(48) and Clever(4) https://www.codewars.com/kata/reviews/516f30207c907a79f200010b/groups/516f30207c907a79f2000147
+    var Animal = function(name, type) {
+      this.name = name;
+      this.type = type;
+    }
+    Animal.prototype.toString = function() {
+      return this.name + ' is a ' + this.type;
+    }
+//2) BAD PRACTICE(low performance) https://www.codewars.com/kata/reviews/516f30207c907a79f200010b/groups/516f30207c907a79f2000149
+    // create your Animal class like object here
+    Animal = function(name, type){
+      this.name = name;
+      this.type = type;
+      this.toString = function(){return this.name+" is a "+this.type};
+      };
+
+//#endregion
