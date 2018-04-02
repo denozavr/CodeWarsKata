@@ -223,3 +223,29 @@ Can you figure out what is wrong?
 //Solution(s) I like(links):
 //All solutions are almost the same
 #endregion
+
+
+#region 7007 Float Precision
+/*7007 Float Precision (https://www.codewars.com/kata/float-precision/csharp)
+Description:
+Update the solution method to round the argument value to the closest precision of two. The argument will always be a float.
+    Kata.Round(23.23456) => 23.23
+    Kata.Round(1.546) => 1.55
+*/
+
+//My solution
+    using System;
+    public class Kata
+    {
+      public static double Round(double n)
+      {
+        return Math.Round(n,2);
+      }
+    }
+
+//Solution(s) I like(links):
+//1) https://www.codewars.com/kata/reviews/59957ccaa82c793822000014/groups/59a161ae70e25ee4ce000046
+    return Math.Round(n * 100) / 100;
+//2) https://www.codewars.com/kata/reviews/59957ccaa82c793822000014/groups/5abcf8eeeb22488c40000fbe
+    return Math.Round(n, 2, MidpointRounding.AwayFromZero);
+#endregion
