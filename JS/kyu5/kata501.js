@@ -131,3 +131,49 @@ Write a function that when given a URL as a string, parses out just the domain n
       .split('.')
       .shift()
  //#endregion
+
+
+//#region 5004 Wrapped Function
+/* 5004 Wrapped Function (https://www.codewars.com/kata/wrapped-function)
+Description:
+Create a function method that allow you to wrap an existing function. The method signature would look something like this:
+    function speak(name){
+      return "Hello " + name;
+    }
+
+    speak = speak.wrap(function(original, yourName, myName){
+      greeting = original(yourName);
+      return greeting + ", my name is " + myName;
+    })
+
+    var greeting = speak("Mary", "Kate");
+*/
+
+//My solution
+// extend the Function object to include a wrap instance method
+    Function.prototype.wrap = (function(original, yourName, myName){
+        var that = this;
+
+      return function(yourName, myName){
+        return original(that, yourName, myName);
+      };
+    });
+
+//Solution(s) I like(links):
+//1) BEST(30) AND CLEVER(83) https://www.codewars.com/kata/reviews/516f301e7c907a79f2000027/groups/53aa6171fa11a29ba3000a39
+    Function.prototype.wrap = function(callback) {
+      return callback.bind(this, this);
+    }
+//2) Best(15) https://www.codewars.com/kata/reviews/516f301e7c907a79f2000027/groups/560181dfcf80117dcd00006c
+    Function.prototype.wrap = function (f) {
+      return (...args) => f(this, ...args)
+    };
+//3) https://www.codewars.com/kata/reviews/516f301e7c907a79f2000027/groups/536a42cb56eb454f72000a15
+    Function.prototype.wrap = function(callback) {
+      var that = this;
+      return function(yn, mn) {
+        callback(that, yn, mn);
+      }
+    };
+
+//#endregion
