@@ -420,3 +420,79 @@ For example, solution(20) should return [5, 2, 1]
     }
 
 #endregion
+
+#region 6009 Title Case
+/*6009 Title Case (https://www.codewars.com/kata/title-case)
+Description:
+  A string is considered to be in title case if each word in the string is either (a) capitalised (that is, only the first letter of the word is in upper case) or (b) considered to be an exception and put entirely into lower case unless it is the first word, which is always capitalised.
+
+  Write a function that will convert a string into title case, given an optional list of exceptions (minor words). The list of minor words will be given as a string with each word separated by a space. Your function should ignore the case of the minor words string -- it should behave in the same way even if the case of the minor word string is changed.
+  ###Arguments (Other languages)
+  1st argument (required): the original string to be converted.
+  2nd argument (optional): space-delimited list of minor words that must always be lowercase except for the first word in the string. The JavaScript/CoffeeScript tests will pass undefined when this argument is unused.
+  ###Example
+
+    Kata.TitleCase("a an the of", "a clash of KINGS")   => "A Clash of Kings"
+    Kata.TitleCase("The In", "THE WIND IN THE WILLOWS") => "The Wind in the Willows"
+    Kata.TitleCase("the quick brown fox")               => "The Quick Brown Fox"
+*/
+
+//My solution
+    using System;
+    using System.Linq;
+
+    public class Kata
+    {
+        public static string TitleCase(string title, string minorWords = "")
+        {
+            if (string.IsNullOrEmpty(title)) return title;
+
+          var mins = string.IsNullOrEmpty(minorWords) ? new string[] { "" } : minorWords.Split(' ').Select(x => x.ToLower()).ToArray();
+          var title2 = title.Split(' ').Select(x=> x.ToLower()).ToArray();
+            for (int i = 0; i < title2.Length; i++)
+            {
+                var x = title2[i];
+                if (i == 0 || (mins.Length>0 && !mins.Contains(x)))
+                    title2[i] = char.ToUpper(x[0]) + x.Substring(1);
+            }
+
+            return string.Join(" ", title2);
+        }
+    }
+
+//Solution(s) I like(links):
+//1)Best(5) and Clever(8) https://www.codewars.com/kata/reviews/599a1eaf2e47b4548100050f/groups/59a7201567673bc646000795
+    using System;
+    using System.Linq;
+
+    public class Kata
+    {
+      static string FirstToUpper(string input)
+      {
+        var s = input.ToCharArray();
+        s[0] = Char.ToUpper(s[0]);
+        return new String(s);
+      }
+
+      public static string TitleCase(string title, string minorWords="")
+      {
+        if (String.IsNullOrEmpty(title)) return title;
+
+        var titleWords = title.Split(' ').Select(w => w.ToLower());
+        var minWords = (minorWords ?? "").Split(' ').Select(w => w.ToLower());
+
+        return FirstToUpper(String.Join(" ", titleWords.Select(w => minWords.Contains(w) ? w : FirstToUpper(w))));
+      }
+    }
+
+//2) Clever(4) https://www.codewars.com/kata/reviews/599a1eaf2e47b4548100050f/groups/59f9e7e14b8a601d65000cb1
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+      public static string TitleCase(string title, string minorWords="")
+      {
+        return Regex.Replace(title.ToLower(), @"(?<=^|\s" + (string.IsNullOrWhiteSpace(minorWords) ? null : $@"(?!({minorWords.Replace(' ', '|')})(\s|$))") + @")(\w)", a => a.Value.ToUpper(), RegexOptions.IgnoreCase);
+      }
+    }
+#endregion
