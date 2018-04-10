@@ -34,12 +34,12 @@ return (shown in different languages but the logic will be the same between all 
 
 //My solution
 // return the two oldest/oldest ages within the array of ages passed in.
-function twoOldestAges(ages) {
-  //sort by ascending order and return 2 last elements
-  //same as return ages.sort(function(a,b){return a-b;}).slice(-2);
-  return ages.sort(((a, b) => a - b)).slice(-2);
-  //!!from comments sort[O(n log(n))] is less effective than FOR loop [O(n)]
-}
+  function twoOldestAges(ages) {
+    //sort by ascending order and return 2 last elements
+    //same as return ages.sort(function(a,b){return a-b;}).slice(-2);
+    return ages.sort(((a, b) => a - b)).slice(-2);
+    //!!from comments sort[O(n log(n))] is less effective than FOR loop [O(n)]
+  }
 
 //Solution(s) I like(links):
 //1) O(n) http://bit.ly/2iTA9Nt
@@ -142,7 +142,6 @@ Here is how the final refactored code would be used:
         return `Hello ${name}, my name is ${this.name}`;
       }
     }
-
 //#endregion
 
 //#region 7005 Reversed Strings
@@ -289,5 +288,56 @@ Description:
       this.type = type;
       this.toString = function(){return this.name+" is a "+this.type};
       };
+//#endregion
 
+
+//#region 7009 Get key/value pairs as arrays
+/*7009 Get key/value pairs as arrays (https://www.codewars.com/kata/get-key-slash-value-pairs-as-arrays)
+Description:
+  Complete the keysAndValues function so that it takes in an object and returns the keys and values as separate arrays.
+  Example:
+     keysAndValues({a: 1, b: 2, c: 3}) // should return [['a', 'b', 'c'], [1, 2, 3]]
+  Style Points (JS/CoffeeScript only): This kata only tests for data that uses object literal notation (simple objects). For extra style, can you get your method to check for objects that extend their prototype?
+*/
+
+//My solution
+    function keysAndValues(data){
+      var objValues = Object.keys(data).map(function(key) {
+          return data[key];
+      });
+      return [Object.keys(data), objValues]; //Object.values(data) is NOT supported
+    }
+
+//Solution(s) I like(links):
+//1) Best(45) and Clever(54)
+    function keysAndValues(data){
+        var arr = [];
+        arr.push(Object.keys(data));
+        arr.push(Object.keys(data).map(function(x){return data[x]}))
+        return arr
+    }
+//2) Best(9) https://www.codewars.com/kata/reviews/516f30267c907a79f200047e/groups/53b9b5670008b46197000a73
+    function keysAndValues(data){
+      // TODO: complete
+      var keys = [],
+          vals = [];
+      for (key in data) {
+        if(data.hasOwnProperty(key)){
+          keys.push(key);
+          vals.push(data[key]);
+        }
+      }
+      return [keys, vals];
+    }
+//3) Clever(3) https://www.codewars.com/kata/reviews/516f30267c907a79f200047e/groups/538dcf6aab2b6efc47000867
+    function keysAndValues(data){
+      var arr = [[],[]];
+      for(var keys in data){
+        if(data.hasOwnProperty(keys)){
+          arr[0].push(keys);
+          arr[1].push(data[keys]);
+        }
+      }
+      return arr;
+    }
 //#endregion
