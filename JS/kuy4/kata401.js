@@ -61,3 +61,95 @@ Description:
     }
 
 //#endregion
+
+
+
+//#region 4002 Strip Url Params
+/*4002 Strip Url Params (https://www.codewars.com/kata/strip-url-params)
+Description:
+  Complete the method so that it does the following:
+  Removes any duplicate query string parameters from the url
+  Removes any query string parameters specified within the 2nd argument (optional array)
+  Examples:
+    stripUrlParams('www.codewars.com?a=1&b=2&a=2') // returns 'www.codewars.com?a=1&b=2'
+    stripUrlParams('www.codewars.com?a=1&b=2&a=2', ['b']) // returns 'www.codewars.com?a=1'
+    stripUrlParams('www.codewars.com', ['b']) // returns 'www.codewars.com'
+*/
+
+//My solution
+  function stripUrlParams(url, paramsToStrip = []) {
+    if(url.indexOf('?')<0) return url; //if no params just return site URL
+
+    // let site = url.substr(0, url.indexOf('?'));
+    // let params = url.substr(url.indexOf('?')+1).split('&');
+    let [site, params] = url.split('?'); //use ES6 decompostion
+    params=params.split('&');
+
+    let usedParams=[]; //way to find duplicates in params
+    let returnParam=[];
+
+    params.forEach(function (item, index) { //check that letter not in IGNORE list and not in DUPLICATE list
+        if (!paramsToStrip.includes(item[0]) && !usedParams.includes(item[0])) {
+            usedParams.push(item[0]);
+            returnParam.push(item);
+        }
+      });
+
+    return site + '?' + returnParam.join('&');
+  }
+
+//Solution(s) I like(links):
+//1) BEST(19) AND CLEVER(0) https://www.codewars.com/kata/reviews/516f30297c907a79f2000619/groups/55ca3f999ef5579d0c0000ff
+    function stripUrlParams(url, paramsToStrip) {
+      var domain = url.split('?')[0];
+      var query = url.split('?')[1];
+      var obj = {};
+      var pairKey;
+      var pairValue;
+      var newQueryStr;
+
+      if (!query) return domain;
+
+      query.split('&').forEach(function(pair) {
+        pairKey = pair.split('=')[0];
+        pairValue = pair.split('=')[1];
+        if (paramsToStrip ? paramsToStrip.some(function(param) {
+            return param === pairKey
+          }) : null || obj.hasOwnProperty(pairKey)) return;
+        obj[pairKey] = pairValue;
+      });
+
+      newQueryStr = Object.keys(obj).map(function(key) {
+        return key + '=' + obj[key];
+      }).join('&');
+
+      return domain + (newQueryStr ? '?' + newQueryStr : '');
+    }
+//2)BEST(14) AND CLEVER(127) https://www.codewars.com/kata/reviews/516f30297c907a79f2000619/groups/54d6073f3a742a42e1000eb8
+    function stripUrlParams(url, paramsToStrip){
+      return url.replace(/&?([^?=]+)=.+?/g, function(m, p1, qPos) {
+        return url.indexOf(p1 + '=') < qPos || (paramsToStrip||[]).indexOf(p1) > -1 ? "": m;
+      });
+    }
+//3)BEST(7) https://www.codewars.com/kata/reviews/516f30297c907a79f2000619/groups/582f1daafd25e94208000216
+    function stripUrlParams(url, paramsToStrip = []) {
+      var [host, query] = url.split('?')
+      var params
+      var resultQuery
+
+      if (!query) return host
+
+      params = query
+                .split('&')
+                .map(param => param.split('='))
+
+      resultQuery = params
+        .filter((param, inx) => {
+          return !params.slice(0, inx).some(prev => prev[0] == param[0])
+        })
+        .filter(param => !paramsToStrip.includes(param[0]))
+        .map(param => param.join('='))
+
+      return `${host}?${resultQuery.join('&')}`
+    }
+//#endregion
