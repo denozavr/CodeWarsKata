@@ -249,3 +249,67 @@ Update the solution method to round the argument value to the closest precision 
 //2) https://www.codewars.com/kata/reviews/59957ccaa82c793822000014/groups/5abcf8eeeb22488c40000fbe
     return Math.Round(n, 2, MidpointRounding.AwayFromZero);
 #endregion
+
+#region 7008 Retrieve array value by index with default
+/* 7008 Retrieve array value by index with default (https://www.codewars.com/kata/retrieve-array-value-by-index-with-default/csharp)
+Description:
+Complete the solution. It should try to retrieve the value of the array at the index provided. If the index is out of the array's max bounds then it should return the default value instead.
+Example:
+    int[] data = new int[] {1, 2, 3};
+    Kata.Solution(data, 1, -1) => 2
+    Kata.Solution(data, 5, -1) => -1
+
+    // negative values work as long as they aren't out of the length bounds
+    // if an index is negative, start from the end of the array
+    Kata.Solution(data, -1, -1) => 3
+    Kata.Solution(data, -5, -1) => -1
+ */
+
+//My solution
+    using System;
+
+    public static class Kata
+    {
+      public static int Solution(int[] items, int index, int defaultValue)
+      {
+          int result = defaultValue;
+          if (index>0 && index<items.Length)
+          {
+              result = items[index];
+          }
+          else if (index<0 && Math.Abs(index)<=items.Length)
+          {
+              result = items[items.Length + index]; //index is negative so we use + not -(minus)
+          }
+        return result;
+      }
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(1) https://www.codewars.com/kata/reviews/59bc29eae8e9c7bf36002575/groups/59ed979c37ccee4c11001319
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    public static class Kata
+    {
+      public static int Solution(int[] items, int index, int defaultValue)
+        =>Math.Abs(index) > items.Length ? defaultValue
+                                          :index>=0?items[index]:items[items.Length+index];
+    }
+//2) https://www.codewars.com/kata/reviews/59bc29eae8e9c7bf36002575/groups/59c25f1203a9adc72b000e48
+    public static int Solution(int[] items, int index, int defaultValue)
+    {
+        if (index > items.Length || -index > items.Length)
+            return defaultValue;
+        if (index < 0)
+            return items[items.Length + index];
+        return items[index];
+    }
+//3) https://www.codewars.com/kata/reviews/59bc29eae8e9c7bf36002575/groups/5ac50932cd661b421700072f
+    public static int Solution(int[] items, int index, int defaultValue)
+    {
+        if (index < 0) index = items.Length + index;
+        return index >= 0 && index < items.Length ? items[index] : defaultValue;
+    }
+#endregion
