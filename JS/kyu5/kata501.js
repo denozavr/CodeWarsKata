@@ -177,3 +177,103 @@ Create a function method that allow you to wrap an existing function. The method
     };
 
 //#endregion
+
+//#region 5005 Ninja vs Samurai: Attack + Block
+/* 5005 Ninja vs Samurai: Attack + Block (https://www.codewars.com/kata/ninja-vs-samurai-attack-plus-block)
+Description:
+  Something is wrong with our Warrior class. All variables should initialize properly and the attack method is not working as expected.
+  If properly set, it should correctly calculate the damage after an attack (if the attacker position is == to the block position of the defender: no damage; otherwise, the defender gets 10 damage if hit "high" or 5 damage if hit "low". If no block is set, the defender takes 5 extra damage.
+  For some reason, the health value is not being properly set. The following shows an example of this code being used:
+
+    var ninja = new Warrior('Ninja');
+    var samurai = new Warrior('Samurai');
+
+    ninja.block = Position.high;
+    samurai.attack(ninja, Position.low);
+    // ninja.health should == 95
+  The warrios must be able to fight to the bitter end, and good luck to the most skilled!
+  Notice that health can't be below 0: once hit to 0 health, a warrior attribute deceased becomes true; if hit again, the zombie attribute becomes true too!
+*/
+
+//My solution(ready code just fix 1 line)
+    Position = {
+      high: 'h',
+      low: 'l'
+    }
+
+    Warrior = function(name){
+      this.name = name;
+      this.health = 100;
+    }
+
+    Warrior.prototype = {
+      attack: function(enemy, position){
+        if (enemy.block != position){
+          var damage = position == Position.high ? 10 : 5;
+          // if enemy is not blocking at all then give more damage
+          if (!enemy.block){
+            damage += 5;
+          }
+          setHealth.call(enemy,enemy.health - damage);  //!!!WAS just  setHealth.call(enemy.health - damage); sot THIS was not set properly
+        }
+      }
+    }
+
+    // private functions
+    function setHealth(value){
+      this.health = Math.max(0, value);
+      if (this.health == 0){
+        this.deceased = true;
+        this.zombie = false;
+      }
+      else if(this.deceased){
+        this.zombie = true;
+      }
+    }
+
+
+//Solution(s) I like(links):
+//1)  https://www.codewars.com/kata/reviews/517b2bcf8557c200b8000018/groups/52243e04b2cdcc5b89000082
+    enemy.setHealth(enemy.health - damage);
+//2) ES6 https://www.codewars.com/kata/reviews/517b2bcf8557c200b8000018/groups/599d55cc1c6da9452e000bf8
+    const Position = {
+      high: 'h',
+      low: 'l'
+    }
+
+    class Warrior {
+      constructor (name) {
+        this.name = name;
+        this.health = 100;
+        this.deceased = false;
+        this.zombie = false;
+      }
+
+      attack (enemy, position) {
+        const damage = this._getDamage (enemy.block, position);
+        this._processDamage.call(enemy, damage);
+      }
+
+      /** Private */
+      _processDamage (value) {
+        this.zombie = !this.health && value;
+        this.health = Math.max(0, this.health - value);
+        this.deceased = !!this.health;
+      }
+
+      _getDamage (block, position) {
+        let damage = 0;
+
+        if (block !== position) {
+          damage = position === Position.high ? 10 : 5;
+          // if enemy is not blocking at all then give more damage
+          if (!block) {
+            damage += 5;
+          }
+        }
+
+        return damage;
+      }
+    }
+
+//#endregion
