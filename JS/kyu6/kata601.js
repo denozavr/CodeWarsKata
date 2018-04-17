@@ -496,3 +496,47 @@ Description:
       });
     }
 //#endregion
+
+//#region 6010 IP Validation
+/* 6010 IP Validation (https://www.codewars.com/kata/ip-validation/javascript)
+Description:
+Write an algorithm that will identify valid IPv4 addresses in dot-decimal format. IPs should be considered valid if they consist of four octets, with values between 0..255 (included).
+Input to the function is guaranteed to be a single string.
+
+    Examples
+    // valid inputs:
+    1.2.3.4
+    123.45.67.89
+
+    // invalid inputs:
+    1.2.3
+    1.2.3.4.5
+    123.456.78.90
+    123.045.067.089
+Note: leading zeros (e.g. 01.02.03.04) are considered not valid in this kata!
+*/
+
+//My solution
+    function isValidIP(str) {
+      // mean 25(0-5) OR 2(0-49) OR (1)0-99 AND end with .(dot) or end of line ($), use this group 4 times
+      return /^((25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})(\.|$)){4}$/.test(str);
+    }
+
+//Solution(s) I like(links):
+//1)Best(69) and Clever(180) https://www.codewars.com/kata/reviews/516f30257c907a79f2000415/groups/539c55c77f0b616a350004f7
+    function isValidIP(str) {
+      return /^(([1-9]?\d|1\d\d|2[0-4]\d|25[0-5])(\.(?!$)|$)){4}$/.test(str);
+    }
+//2) Best(56) and Clever(81)  https://www.codewars.com/kata/reviews/516f30257c907a79f2000415/groups/538d67658ca4a3384300030f
+    function isValidIP(str) {
+      return str.split('.').filter(function(v){return v==Number(v).toString() && Number(v)<256}).length==4;
+    }
+//3) Best(20) and Clever(49) https://www.codewars.com/kata/reviews/516f30257c907a79f2000415/groups/587fac9707076d1106000391
+  const net = require('net');
+  const isValidIP = (s) => net.isIP(s);
+//4) Clever(12) https://www.codewars.com/kata/reviews/516f30257c907a79f2000415/groups/55000acdc50295f946000dd3
+    function isValidIP(str) {
+      return /^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){4}$/.test(str+'.');
+    }
+
+//#endregion
