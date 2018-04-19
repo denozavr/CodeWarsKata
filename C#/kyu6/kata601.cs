@@ -496,3 +496,62 @@ Description:
       }
     }
 #endregion
+
+#region 6010 IP Validation
+/* 6010 IP Validation (https://www.codewars.com/kata/ip-validation)
+Description:
+Write an algorithm that will identify valid IPv4 addresses in dot-decimal format. IPs should be considered valid if they consist of four octets, with values between 0..255 (included).
+Input to the function is guaranteed to be a single string.
+    Examples
+    // valid inputs:
+    1.2.3.4
+    123.45.67.89
+    // invalid inputs:
+    1.2.3
+    1.2.3.4.5
+    123.456.78.90
+    123.045.067.089
+Note: leading zeros (e.g. 01.02.03.04) are considered not valid in this kata!
+*/
+
+//My solution
+    using System.Text.RegularExpressions;
+
+    namespace Solution
+      {
+      class Kata
+        {
+          public static bool is_valid_IP(string IpAddres)
+          {
+          // mean 25(0-5) OR 2(0-49) OR (1)0-99 AND end with .(dot)(NOT AT THE END) or end of line ($), use thsi group 4 times
+            return Regex.IsMatch(IpAddres, "^((25[0-5]|2[0-4][0-9]|1?[0-9]{1,2})(\\.(?!$)|$)){4}$");
+          }
+        }
+      }
+
+//Solution(s) I like(links):
+//1) Best(11) and Clever(19) https://www.codewars.com/kata/reviews/58d0658da7c4e3e3c5000a73/groups/58da2f69540976d03b00055e
+    using System.Text.RegularExpressions;
+    public static bool is_valid_IP(string IpAddres)
+    {
+      return Regex.IsMatch(IpAddres, @"^[1-2]?(?<!0)[0-9]{0,2}\.[1-2]?(?<!0)[0-9]{0,2}\.[1-2]?(?<!0)[0-9]{0,2}\.[1-2]?(?<!0)[0-9]{0,2}$");
+    }
+//2) Best(6) https://www.codewars.com/kata/reviews/58d0658da7c4e3e3c5000a73/groups/58ed0db05876306c00000251
+    using System.Text.RegularExpressions;    using System.Net;
+    public static bool is_valid_IP(string ipAddress)
+    {
+        var ipAddressFormat = new Regex(@"(([1-9]\d{0,2})\.){3}([1-9]\d{0,2})");
+        IPAddress dummy;
+        return
+            ipAddressFormat.IsMatch(ipAddress) &&
+            System.Net.IPAddress.TryParse(ipAddress, out dummy);
+    }
+//3) Clever(5) https://www.codewars.com/kata/reviews/58d0658da7c4e3e3c5000a73/groups/59c2644403a9adc72b000ea5
+    using System.Net;
+    public static bool is_valid_IP(string IpAddres)
+    {
+          IPAddress ip;
+          bool validIp = IPAddress.TryParse(IpAddres, out ip);
+          return validIp && ip.ToString()==IpAddres;
+    }
+#endregion
