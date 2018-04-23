@@ -341,3 +341,56 @@ Description:
       return arr;
     }
 //#endregion
+
+//#region 7010 Largest 5 digit number in a series
+/*7010 Largest 5 digit number in a series (https://www.codewars.com/kata/largest-5-digit-number-in-a-series)
+Description:
+  In the following 6 digit number:
+    283910
+  91 is the greatest sequence of 2 consecutive digits.
+  In the following 10 digit number:
+    1234567890
+  67890 is the greatest sequence of 5 consecutive digits.
+  Complete the solution so that it returns the greatest sequence of five consecutive digits found within the number given. The number will be passed in as a string of only digits. It should return a five digit integer. The number passed may be as large as 1000 digits.
+    Adapted from ProjectEuler.net
+*/
+
+//My solution
+    function solution(digits){
+      let result = 0;
+      for(let i=0; i < digits.length-4;i++){
+          let num1 = +digits.substr(i,5);
+          result = num1>result ? num1 : result;
+      }
+      return result;
+    }
+
+
+
+//Solution(s) I like(links):
+//1) Best(1) https://www.codewars.com/kata/reviews/516f30297c907a79f200061e/groups/5ad1dfed8571de4cb4000207
+    function solution(digits){
+      const foo = String(digits)
+      let max= 0
+      for (let i = 0; i <= foo.length - 5;i++) {
+        max = Math.max(max, foo.slice(i, i + 5))
+      }
+      return max
+    }
+//2) https://www.codewars.com/kata/reviews/516f30297c907a79f200061e/groups/5ada35eaa157e9e81f000cfd
+    function solution(digits){
+      let tempSlice = String(digits), largest = 0;
+
+      for (let i = 1; i < tempSlice.length; i++) {
+          if (tempSlice.slice(i,i+5) > largest) {
+          largest = parseInt(tempSlice.slice(i,i+5));
+        }
+      }
+        return largest;
+    }
+//3) https://www.codewars.com/kata/reviews/516f30297c907a79f200061e/groups/5ad3b9c8e18db3474a000044
+    function solution(digits) {
+      for (let i = 10, m; i--;)
+        if (m = digits.match(RegExp(i + '\\d{4}', 'g'))) return Math.max(...m);
+    }
+//#endregion
