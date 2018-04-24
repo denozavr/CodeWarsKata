@@ -313,3 +313,53 @@ Example:
         return index >= 0 && index < items.Length ? items[index] : defaultValue;
     }
 #endregion
+
+#region 7009 Largest 5 digit number in a series
+/*7009 Largest 5 digit number in a series (https://www.codewars.com/kata/largest-5-digit-number-in-a-series)
+Description:
+  In the following 6 digit number:
+    283910
+  91 is the greatest sequence of 2 consecutive digits.
+  In the following 10 digit number:
+    1234567890
+  67890 is the greatest sequence of 5 consecutive digits.
+  Complete the solution so that it returns the greatest sequence of five consecutive digits found within the number given. The number will be passed in as a string of only digits. It should return a five digit integer. The number passed may be as large as 1000 digits.
+    Adapted from ProjectEuler.net
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static int GetNumber(string str)
+      {
+          int result = 0;
+          for(int i=0; i < str.Length-4;i++){
+              int num1 = Int32.Parse(str.Substring(i,5));
+              result = num1 > result ? num1 : result;
+          }
+          return result;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(8) and Clever(23) https://www.codewars.com/kata/reviews/599bc7a37df36852ac001403/groups/59a9b5c31dd9ce00c100090f
+    using System.Linq;
+    public static int GetNumber(string str)
+    {
+      return Enumerable.Range(0, str.Length - 4).Select(i => Convert.ToInt32(str.Substring(i, 5))).ToList().Max();
+    }
+//2) Best(5) and Clever(3) https://www.codewars.com/kata/reviews/599bc7a37df36852ac001403/groups/5a0deb0a9b35d29302003d54
+    using System.Linq;
+    public class Kata
+    {
+        public static int GetNumber(string s) => Enumerable.Range(0, s.Length - 4).Max(i => int.Parse(s.Substring(i, 5)));
+    }
+//3) Clever(25) https://www.codewars.com/kata/reviews/599bc7a37df36852ac001403/groups/599bd29344d75131860005d7
+    public static int GetNumber(string str)
+    {
+      if (str.Length <= 5) { return Int32.Parse(str); }
+      return Math.Max(Int32.Parse(str.Substring(0, 5)), GetNumber(str.Substring(1)));
+    }
+#endregion
