@@ -509,3 +509,51 @@ Style Points
 //1) Best(4) https://www.codewars.com/kata/reviews/527b3cd3492b6b15250060b3/groups/54c1fe9c3f06963dbc00006a
     var items = [{a: "b", c: "d"}];
 //#endregion
+
+
+//#region 8016 Max Headroom and JavaScript style
+/** 8016 Max Headroom and JavaScript style (https://www.codewars.com/kata/max-headroom-and-javascript-style)
+Description:
+  Shouldn't the two functions getMax1 and getMax2 be equivalent and return the same value? Can you spot a problem and fix it? Can you learn something about JavaScript style in this kata?
+ */
+
+//My solution
+    function getMax1()
+    {
+      var max =
+      {
+      name: 'Max Headroom'
+      }
+      return max;
+    }
+
+    function getMax2()
+    {
+      return  { //!!! 1st object brace({) and return shoud be on THE SAME line (was on different, 1 line down)
+      // or just use logic like in getMax1()
+        name: 'Max Headroom'
+      }
+    }
+
+
+//Solutions I like:
+//1) Best(28) https://www.codewars.com/kata/reviews/52a47dd7e950edabfa000394/groups/53ab144b283d2322b1000038
+    function getMax1()
+    {
+      var max = {name: 'Max Headroom'}
+      return max;
+    }
+
+    function getMax2()
+    {
+    // Have your return object on same line
+    return {name: 'Max Headroom'};
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/52a47dd7e950edabfa000394/groups/564c8457d372267dcb00001d
+    const getMax1=_=>{return {name: 'Max Headroom'}}; getMax2=getMax1;
+//3) Clever(2) https://www.codewars.com/kata/reviews/52a47dd7e950edabfa000394/groups/597667b8c260d0f250000027
+    const getMax1=_=>({name: 'Max Headroom'});
+    const getMax2=_=>({name: 'Max Headroom'});
+//
+
+//#endregion
