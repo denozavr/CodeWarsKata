@@ -539,3 +539,31 @@ function isValidIP(str) {
 }
 
 //#endregion
+
+//#region 6011 Break camelCase
+/* 6011 Break camelCase (https://www.codewars.com/kata/break-camelcase)
+Description:
+  Complete the solution so that the function will break up camel casing, using a space between words.
+
+  Example
+    solution('camelCasing') // => should return 'camel Casing'
+*/
+
+//My solution
+    // Used Regular Expressions
+    function solution(string) {
+      return string.replace(/([A-Z]{1})/g, v => ' ' + v);
+    }
+
+//Solution(s) I like(links):
+//1) Best(69) and Clever(180) https://www.codewars.com/kata/reviews/5208f99aee097e655200014b/groups/521ba11e423f17c4e30001db
+    function solution(string) {
+      return(string.replace(/([A-Z])/g, ' $1'));
+    }
+//2) Best(8) https://www.codewars.com/kata/reviews/5208f99aee097e655200014b/groups/57c7ccebf8392d668500005d
+    const solution = string => string.replace(/[A-Z]/g, ' $&')
+//3) Best(5) and Clever(6) https://www.codewars.com/kata/reviews/5208f99aee097e655200014b/groups/57fb26d321c84ba35e0000db
+    function solution(string) {
+      return string.replace(/(?=[A-Z])/g," ")
+    }
+//#endregion
