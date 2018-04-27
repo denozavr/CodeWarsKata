@@ -555,3 +555,61 @@ Note: leading zeros (e.g. 01.02.03.04) are considered not valid in this kata!
           return validIp && ip.ToString()==IpAddres;
     }
 #endregion
+
+#region 6011 Break camelCase
+/* 6011 Break camelCase (https://www.codewars.com/kata/break-camelcase)
+Description:
+  Complete the solution so that the function will break up camel casing, using a space between words.
+
+  Example
+    Kata.BreakCamelCase("camelCasing") => "camel Casing"
+*/
+
+//My solution
+    using System.Text.RegularExpressions;
+    public class Kata
+    {
+      public static string BreakCamelCase(string str)
+      { //() means Regex group which we reference later with $1
+          return Regex.Replace(str, "([A-Z]{1})", " $1").Trim();
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(5) and Clever(6) https://www.codewars.com/kata/reviews/599e3badde863f82670012ee/groups/59e3aec1b4893f7ec1000f8c
+    using System;
+    using System.Linq;
+    public class Kata
+    {
+      public static string BreakCamelCase(string str)
+      {
+        return string.Concat(str.Select(c => Char.IsUpper(c) ? " " + c : c.ToString()));
+      }
+    }
+//2) Best(3) https://www.codewars.com/kata/reviews/599e3badde863f82670012ee/groups/59e489d52ae95909ef000de1
+    using System;
+    using System.Text;
+    public class Kata
+    {
+      public static string BreakCamelCase(string word)
+      {
+        var sb = new StringBuilder();
+        foreach (var symbol in word)
+        {
+          if (char.IsUpper(symbol)) sb.Append(" ");
+          sb.Append(symbol);
+        }
+        return sb.ToString().Trim();
+      }
+    }
+//3) Clever(3) https://www.codewars.com/kata/reviews/599e3badde863f82670012ee/groups/59e143a10904c54c2d00001f
+    public static string BreakCamelCase(string s)
+    {
+      var z = "";
+      foreach (var c in s)
+      {
+        z += char.IsUpper(c) ? $" {c}" : $"{c}";
+      }
+      return z;
+    }
+#endregion
