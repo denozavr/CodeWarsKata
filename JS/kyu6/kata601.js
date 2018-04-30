@@ -567,3 +567,39 @@ Description:
       return string.replace(/(?=[A-Z])/g," ")
     }
 //#endregion
+
+
+
+//#region 6012 Duplicate Arguments
+/* 6012 Duplicate Arguments (https://www.codewars.com/kata/duplicate-arguments)
+Description:
+  Complete the solution so that it returns true if it contains any duplicate argument values. Any number of arguments may be passed into the function. The solution should implement the most optimal algorithm possible.
+
+      solution(1, 2, 3) // returns false
+      solution(1, 2, 3, 2) // returns true
+      solution('1', '2', '3', '2') // returns true
+  The array values passed in will only be strings or numbers. The only valid return values are true and false.
+*/
+
+//My solution
+    function solution(){
+      var args = arguments;
+      //Set include only UNIQUE value, if its size less than Length of Args List, then we got a duplicate in arguments
+      return args.length > new Set(args).size;
+    }
+
+//Solution(s) I like(links):
+//1) Best(3) and Clever(1) https://www.codewars.com/kata/reviews/520d9c27e9940532eb000191/groups/544a73d74a3018aa190008fb
+    function solution() {
+      for (var map = new Map(), i = arguments.length; i--;) {
+        if (map.has(arguments[i])) return true
+        map.set(arguments[i], 1)
+      }
+      return false
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/520d9c27e9940532eb000191/groups/557df1381451780a58000135
+      function solution(){
+        return /(.).*?\1/.test([].join.call(arguments,''));
+      }
+//#endregion
+
