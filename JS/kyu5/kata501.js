@@ -372,3 +372,57 @@ Description:
     }
 
 //#endregion
+
+//#region 5007 Arbitrary word wrapping
+/* 5007 Arbitrary word wrapping (https://www.codewars.com/kata/arbitrary-word-wrapping)
+Description
+  You are writing an app that displays a fixed width font and has a strict limit of 25 characters per line in one particular text area.
+  Write a function that takes in a string, inserts newline characters, and adds a hyphen on the end of a line if a word is continued on the next line.
+  White space should be left in the result string as is.
+  Test Fixture Cut-n-Paste:
+    var input = "The quick brown fox jumped over the lazy developer.";
+    var expectedResult ="The quick brown fox jump-\ned over the lazy develop-\ner.";
+    var result = wordWrap(input);
+    Test.expect(result === expectedResult);
+*/
+
+//My solution
+    var wordWrap = function (str) {
+      if (!str || str.length<25) return str;
+
+      if( str[25] === ' ' )
+        return str.substr(0,25) + '\n' + wordWrap(str.substr(25));
+      else
+        return str.substr(0,24) + '-\n' + wordWrap(str.substr(24));
+    };
+
+        //24 chars, because left last char for hyphen(-)
+        //var chunks = str.match(/.{1,24}/g);
+        // return chunks.join('-\n');
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/51e8241aed85d42c810002ad/groups/5445b3dc990c92b4730004f3
+    var wordWrap = function (str) {
+      var arr=[],r = /(^.{25}\s|^.{24}\s\w)/
+      while(str.length>0){
+        if(str.length>=25&&!r.test(str)){
+          str = str.slice(0,24) +'-'+ str.slice(24)
+        }
+        arr.push(str.slice(0,25))
+        str = str.slice(25)
+      }
+      return arr.join('\n')
+
+    };
+//2) Clever(11) https://www.codewars.com/kata/reviews/51e8241aed85d42c810002ad/groups/5404ead100ab39b5ec00016d
+    var wordWrap = function (str) {
+      return str.replace( /(.{24})/g, "$1-\n" ).replace( /-\n(.) /g, "$1\n " )
+    };
+//3)Clever(3) https://www.codewars.com/kata/reviews/51e8241aed85d42c810002ad/groups/561589d40a7ce43eff000030
+    var wordWrap = function (str) {
+      if (str.length <= 25) return str;
+      return (str[24] === ' ' || str[25] === ' ')
+        ? str.slice(0,25) + '\n' + wordWrap(str.slice(25))
+        : str.slice(0,24) + '-\n' + wordWrap(str.slice(24));
+    };
+//#endregion
