@@ -153,3 +153,85 @@ Description:
       return `${host}?${resultQuery.join('&')}`
     }
 //#endregion
+
+
+//#region 4003 Roman Numerals Decoder
+/* 4003 Roman Numerals Decoder (https://www.codewars.com/kata/roman-numerals-decoder/javascript)
+Description:
+  Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer. You don't need to validate the form of the Roman numeral.
+
+  Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately, starting with the leftmost digit and skipping any 0s. So 1990 is rendered "MCMXC" (1000 = M, 900 = CM, 90 = XC) and 2008 is rendered "MMVIII" (2000 = MM, 8 = VIII). The Roman numeral for 1666, "MDCLXVI", uses each letter in descending order.
+
+    Example:
+
+    solution('XXI'); // should return 21
+    Help:
+    Symbol    Value
+    I          1
+    V          5
+    X          10
+    L          50
+    C          100
+    D          500
+    M          1,000
+*/
+
+//My solution
+    function solution(roman){
+      let result = 0;
+      const RNUMS = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+      };
+
+      for(let i=0; i<roman.length; i++){
+        if ( RNUMS[roman[i]] >= RNUMS[roman[i+1]] || i===roman.length-1) {
+          result += RNUMS[roman[i]] }
+        else {
+          result += RNUMS[roman[i+1]] - RNUMS[roman[i]];
+          i++; //need to increase i, otherwise 2nd number will be added to result
+          //for example IV would add 4 and then 5 = 9, without increasing i
+        }
+
+      }
+      return result;
+    }
+
+//Solution(s) I like(links):
+//1) BEST(15) AND CLEVER(46) https://www.codewars.com/kata/reviews/51b6249c4612257ac0000008/groups/53c9b2069bbf4c575f0001d5
+    function solution(roman){
+      var rom ={ "I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000};
+      return roman.split('').reverse().reduce(
+          function(dec,c,i,rr){  //rr in the reducing function is a copy of the reversed-splitted-roman value, then rr[i-1] returns just previous element in this array. So rom[rr[i-1]] returns decimal value of this "previous element" ... ||0 OR 0 if such an element doesn't exist.
+              c=rom[c];
+              i=rom[rr[i-1]]||0;
+              return dec + (i<=c? c: -c) }
+          ,0
+      )
+    }
+//2) Clever(54) https://www.codewars.com/kata/reviews/51b6249c4612257ac0000008/groups/586bf19e097ae01626002770
+    function solution(roman){
+      var conversion = {M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1};
+
+      return roman.match(/CM|CD|XC|XL|IX|IV|\w/g).reduce((accum, roman) => accum + conversion[roman], 0);
+    }
+//3) Clever(34) https://www.codewars.com/kata/reviews/51b6249c4612257ac0000008/groups/56f81cc83b164c683b000eb6
+    function solution(roman) {
+      var value = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+      return roman.split('').map( d => value[d] ).reduce( (s,v,i,o) => s + ( (o[i+1] > v) ? -v : v ), 0 );
+    }
+//4) Clever(16) https://www.codewars.com/kata/reviews/51b6249c4612257ac0000008/groups/53e4acbb58d9beba750007cf
+    function solution(roman){
+      rez = 0;
+      minus = {'IV': 4, 'IX': 9, 'XL': 40, 'XC': 90, 'CD': 400, 'CM': 900};
+      plus = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+      roman = roman.replace(/(IV)|(IX)|(XL)|(XC)|(CD)|(CM)/g, function (x) { rez += minus[x]; return ''; });
+      roman.replace(/(I)|(V)|(X)|(L)|(C)|(D)|(M)/g, function (x) { rez += plus[x] });
+      return rez
+    }
+//#endregion
