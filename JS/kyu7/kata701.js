@@ -394,3 +394,39 @@ Description:
         if (m = digits.match(RegExp(i + '\\d{4}', 'g'))) return Math.max(...m);
     }
 //#endregion
+
+//#region 7011 Building Strings From a Hash
+/*7011 Building Strings From a Hash (https://www.codewars.com/kata/building-strings-from-a-hash/javascript)
+Description:
+  Complete the solution so that it takes the object (JavaScript/CoffeeScript) or hash (ruby) passed in and generates a human readable string from its key/value pairs.
+  The format should be "KEY = VALUE". Each key/value pair should be separated by a comma except for the last pair.
+  Example:
+
+    solution({a: 1, b: '2'}) // should return "a = 1,b = 2"
+*/
+
+//My solution
+    function solution(pairs){
+      let result = [];
+      //for .. of only supports iterable objects (arrays), not objects.
+      for (let key in pairs) {
+        result.push(`${key} = ${pairs[key]}`);
+      }
+      return result.join(); //By default the join method uses a comma, so you can just write array.join();
+    }
+//Solution(s) I like(links):
+//1) Best(72) and Clever(75) !! https://www.codewars.com/kata/reviews/51c7d95b03878765940002c4/groups/51cc072bd6fdd1fc3c00043f
+    function solution(pairs){
+      return Object.keys(pairs)
+        .map(function(k) { return k + ' = ' + pairs[k] })
+        .join(',');
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/51c7d95b03878765940002c4/groups/575adf0dbb95c012e6000008
+    function solution(pairs) {
+      return Object.keys(pairs).map(k => `${k} = ${pairs[k]}`).join(",");
+    }
+//3) Clever(3) https://www.codewars.com/kata/reviews/51c7d95b03878765940002c4/groups/5440793526bc6a31f0000476
+    function solution(pairs){
+      return JSON.stringify(pairs).replace(/:/g," = ").replace(/\"/g,"").replace("{","").replace("}","");
+    }
+//#endregion
