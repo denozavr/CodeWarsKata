@@ -363,3 +363,48 @@ Description:
       return Math.Max(Int32.Parse(str.Substring(0, 5)), GetNumber(str.Substring(1)));
     }
 #endregion
+
+
+#region 7010 Building Strings From a Hash
+/*7010 Building Strings From a Hash (https://www.codewars.com/kata/building-strings-from-a-hash/)
+Description:
+  Complete the solution so that it takes the object (JavaScript/CoffeeScript) or hash (ruby) passed in and generates a human readable string from its key/value pairs.
+  The format should be "KEY = VALUE". Each key/value pair should be separated by a comma except for the last pair.
+  Example:
+
+    solution({a: 1, b: '2'}) // should return "a = 1,b = 2"
+*/
+
+//My solution
+    using System;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string StringifyDict<TKey, TValue>(Dictionary<TKey, TValue> hash)
+      {
+        string result = "";
+
+        foreach(var item in hash)
+        {
+            result+= item.Key + " = " + item.Value + ",";
+        }
+
+        return result.Length>0 ? result.Substring(0, result.Length - 1) : ""; //delete last trailing comma if Length>0
+
+      }
+    }
+//Solution(s) I like(links):
+//1) Best(7) and Clever(3) https://www.codewars.com/kata/reviews/59d4ee809b7699aa7b0007e6/groups/59d543669f28ec5a38003063
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static string StringifyDict<TKey, TValue>(Dictionary<TKey, TValue> hash)
+      {
+        return string.Join(",", hash.Select(p => $"{p.Key} = {p.Value}"));
+      }
+    }
+#endregion
