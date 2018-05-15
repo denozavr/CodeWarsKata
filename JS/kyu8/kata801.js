@@ -557,3 +557,42 @@ Description:
 //
 
 //#endregion
+
+
+//#region 8017 Sleigh Authentication
+/** 8017 Sleigh Authentication (https://www.codewars.com/kata/sleigh-authentication/javascript)
+Description:
+  Christmas is coming and many people dreamed of having a ride with Santa's sleigh. But, of course, only Santa himself is allowed to use this wonderful transportation. And in order to make sure, that only he can board the sleigh, there's an authentication mechanism.
+
+  Your task is to implement the authenticate() method of the sleigh, which takes the name of the person, who wants to board the sleigh and a secret password. If, and only if, the name equals "Santa Claus" and the password is "Ho Ho Ho!" (yes, even Santa has a secret password with uppercase and lowercase letters and special characters :D), the return value must be true. Otherwise it should return false.
+
+    var sleigh = new Sleigh();
+    sleigh.authenticate("Santa Claus", "Ho Ho Ho!"); // must return TRUE
+ */
+
+//My solution
+    function Sleigh() {}
+
+    Sleigh.prototype.authenticate = (name, password) =>
+        name==='Santa Claus' && password === 'Ho Ho Ho!';
+
+
+//Solutions I like:
+//0) Best(50) And Clever(131) Advanced !!(26 comments) https://www.codewars.com/kata/reviews/52adc145b2651f25a8000646/groups/52ade507b2651f5028000748
+//1) Best(31) https://www.codewars.com/kata/reviews/52adc145b2651f25a8000646/groups/52b0166f0b1d45155200037b
+    function Sleigh() {
+      this.name = "Santa Claus";
+      this.password = "Ho Ho Ho!";
+    }
+
+    Sleigh.prototype.authenticate = function(name, password) {
+      return this.name == name && this.password == password;
+    };
+//2) Best(2) https://www.codewars.com/kata/reviews/52adc145b2651f25a8000646/groups/55fda6cd307b74f2fd0000db
+    class Sleigh {
+      authenticate(name, password) {
+          return name == "Santa Claus" && password == "Ho Ho Ho!";
+      }
+    }
+
+//#endregion
