@@ -430,3 +430,35 @@ Description:
       return JSON.stringify(pairs).replace(/:/g," = ").replace(/\"/g,"").replace("{","").replace("}","");
     }
 //#endregion
+
+
+//#region 7012 Substituting Variables Into Strings: Padded Numbers
+/*7011 Substituting Variables Into Strings: Padded Numbers (https://www.codewars.com/kata/substituting-variables-into-strings-padded-numbers/javascript)
+Description:
+  Complete the solution so that it returns a formatted string. The return value should equal "Value is VALUE" where value is a 5 digit padded number.
+  Example:
+    solution(5) // should return "Value is 00005"
+*/
+
+//My solution
+    function solution(value){
+      let numLength = (value+'').length;
+      return  `Value is ${('0'.repeat(5-numLength)+value)}`;
+    }
+
+//Solution(s) I like(links):
+//1) Best(11) and Clever(22) https://www.codewars.com/kata/reviews/5458800054d8fef398000208/groups/5460f61f9726f60887000579
+    function solution(value){
+      return "Value is " + ("00000" + value).slice(-5);//NOTE: Take last 5 chars (can use .substr(-5) )
+    }
+//2)Clever(2) https://www.codewars.com/kata/reviews/5458800054d8fef398000208/groups/54a441233f956bb7f1000a3e
+    function solution(value) {
+      var output = value.toString();
+      while(output.length < 5) output = '0' + output;
+      return 'Value is ' + output;
+    }
+//3)Clever(3) https://www.codewars.com/kata/reviews/5458800054d8fef398000208/groups/545a4e2d85166a8336000705
+    function solution(value) {
+      return "Value is " + new Array(6 - String(value).length).join(0) + value;
+    }
+//#endregion
