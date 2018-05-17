@@ -433,7 +433,7 @@ Description:
 
 
 //#region 7012 Substituting Variables Into Strings: Padded Numbers
-/*7011 Substituting Variables Into Strings: Padded Numbers (https://www.codewars.com/kata/substituting-variables-into-strings-padded-numbers/javascript)
+/*7012 Substituting Variables Into Strings: Padded Numbers (https://www.codewars.com/kata/substituting-variables-into-strings-padded-numbers/javascript)
 Description:
   Complete the solution so that it returns a formatted string. The return value should equal "Value is VALUE" where value is a 5 digit padded number.
   Example:
