@@ -462,3 +462,30 @@ Description:
       return "Value is " + new Array(6 - String(value).length).join(0) + value;
     }
 //#endregion
+
+
+//#region 7013 Elapsed Seconds
+/* 7013 Elapsed Seconds (https://www.codewars.com/kata/elapsed-seconds)
+Description:
+  Complete the function so that it returns the number of seconds that have elapsed between the start and end times given.
+  Tips:
+  The start/end times are given as Date (JS/CoffeeScript), DateTime (C#), Time (Nim) and Time (Ruby) instances.
+  The start time will always be before the end time.
+*/
+
+//My solution
+    function elapsedSeconds(startDate, endDate){
+      return (endDate - startDate)/1000; //convert in seconds
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/517b25a48557c200b800000f/groups/56adbe521348f950bd000064
+    const elapsedSeconds = (start, end) => (end - start) / 1000;
+//2) https://www.codewars.com/kata/reviews/517b25a48557c200b800000f/groups/523a32950b6e4b41060000ef
+    function elapsedSeconds(startDate, endDate){
+      if (startDate > endDate)
+        return -1;
+
+      return (endDate.getTime() - startDate.getTime()) / 1000;
+    }
+//#endregion
