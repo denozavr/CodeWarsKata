@@ -437,4 +437,30 @@ Description:
 //2) Clever(1) https://www.codewars.com/kata/reviews/57b9e3395b446c654e0000fc/groups/57bec71e0abd4c84eb000101
     public static string Solution(int value) => "Value is " + value.ToString("00000");
 
-//#endregion
+#endregion
+
+#region 7012 Elapsed Seconds
+/* 7012 Elapsed Seconds (https://www.codewars.com/kata/elapsed-seconds)
+Description:
+  Complete the function so that it returns the number of seconds that have elapsed between the start and end times given.
+  Tips:
+  The start/end times are given as Date (JS/CoffeeScript), DateTime (C#), Time (Nim) and Time (Ruby) instances.
+  The start time will always be before the end time.
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static int ElapsedSeconds(DateTime startDate, DateTime endDate)
+      {
+        return (int) endDate.Subtract(startDate).TotalSeconds;
+        //endDate.Subtract(startDate).Hours*3600 + endDate.Subtract(startDate).Minutes*60 + endDate.Subtract(startDate).Seconds;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/59bf49a5521437125e0015d1/groups/59e8d850f937f9b0d500051c
+    public static int ElapsedSeconds(DateTime startDate, DateTime endDate) => (int)(endDate - startDate).TotalSeconds;
+#endregion
