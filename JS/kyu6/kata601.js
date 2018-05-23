@@ -603,3 +603,50 @@ Description:
       }
 //#endregion
 
+//#region 6013 Custom sort function
+/*6013 Custom sort function (https://www.codewars.com/kata/custom-sort-function)
+Description:
+  Complete the sort function so that it returns the items passed into it in alphanumerical order. Conveniently enough, the standard array sort method has been disabled for you so that you are forced to create your own.
+  Example:
+
+    sort([1,3,2]) // should return [1,2,3]
+*/
+
+//My solution
+  function sort(items){
+    if (items.length <= 1) return items
+    let first = items[0];
+    let lesser = [];
+    let greater = [];
+    for (let i = 1; i < items.length; i++) {
+      items[i] < first ? lesser.push(items[i]) : greater.push(items[i])
+    }
+    return sort(lesser).concat(first, sort(greater))
+  }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/52105fab0bd0ce9dd0000101/groups/5acd0305aa1536f095000442
+    function sort(items) {
+      const swap = (arr, i , j) => [arr[i], arr[j]] = [arr[j], arr[i]];
+      for (let i = 0; i < items.length ; i++) {
+        for(let j = 0 ; j < items.length - i - 1; j++) {
+            if (items[j] > items[j + 1]) swap(items, j, j + 1);
+        }
+      }
+      return items;
+    }
+//2) Clever(3) https://www.codewars.com/kata/reviews/52105fab0bd0ce9dd0000101/groups/53c25b67bb5187a2f5000812
+    function sort(items){
+      var temp;
+      for(var i=0;i<items.length;i++) {
+        for(var j=i+1;j<items.length;j++) {
+          if(items[i] >items[j] ) {
+            temp = items[i];
+            items[i] = items[j];
+            items[j] = temp;
+          }
+        }
+      }
+      return items;
+    }
+//#endregion
