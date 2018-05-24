@@ -333,3 +333,122 @@ Description:
       return result;
     }
 //#endregion
+
+
+//#region 4005 Roman Numerals Helper
+/* 4005 Roman Numerals Helper (https://www.codewars.com/kata/roman-numerals-helper)
+Description:
+  Create a RomanNumerals helper that can convert a roman numeral to and from an integer value. It should follow the API demonstrated in the examples below. Multiple roman numeral values will be tested for each helper method.
+
+  Modern Roman numerals are written by expressing each digit separately starting with the left most digit and skipping any digit with a value of zero. In Roman numerals 1990 is rendered: 1000=M, 900=CM, 90=XC; resulting in MCMXC. 2008 is written as 2000=MM, 8=VIII; or MMVIII. 1666 uses each Roman symbol in descending order: MDCLXVI.
+  Examples:
+    RomanNumerals.toRoman(1000); // should return 'M'
+    RomanNumerals.fromRoman('M'); // should return 1000
+
+  Help:
+  Symbol    Value
+  I          1
+  V          5
+  X          10
+  L          50
+  C          100
+  D          500
+  M          1,000
+*/
+
+//My solution
+    class RomanNumeralsHelper {
+
+      constructor() {
+        this.toRom = {M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1};
+      }
+
+    toRoman(number){
+
+      let result = '';
+      for (let key in this.toRom) {
+        let times = Math.floor(number / this.toRom[key]); // how many times Roman number occur in Arabian number
+        result += key.repeat(times); // if >0 add it so many times in result
+        number -= this.toRom[key] * times; // substract what used in result from number
+      }
+      return result;
+
+    }
+
+    fromRoman(roman){
+      var rom ={ "I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000};
+      return roman.split('').reverse().reduce(
+          function(dec,c,i,rr){  //rr in the reducing function is a copy of the reversed-splitted-roman value, then rr[i-1] returns just previous element in this array. So rom[rr[i-1]] returns decimal value of this "previous element" ... ||0 OR 0 if such an element doesn't exist.
+              c=rom[c];
+              i=rom[rr[i-1]]||0;
+              return dec + (i<=c? c: -c) }
+          ,0
+      )
+    }
+    }
+
+    let RomanNumerals = new RomanNumeralsHelper();
+
+//Solution(s) I like(links):
+//1) BEST(14) AND CLEVER(6) https://www.codewars.com/kata/reviews/51b66252ed2069c7c0000008/groups/5393b6226d3d44533b000d3c
+    var numerals = [
+      ['M', 1000],
+      ['CM', 900],
+      ['D', 500],
+      ['CD', 400],
+      ['C', 100],
+      ['XC', 90],
+      ['L', 50],
+      ['XL', 40],
+      ['X', 10],
+      ['IX', 9],
+      ['V', 5],
+      ['IV', 4],
+      ['I', 1]
+    ];
+
+    RomanNumerals = {
+      toRoman: function(v) {
+        var s = '';
+        numerals.forEach(function(n) {
+          while (v >= n[1]) {
+            s += n[0];
+            v -= n[1];
+          }
+        });
+        return s;
+      },
+      fromRoman: function(s) {
+        var v = 0;
+        numerals.forEach(function(n) {
+          while (s.substr(0, n[0].length) == n[0]) {
+            s = s.substr(n[0].length);
+            v += n[1];
+          }
+        });
+        return v;
+      }
+    };
+//2)Best(7) and Clever(3) https://www.codewars.com/kata/reviews/51b66252ed2069c7c0000008/groups/55f37121c058b72a5500003e
+    function RomanNumeralsHelper(){
+      this.values = {'M': 1000, 'CM': 900, 'D': 500, 'CD': 400, 'C': 100, 'XC': 90, 'L': 50, 'XL': 40, 'X': 10, 'IX': 9, 'V': 5, 'IV': 4, 'I': 1};
+    }
+
+    RomanNumeralsHelper.prototype.fromRoman = function(rom){
+      var matches = rom.match(/CM|CD|XC|XL|IX|IV|M|D|C|L|X|V|I/gi);
+      return matches.reduce((acc, n) => { return acc + this.values[n]; }.bind(this), 0);
+    }
+
+    RomanNumeralsHelper.prototype.toRoman = function(value){
+      var output = "";
+      Object.keys(this.values).forEach((num) => {
+        while(value >= this.values[num]){
+          value -= this.values[num];
+          output += num;
+        }
+      });
+      return output;
+    }
+
+    var RomanNumerals = new RomanNumeralsHelper();
+//#endregion
