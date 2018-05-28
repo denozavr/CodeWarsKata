@@ -383,3 +383,35 @@ Description:
       return string.Equals(name, "Santa Claus") && string.Equals(password,  "Ho Ho Ho!");
     }
 #endregion
+
+#region 8013 Plural
+/* 8013 Plural (https://www.codewars.com/kata/plural/csharp)
+Description:
+  We need a simple function that determines if a plural is needed or not. It should take a number, and return true if a plural should be used with that number or false if not. This would be useful when printing out a string such as 5 minutes, 14 apples, or 1 sun.
+    You only need to worry about english grammar rules for this kata, where anything that isn't singular (one of something), it is plural (not one of something).
+  All values will be positive integers or floats, or zero.
+*/
+
+//My solution
+  public class Kata
+  {
+    public static bool Plural(double n)
+    {
+      return n!=1;
+    }
+  }
+
+//Solutions I like:
+//1) Best(4) And Clever(1) https://www.codewars.com/kata/reviews/57b5f2a88a36ac1d46000f82/groups/57ccc71fd542d3148f0003aa
+    public static bool Plural(double n) => (n != 1);
+//2) Clever(1) https://www.codewars.com/kata/reviews/57b5f2a88a36ac1d46000f82/groups/58454e95fc7d0fbc0d000266
+    public static bool Plural(double n)
+    {
+        return Math.Abs(n - 1) > double.Epsilon;
+    }
+//3)
+    public static bool Plural(double n)
+    {
+      return n!=1?true:false;
+    }
+#endregion

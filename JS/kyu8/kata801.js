@@ -596,3 +596,29 @@ Description:
     }
 
 //#endregion
+
+//#region 8018 Plural
+/* 8018 Plural (https://www.codewars.com/kata/plural/javascript)
+Description:
+  We need a simple function that determines if a plural is needed or not. It should take a number, and return true if a plural should be used with that number or false if not. This would be useful when printing out a string such as 5 minutes, 14 apples, or 1 sun.
+    You only need to worry about english grammar rules for this kata, where anything that isn't singular (one of something), it is plural (not one of something).
+  All values will be positive integers or floats, or zero.
+*/
+
+//My solution
+    function plural(n) {
+      return n===1 ? false : true;
+    }
+
+//Solutions I like:
+//1) Best(93) And Clever(49) https://www.codewars.com/kata/reviews/52ceafd3f235ce81aa00073d/groups/52d353d52dbffbaf6f000038
+    function plural(n) {
+      return n !== 1;
+    }
+//2) Best(4) https://www.codewars.com/kata/reviews/52ceafd3f235ce81aa00073d/groups/56169ec0ec68f69b11000004
+    const plural = n => n !== 1;
+//3) CLever(4) !!(6 comments) https://www.codewars.com/kata/reviews/52ceafd3f235ce81aa00073d/groups/52cec21ef235ce456e0007df
+    function plural(n) {
+      return !!--n;
+    }
+//#endregion
