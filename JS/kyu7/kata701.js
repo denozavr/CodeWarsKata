@@ -489,3 +489,33 @@ Description:
       return (endDate.getTime() - startDate.getTime()) / 1000;
     }
 //#endregion
+
+//#region 7014 Return substring instance count
+/* 7014 Return substring instance count (https://www.codewars.com/kata/return-substring-instance-count/javascript)
+Description:
+   Complete the solution so that it returns the number of times the search_text is found within the full_text.
+    Usage example:
+    solution('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up twice
+    solution('aaabbbcccc', 'bbb') # should return 1
+*/
+
+//My solution
+    function solution(fullText, searchText){
+      return fullText.split(searchText).length - 1;
+    }
+
+//Solution(s) I like(links):
+//1) Clever(9) https://www.codewars.com/kata/reviews/516f30297c907a79f2000682/groups/51eaac997bed72c65100009f
+    function solution(fullText, searchText){
+      return (fullText.match(new RegExp(searchText, 'g')) || []).length;
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/516f30297c907a79f2000682/groups/595665c3bff8ccf8cd0000a1
+    const solution = (text, search) => text.split(search).length - 1;
+//3) Clever(3) https://www.codewars.com/kata/reviews/516f30297c907a79f2000682/groups/53c0dd43e44500076f0003b0
+    var solution = function occurances(fullText, searchText){
+      var count = 0,
+          index = -1;
+      while(index = fullText.indexOf(searchText, index + 1), index != -1) count++;
+      return count;
+    };
+//#endregion
