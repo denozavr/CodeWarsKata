@@ -464,3 +464,39 @@ Description:
 //1) Best(2) https://www.codewars.com/kata/reviews/59bf49a5521437125e0015d1/groups/59e8d850f937f9b0d500051c
     public static int ElapsedSeconds(DateTime startDate, DateTime endDate) => (int)(endDate - startDate).TotalSeconds;
 #endregion
+
+
+#region 7013 Return substring instance count
+/* 7013 Return substring instance count (https://www.codewars.com/kata/return-substring-instance-count)
+Description:
+   Complete the solution so that it returns the number of times the search_text is found within the full_text.
+    Usage example:
+    Kata.SubstringCount("aa_bb_cc_dd_bb_e", "bb") // should return 2 since bb shows up twice
+    Kata.SubstringCount("aaabbbccc", "bbb") // should return 1
+*/
+
+//My solution
+    using System.Text.RegularExpressions;
+    public class Kata
+    {
+      public static int SubstringCount(string fullText, string searchText)
+      {
+        return Regex.Matches(fullText, searchText).Count;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(4) https://www.codewars.com/kata/reviews/599e3b74de863f82690012e4/groups/599e3b96de863f82690012e9
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+      public static int SubstringCount(string fullText, string searchText) =>
+        new Regex(searchText).Matches(fullText).Count;
+    }
+//2) Clever(1) https://www.codewars.com/kata/reviews/599e3b74de863f82690012e4/groups/5ac907f87245a125ed0004c6
+    public static int SubstringCount(string text, string str)
+    {
+        return (text.Length - text.Replace(str, "").Length) / str.Length;
+    }
+#endregion
