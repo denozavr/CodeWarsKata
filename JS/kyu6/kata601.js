@@ -650,3 +650,44 @@ Description:
       return items;
     }
 //#endregion
+
+
+//#region 6014 uniq (UNIX style)
+/* 6014 uniq (UNIX style) (https://www.codewars.com/kata/uniq-unix-style)
+Description:
+  Implement the uniq() function which behaves like the uniq command in UNIX. It takes as input an array and returns an array in which all duplicate elements following each other have been reduced to one instance.
+
+  Example:
+    var input = ['a','a','b','b','c','a','b','c'];
+    uniq(input); // -> returns ['a','b','c','a','b','c']
+*/
+
+//My solution
+    function uniq(a) {
+      return a.filter((element,index) => element !==a[index+1] || !element );
+    }
+
+//Solution(s) I like(links):
+//1) Best(7) and Clever(13) https://www.codewars.com/kata/reviews/5224a0ca906b0cd028000212/groups/52256869b2cdcc9dcf0003f2
+    function uniq(a) {
+      return a.filter(function(x,i){return i == 0 || !(a[i-1] == x);});
+    }
+//2) Clever(5) https://www.codewars.com/kata/reviews/5224a0ca906b0cd028000212/groups/56be7548d253216031000253
+    const uniq = (xs) => xs.reduce( (xs, x) => xs.length === 0 || x !== xs[xs.length - 1] ? [...xs, x] : xs, []);
+//4) Clever(4) https://www.codewars.com/kata/reviews/5224a0ca906b0cd028000212/groups/540621eef5d0fe803e000358
+  function uniq(a) {
+    var u = [];
+    var temp = 'just burn in hell with your undefined test';
+    for (i in a) {
+      if (temp !== a[i]) {
+        u.push(a[i]);
+      }
+    temp = a[i];
+    }
+    return u;
+  }
+//4) Clever(4) https://www.codewars.com/kata/reviews/5224a0ca906b0cd028000212/groups/560da4e98513e522cb000049
+    function uniq(a) {
+      return JSON.parse(JSON.stringify(a).replace(/(["\w]+)(,\1)*/g, '$1'));
+    }
+//#endregion
