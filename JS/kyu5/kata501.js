@@ -478,3 +478,47 @@ Description
       else return 1;
     }
 //#endregion
+
+//#region 5009 Mean Square Error
+/* 5009 Mean Square Error (https://www.codewars.com/kata/mean-square-error)
+Description
+  Complete the function that
+
+  accepts two arrays of equal length
+  compares the value each member in one array to the corresponding member in the other
+  squares the absolute value difference between those two values
+  and returns the average of those squared absolute value difference between each member pair.
+      solution([1,2,3], [4,5,6]) // should === 9 ((9 + 9 + 9) / 3)
+      solution([10, 20, 10, 2], [10, 25, 5, -2]) // should === 16.5 ((0 + 25 + 25 + 16) / 4)
+      solution([-1,0], [0,-1]) // should === 1 ((1 + 1) / 2)
+*/
+
+//My solution
+    let solution = function(firstArray, secondArray) {
+      let sum = 0;
+      firstArray.forEach(function(value, index){
+        let scndElem = secondArray[index];
+        sum += Math.pow((value - scndElem),2);
+      })
+      return sum / firstArray.length;
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/51edd51599a189fe7f000018/groups/57e2942ae108c09608000f6a
+    var solution = function(firstArray, secondArray) {
+      var arr = [];
+      for (var i = 0; i < firstArray.length; i++) {
+        arr.push(Math.pow(secondArray[i] - firstArray[i], 2));
+      }
+      return arr.reduce((a,b) => a+b)/arr.length;
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/51edd51599a189fe7f000018/groups/59b1c7b3182024c7b400095e
+    const solution = (a, b) => a.reduce((sum, n, i) => sum + (n - b[i])**2, 0) / a.length;
+//3) https://www.codewars.com/kata/reviews/51edd51599a189fe7f000018/groups/57cc94a658a06ba5a00001bc
+    const solution = (first, second) => {
+      return first
+        .map((el, i) => Math.pow(el - second[i], 2) / first.length)
+        .reduce((current, prev) => current + prev, 0)
+    }
+//#endregion
