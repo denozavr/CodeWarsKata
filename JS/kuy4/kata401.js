@@ -452,3 +452,78 @@ Description:
 
     var RomanNumerals = new RomanNumeralsHelper();
 //#endregion
+
+//#region 4006 Range Extraction
+/*4006 Range Extraction (https://www.codewars.com/kata/range-extraction/javascript)
+Description:
+  A format for expressing an ordered list of integers is to use a comma separated list of either individual integers
+  or a range of integers denoted by the starting integer separated from the end integer in the range by a dash, '-'. The range includes all integers in the interval including both endpoints. It is not considered a range unless it spans at least 3 numbers. For example ("12, 13, 15-17")
+  Complete the solution so that it takes a list of integers in increasing order and returns a correctly formatted string in the range format.
+
+  Example:
+    solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]);
+    // returns "-6,-3-1,3-5,7-11,14,15,17-20"
+*/
+
+//My solution
+    function solution(list){
+      let result = [];
+      let start = 0;
+      let end = 0;
+      for (let i = 0; i < list.length; i++){
+        if (list[i] - list[i + 2] === -2) { //if 3 consequitive numbers 1,2,3 (1-3 = 2)
+          start = i; //start index of range
+          end = i + 2; //end index of range (could be more)
+        for (let j = i + 2; j < list.length; j++){
+          if (list[j] - list[j + 1] == -1) { // if 2 consequitive numbers increase end index
+            end = j + 1;
+          } else {
+            result.push(list[start]+ "-" + list[end]);
+            i = j; // move start to end index
+            break;
+          }
+        }
+        } else {
+          result.push(list[i]);
+        }
+      }
+      return result.join(',');
+    }
+
+
+//Solution(s) I like(links):
+//1) best
+    function solution(individualIntegers) {
+      return individualIntegers
+        .reduce(splitIntoRanges, [])
+        .map(convertToRange)
+        .join(",");
+    }
+
+    function splitIntoRanges(ranges, number) {
+      if (!ranges.length) {
+        ranges.push([number]);
+        return ranges;
+      }
+
+      var lastRange = ranges[ranges.length - 1];
+      var lastNumber = lastRange[lastRange.length - 1];
+
+      number === lastNumber + 1 ? lastRange.push(number) : ranges.push([number]);
+      return ranges;
+    }
+
+    function convertToRange(range) {
+      return range.length < 3 ? range.join(",") : range[0] + "-" + range[range.length - 1];
+    }
+
+//2) clever
+    function solution(list){
+      for(var i = 0; i < list.length; i++){
+          var j = i;
+          while(list[j] - list[j+1] == -1) j++;
+          if(j != i && j-i>1) list.splice(i, j-i+1, list[i] +'-'+list[j]);
+      }
+      return list.join();
+    }
+//#endregion
