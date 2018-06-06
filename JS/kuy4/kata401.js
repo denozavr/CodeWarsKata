@@ -436,7 +436,7 @@ Description:
 
     RomanNumeralsHelper.prototype.fromRoman = function(rom){
       var matches = rom.match(/CM|CD|XC|XL|IX|IV|M|D|C|L|X|V|I/gi);
-      return matches.reduce((acc, n) => { return acc + this.values[n]; }.bind(this), 0);
+      return matches.reduce((acc, n) => { return acc + this.values[n]; },bind(this), 0);
     }
 
     RomanNumeralsHelper.prototype.toRoman = function(value){
@@ -492,7 +492,7 @@ Description:
 
 
 //Solution(s) I like(links):
-//1) best
+//1) best(43) and clever(6) https://www.codewars.com/kata/reviews/51ba7e87b08c1cd60f00004a/groups/55396a247d66252a73000019
     function solution(individualIntegers) {
       return individualIntegers
         .reduce(splitIntoRanges, [])
@@ -517,7 +517,7 @@ Description:
       return range.length < 3 ? range.join(",") : range[0] + "-" + range[range.length - 1];
     }
 
-//2) clever
+//2) clever(93) https://www.codewars.com/kata/reviews/51ba7e87b08c1cd60f00004a/groups/54ef355c7f914260e50016b6
     function solution(list){
       for(var i = 0; i < list.length; i++){
           var j = i;

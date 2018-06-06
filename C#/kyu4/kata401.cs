@@ -317,3 +317,111 @@ Description:
       }
   }
 #endregion
+
+
+#region 4003 Range Extraction
+/*4003 Range Extraction (https://www.codewars.com/kata/range-extraction)
+Description:
+  A format for expressing an ordered list of integers is to use a comma separated list of either individual integers
+  or a range of integers denoted by the starting integer separated from the end integer in the range by a dash, '-'. The range includes all integers in the interval including both endpoints. It is not considered a range unless it spans at least 3 numbers. For example ("12, 13, 15-17")
+  Complete the solution so that it takes a list of integers in increasing order and returns a correctly formatted string in the range format.
+
+  Example:
+    solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]);
+    // returns "-6,-3-1,3-5,7-11,14,15,17-20"
+*/
+
+
+//My solution
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    public class RangeExtraction
+    {
+        public static string Extract(int[] args)
+        {
+            var result = new List<String>();
+            int start = 0;
+            int end = 0;
+          for (int i = 0; i < args.Length; i++){
+            if (i < args.Length -2 && args[i] - args[i + 2] == -2) { // 3 consequitive numbers 1,2,3 (1-3 = 2)
+              start = i; //start index of range
+              end = i + 2; //end index of range (could be more)
+            for (int j = end ; j <= args.Length-1; j++){
+              if (j < args.Length-1 &&  args[j] - args[j + 1] == -1) {
+                end = j + 1;
+              } else {
+                result.Add(args[start]+ "-" + args[end]);
+                i = j;
+                break;
+              }
+            }
+            } else {
+              result.Add(args[i].ToString());
+            }
+          }
+          return string.Join(",", result);
+        }
+    }
+
+
+//Solution(s) I like(links):
+//1) best(5) and clever(2) https://www.codewars.com/kata/reviews/5a6fbc0a5c03c84a84000ab8/groups/5a7651c46c8e75da54000d16
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+
+  public class RangeExtraction
+  {
+      public int Value, Count;
+      public int NextValue => Value + Count;
+
+      public RangeExtraction(int value)
+      {
+          Value = value;
+          Count = 1;
+      }
+
+      public override string ToString()
+          => Count == 1 ? $"{Value}" :
+            Count == 2 ? $"{Value},{Value + 1}" :
+                          $"{Value}-{NextValue-1}";
+
+      public static string Extract(int[] args)
+      {
+          var list = new List<RangeExtraction>();
+
+          foreach (var n in args)
+              if (list.LastOrDefault()?.NextValue == n) list.Last().Count++;
+              else list.Add(new RangeExtraction(n));
+
+          return string.Join(",", list);
+      }
+  }
+//2) Best(2) https://www.codewars.com/kata/reviews/5a6fbc0a5c03c84a84000ab8/groups/5aa8f84a6fbca547c5006ece
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class RangeExtraction
+    {
+      public static string Extract(int[] args)
+      {
+        var bufferLists = new List<List<int>>();
+        foreach (var i in args.OrderBy(x => x)) {
+          var bufferList = bufferLists.FirstOrDefault(l => l.Last() == i-1);
+          if (bufferList == null) {
+            bufferList = new List<int>();
+            bufferLists.Add(bufferList);
+          }
+          bufferList.Add(i);
+        }
+        return string.Join(",", bufferLists.Select(l => ListToString(l)));
+      }
+
+      private static string ListToString(List<int> list) {
+        if (list.Count() <= 2) return string.Join(",",list);
+        return $"{list.First()}-{list.Last()}";
+      }
+    }
+#endregion
