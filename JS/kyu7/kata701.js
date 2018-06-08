@@ -519,3 +519,32 @@ Description:
       return count;
     };
 //#endregion
+
+//#region 7015 Remove anchor from URL
+/* 7015 Remove anchor from URL (https://www.codewars.com/kata/remove-anchor-from-url)
+Description:
+  Complete the function/method so that it returns the url with anything after the anchor (#) removed.
+
+  Examples:
+    // returns 'www.codewars.com'
+    removeUrlAnchor('www.codewars.com#about')
+    // returns 'www.codewars.com?page=1'
+    removeUrlAnchor('www.codewars.com?page=1')
+*/
+
+//My solution
+    function removeUrlAnchor(url){
+      //return url.split('#')[0]; // BEST PRACTICE
+      let index = url.indexOf('#')>-1 ? url.indexOf('#') : url.length;
+      return url.substr(0, index);
+    }
+
+//Solution(s) I like(links):
+//1) Best(9) https://www.codewars.com/kata/reviews/51f2b4448cadf20ed0000389/groups/523f9bbc0f1d9ce46d00008b
+  function removeUrlAnchor(url){
+    return url.replace(/#.*/gi,""); //delete part after #
+  } // OR url.replace(/#\w+/, '');
+//2) Clever(3) https://www.codewars.com/kata/reviews/51f2b4448cadf20ed0000389/groups/580760101dd451bcf500021a
+    let removeUrlAnchor = url => url.split('#')[0];
+
+//#endregion
