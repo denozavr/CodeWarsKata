@@ -500,3 +500,45 @@ Description:
         return (text.Length - text.Replace(str, "").Length) / str.Length;
     }
 #endregion
+
+
+#region 7014 Remove anchor from URL
+/* 7014 Remove anchor from URL (https://www.codewars.com/kata/remove-anchor-from-url)
+Description:
+  Complete the function/method so that it returns the url with anything after the anchor (#) removed.
+
+  Examples:
+  Kata.RemoveUrlAnchor("www.codewars.com#about") => "www.codewars.com"
+  Kata.RemoveUrlAnchor("www.codewars.com?page=1") => "www.codewars.com?page=1"
+*/
+
+//My solution
+    public static class Kata
+    {
+      public static string RemoveUrlAnchor(string url)
+      {
+        int index = url.IndexOf('#');
+        return index > 0 ? url.Substring(0, index) : url;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(6) and Clever(7) https://www.codewars.com/kata/reviews/59bc2990134e4fb55b000e77/groups/59bc2995134e4fb55b000e7c
+    public static string RemoveUrlAnchor(string url)
+    {
+      return url.Split('#')[0];
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/59bc2990134e4fb55b000e77/groups/59fa2b6e4b8a60f5fb002f85
+    return url.Substring(0, url.IndexOf("#") < 0 ? url.Length : url.IndexOf("#"));
+//3) Clever(1) https://www.codewars.com/kata/reviews/59bc2990134e4fb55b000e77/groups/5b134c8539b9bac2450000be
+    using System;
+    using System.Text.RegularExpressions;
+
+    public static class Kata
+    {
+      public static string RemoveUrlAnchor(string url)
+      {
+        return Regex.Match(url, @"[a-z0-9_/.?=]*(?=#)?").Value;
+      }
+    }
+#endregion
