@@ -415,3 +415,33 @@ Description:
       return n!=1?true:false;
     }
 #endregion
+
+#region 8014 Welcome to the City
+/* 8014 Welcome to the City (https://www.codewars.com/kata/welcome-to-the-city/)
+Description:
+  Create a method sayHello/say_hello/SayHello that takes as input a name, city, and state to welcome a person. Note that name will be an array consisting of one or more values that should be joined together with one space betweeen each, and the length of the name array in test cases will vary.
+  Example:
+
+    Kata.SayHello(new String[]{"John", "Smith"}, "Phoenix", "Arizona")
+  This example will return the string Hello, John Smith! Welcome to Phoenix, Arizona!
+*/
+
+//My solution
+    public class Kata
+    {
+      public static string SayHello(string[] name, string city, string state)
+      {
+        return $"Hello, {string.Join(" ", name)}! Welcome to {city}, {state}!";
+      }
+    }
+
+//Solutions I like:
+//1) Best(7) https://www.codewars.com/kata/reviews/599c8dc5aa7911eb11002c58/groups/59e272a92969c5737c0005df
+    public static string SayHello(string[] name, string city, string state) =>
+    $"Hello, {string.Join(" ", name)}! Welcome to {city}, {state}!";
+//2) Best(3) https://www.codewars.com/kata/reviews/599c8dc5aa7911eb11002c58/groups/599d5e2feeb7fbf697000e30
+    public static string SayHello(string[] name, string city, string state)
+    {
+        return String.Format("Hello, {0}! Welcome to {1}, {2}!", String.Join(" ", name), city, state);
+    }
+#endregion
