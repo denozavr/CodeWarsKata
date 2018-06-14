@@ -527,3 +527,56 @@ Description:
       return list.join();
     }
 //#endregion
+
+//#region 4007 Strip Comments
+/*4007 Strip Comments (https://www.codewars.com/kata/strip-comments)
+Description:
+  Complete the solution so that it strips all text that follows any of a set of comment markers passed in. Any whitespace at the end of the line should also be stripped out.
+
+  Example:
+
+  Given an input string of:
+
+    apples, pears # and bananas
+    grapes
+    bananas !apples
+  The output expected would be:
+
+    apples, pears
+    grapes
+    bananas
+  The code would be called like so:
+
+      var result = solution("apples, pears # and bananas\ngrapes\nbananas !apples", ["#", "!"])
+      // result should == "apples, pears\ngrapes\nbananas"
+*/
+
+//My solution
+    function solution(input, markers){
+      let lines = input.split('\n');
+      for (let i in markers) {
+        for (let j in lines) {
+          var index = lines[j].indexOf(markers[i]);
+          if (index >= 0) {
+            lines[j] = lines[j].substr(0, index-1);
+          }
+        }
+      }
+      return lines.join('\n');
+    }
+
+
+//Solution(s) I like(links):
+//1) best(15) and clever(30) !!Comments https://www.codewars.com/kata/reviews/51c8e7f3049befd8ca0000bd/groups/575474139a45241dac0010c5
+    function solution(input, markers) {
+      return input.split('\n').map(
+        line => markers.reduce(
+          (line, marker) => line.split(marker)[0].trim(), line
+        )
+      ).join('\n')
+    }
+//2) Clever(130) !!Comments https://www.codewars.com/kata/reviews/51c8e7f3049befd8ca0000bd/groups/53b7cf934db8fd8c270002e8
+    function solution(input, markers){
+      return input.replace(new RegExp("\\s?[" + markers.join("") + "].*(\\n)?", "gi"), "$1");
+    }
+//#endregion
