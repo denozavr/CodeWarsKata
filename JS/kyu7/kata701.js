@@ -548,3 +548,50 @@ Description:
     let removeUrlAnchor = url => url.split('#')[0];
 
 //#endregion
+
+
+//#region 7016 String ends with?
+/* 7016 String ends with? (https://www.codewars.com/kata/string-ends-with)
+Description:
+    Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string).
+
+    Examples:
+
+    solution('abc', 'bc') // returns true
+    solution('abc', 'd') // returns false
+*/
+
+//My solution
+    function solution(str, ending){
+      let endLength = ending.length;
+      return ending === str.slice(-endLength); //cand use str.substr()
+    }
+
+//Solution(s) I like(links):
+//1) Best(34) https://www.codewars.com/kata/reviews/51f2d1cafc9c0f745c000380/groups/575cd0b881ce1de7af00013f
+    function solution(str, ending){
+      return str.endsWith(ending);
+    }
+    //OR
+    const solution = (str, ending) => str.endsWith(ending);
+//2) Best(54) and Clever(77) https://www.codewars.com/kata/reviews/51f2d1cafc9c0f745c000380/groups/537edfe3c701750d110005b8
+    function solution(str, ending){
+      return new RegExp(ending+"$", "i").test(str);
+    }
+//3) Best(16) https://www.codewars.com/kata/reviews/51f2d1cafc9c0f745c000380/groups/538584018e16f8f3b9000510
+    function solution(str, ending){
+      if (typeof(str) != "string" || typeof(ending) != "string")
+        throw "wrong type";
+      if (ending.length>str.length)
+        return false;
+      return str.substr(str.length-ending.length, ending.length) == ending;
+    }
+//4) Clever(12) https://www.codewars.com/kata/reviews/51f2d1cafc9c0f745c000380/groups/5230d21ee1988ec9e30002c2
+    function solution(str, ending){
+      return str.match(ending+"$")==ending;
+    }
+//5) Best(12) https://www.codewars.com/kata/reviews/51f2d1cafc9c0f745c000380/groups/520fb518c3775a2d47000091
+    function solution(str, ending){
+      return str.substr(-ending.length) == ending;
+    }
+//#endregion
