@@ -542,3 +542,40 @@ Description:
       }
     }
 #endregion
+
+#region 7015 String ends with?
+/* 7015 String ends with? (https://www.codewars.com/kata/string-ends-with)
+Description:
+    Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string).
+
+    Examples:
+
+    solution('abc', 'bc') // returns true
+    solution('abc', 'd') // returns false
+*/
+
+//My solution
+    public class Kata
+    {
+      public static bool Solution(string str, string ending)
+      {
+        return str.EndsWith(ending);
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Clever(2) https://www.codewars.com/kata/reviews/5990b47735fd2f187600011c/groups/59e0d7e89671d847c2000c31
+    using System.Linq;
+    public class Kata
+    {
+      public static bool Solution(string str, string ending)
+      {
+        if(str.Contains(ending) && ending.Last()==str.Last() )
+        return true;
+
+        return false;
+      }
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/5990b47735fd2f187600011c/groups/59912bc9f98f0e61b60016f1
+    public static bool Solution(string str, string ending) => str.EndsWith(ending);
+#endregion
