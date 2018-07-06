@@ -838,3 +838,52 @@ Description:
       this.callback(data.content);
     };
 //#endregion
+
+//#region 6016 N-th Fibonacci
+/* 6016 N-th Fibonacci (https://www.codewars.com/kata/n-th-fibonacci)
+Description:
+  I love Fibonacci numbers in general, but I must admit I love some more than others.
+  I would like for you to write me a function that when given a number (n) returns the n-th number in the Fibonacci Sequence.
+  For example:
+      nthFibo(4) == 2
+
+  Because 2 is the 4th number in the Fibonacci Sequence.
+  For reference, the first two numbers in the Fibonacci sequence are 0 and 1, and each subsequent number is the sum of the previous two.
+*/
+
+//My solution
+    function nthFibo(n) {
+      let a = 1;
+      let b = 0;
+      let temp;
+      console.log(n);
+
+      while (n > 1){
+        temp = a;
+        a = a + b;//n+1 Fibo number
+        b = temp; //n Fibo number
+        n--;
+        console.log('a:' + a + ', b: ' + b + ', n:' + n);
+      }
+
+      return b;
+    }
+
+
+
+//Solution(s) I like(links):
+//1)  Clever(7) https://www.codewars.com/kata/reviews/522551eee9abb932420004a3/groups/54e83a60050737c7450014a2
+    function nthFibo(n) {
+      return Math.round((1/Math.sqrt(5))*Math.pow((1+Math.sqrt(5))/2,n-1))
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/522551eee9abb932420004a3/groups/559b4031dd1aa1ba550000ec
+    function nthFibo(n) {
+      var a = 1, b = 0;
+      while(--n) a = [b, b += a][0];
+      return b;
+    }
+//3) Clever(10) https://www.codewars.com/kata/reviews/522551eee9abb932420004a3/groups/52262ab1cac7545d2a0003ae
+    function nthFibo(n) { //!!BAD Performance on large numbers
+      return n < 2 ? 0 : n == 2 ? 1 : nthFibo(n-1) + nthFibo(n-2);
+    }
+//#endregion
