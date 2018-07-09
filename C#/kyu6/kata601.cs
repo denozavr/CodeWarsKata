@@ -613,3 +613,75 @@ Description:
       return z;
     }
 #endregion
+
+#region 6012 N-th Fibonacci
+/* 6012 N-th Fibonacci (https://www.codewars.com/kata/n-th-fibonacci)
+Description:
+  I love Fibonacci numbers in general, but I must admit I love some more than others.
+  I would like for you to write me a function that when given a number (n) returns the n-th number in the Fibonacci Sequence.
+  For example:
+      NthFib(4) == 2
+
+  Because 2 is the 4th number in the Fibonacci Sequence.
+  For reference, the first two numbers in the Fibonacci sequence are 0 and 1, and each subsequent number is the sum of the previous two.
+*/
+
+//My solution
+    public class Fibonacci
+    {
+      public int NthFib(int n)
+      {
+        int a = 1;
+        int b = 0;
+        int temp;
+
+        while (n > 1){
+          temp = a;
+          a = a + b;//n+1 Fibo number
+          b = temp; //n Fibo number
+          n--;
+        }
+
+        return b;
+      }
+    }
+
+
+
+//Solution(s) I like(links):
+//1)  Best(8) https://www.codewars.com/kata/reviews/550afacf9c1f890fa4000237/groups/5512e5bc2b34d8a22e000088
+    public class Fibonacci
+    {
+      public int NthFib(int n)
+      {
+        if(n <= 1){return 0;}
+        if(n == 2){return 1;}
+        int init0 = 0;
+        int init1 = 1;
+        for(int i = 0; i < (n-2); i++)
+        {
+          int sum = init0 + init1;
+          init0 = init1;
+          init1 = sum;
+        }
+        return init1;
+      }
+    }
+//2) Clever(31) https://www.codewars.com/kata/reviews/550afacf9c1f890fa4000237/groups/550b1d74595138d5e4000d83
+    public int NthFib(int n)
+    {
+      var phi = (1 + Math.Sqrt(5)) / 2;
+      return (int)Math.Round(Math.Pow(phi, n - 1) / Math.Sqrt(5));
+    }
+//3) Clever(14) https://www.codewars.com/kata/reviews/550afacf9c1f890fa4000237/groups/550b0d5a06815103b70000ac
+ //!!BAD Performance on large numbers
+    public class Fibonacci
+    {
+      public int NthFib(int n)
+      {
+        if(n == 1) return 0;
+        if(n == 2) return 1;
+        return NthFib(n - 2) + NthFib(n - 1);
+      }
+    }
+#endregion
