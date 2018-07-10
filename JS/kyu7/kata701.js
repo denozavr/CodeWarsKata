@@ -595,3 +595,23 @@ Description:
       return str.substr(-ending.length) == ending;
     }
 //#endregion
+
+//#region 7017 Sort arrays - 1
+/* 7017 Sort arrays - 1 (https://www.codewars.com/kata/sort-arrays-1)
+Description:
+  Just a simple sorting usage. Create a function that returns the elements of the input-array in a sorted manner.
+*/
+
+//My solution
+    // input: names - unsorted array
+    // output: sorted array
+    sortme =  names => names.sort();
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/51f431c2afadc317f40000a7/groups/520b7dda9ed66b94010001ff
+    sortme = function( names ){
+      return names.sort(function(a, b) { return a > b ? 1 : a < b ? -1 : 0 });
+    }
+//2) Clever(8) https://www.codewars.com/kata/reviews/51f431c2afadc317f40000a7/groups/56d743cf736bd0980a00147d
+    sortme = Array.sort;
+//#endregion
