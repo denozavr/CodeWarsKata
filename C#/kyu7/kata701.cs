@@ -579,3 +579,30 @@ Description:
 //2) Clever(2) https://www.codewars.com/kata/reviews/5990b47735fd2f187600011c/groups/59912bc9f98f0e61b60016f1
     public static bool Solution(string str, string ending) => str.EndsWith(ending);
 #endregion
+
+#region 7016 Sort arrays - 1
+/* 7016 Sort arrays - 1 (https://www.codewars.com/kata/sort-arrays-1)
+Description:
+  Just a simple sorting usage. Create a function that returns the elements of the input-array in a sorted manner.
+*/
+
+//My solution
+    using System.Linq;
+    public class Kata
+    {
+      public static string[] SortMe(string[] names)
+      {
+          //Array.Sort(names);
+          //return names;
+        return names.OrderBy(x=>x).ToArray();
+      }
+    }
+
+//Solution(s) I like(links):
+//1) https://www.codewars.com/kata/reviews/57ce1c94c96c87c81c000170/groups/59e8d2971172d395cb002591
+    using System.Linq;
+    public class Kata
+    {
+      public static string[] SortMe(string[] names) => names.OrderBy(x => x).ToArray();
+    }
+#endregion
