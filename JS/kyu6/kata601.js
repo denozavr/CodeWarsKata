@@ -887,3 +887,92 @@ Description:
       return n < 2 ? 0 : n == 2 ? 1 : nthFibo(n-1) + nthFibo(n-2);
     }
 //#endregion
+
+//#region 6017 Pascal's Triangle
+/* 6017 Pascal's Triangle (https://www.codewars.com/kata/pascals-triangle)
+Description:
+    Wikipedia article on Pascal's Triangle: http://en.wikipedia.org/wiki/Pascal's_triangle
+    Write a function that, given a depth (n), returns a single-dimensional array representing Pascal's Triangle to the n-th level.
+    For example:
+      pascalsTriangle(4) == [1,1,1,1,2,1,1,3,3,1]
+*/
+
+//My solution
+    function pascalsTriangle(n) {
+      //return a flat array representing the values of Pascal's Triangle to the n-th level
+      let arr = [];
+          arr[0]=[1];
+      if(n>1) arr[1]=[1,1];
+
+      for (let tier =2; tier<n;tier++){
+          arr[tier]=[1]; // tier always begins with 1
+          for(let col=1; col<tier; col++){
+              arr[tier][col]=arr[tier-1][col]+arr[tier-1][col-1]; //sum of Nth ( beginning from 2nd) elem is sum of N and N-1 from previous tier
+          }
+          arr[tier].push(1); // tier always ends with 1
+      }
+      //concat all inner arrays
+      return arr.join(',',(a,b) => a.concat(b));
+      //same approach with reduce
+      //return arr.reduce((a,b) => a.concat(b),[]);
+    }
+
+
+//Solution(s) I like(links):
+//1)  Best(40) !! https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/5386e0fe4c45401ad9000e0c
+    function pascalsTriangle(n) {
+      var pascal = [];
+      var idx = 0;
+
+      for ( var i = 0; i < n; i++ ) {
+        idx = pascal.length - i;
+        for ( var j = 0; j < i+1; j++ ) {
+          if ( j === 0 || j === i ) {
+            pascal.push(1);
+          } else {
+            pascal.push( pascal[ idx+j ] + pascal[ idx+j-1 ] );
+          }
+        }
+      }
+
+      return pascal;
+    }
+//2) Clever(35) and Best(11) https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/537e01b1bf6c94b57f000456
+    function pascalsTriangle(n) {
+      if (n === 1) {
+        return [1];
+      }
+      var prev = pascalsTriangle(n - 1), len = prev.length;
+      prev.push(1);
+      for (var i = len - n + 1; i < len - 1; i ++) {
+        prev.push(prev[i] + prev[i + 1]);
+      }
+      prev.push(1);
+      return prev;
+    }
+//3) Clever(18) https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/55192cdccd82ffbdf500088c
+    function f(n) {
+      if(n<2) return 1;
+      return n * f(n - 1);
+    }
+
+    function pascalsTriangle(n) {
+    var r = [];
+    for(var i = 0; i < n; i++)
+      for(var e = 0; e <= i; e++)
+        r.push( Math.round(f(i)/(f(e)*f(i - e))));
+    return r;
+    }
+//4) Best(6) https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/555a637f74814ac18400014a
+    function pascalsTriangle(n) {
+      var arr = [1];
+      --n;
+      for(var i=0; i<n; ++i) {
+        arr.push(1);
+        for(var j=arr.length-2-i, jj=j+i; j<jj;) arr.push(arr[j] + arr[++j]);
+        arr.push(1);
+      }
+      return arr;
+    }
+//5) Clever(25) https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/53860d2ec25c8a4743000eb3
+//#endregion
