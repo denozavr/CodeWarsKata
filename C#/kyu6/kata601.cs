@@ -685,3 +685,106 @@ Description:
       }
     }
 #endregion
+
+#region 6013 Pascal's Triangle
+/* 6013 Pascal's Triangle (https://www.codewars.com/kata/pascals-triangle)
+Description:
+    Wikipedia article on Pascal's Triangle: http://en.wikipedia.org/wiki/Pascal's_triangle
+    Write a function that, given a depth (n), returns a single-dimensional array representing Pascal's Triangle to the n-th level.
+    For example:
+      Kata.PascalsTriangle(4) == new List<int> {1,1,1,1,2,1,1,3,3,1}
+*/
+
+//My solution
+    using System;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static List<int> PascalsTriangle(int n) {
+          var result = new List<int>();
+          int idx = 0;
+
+          for ( int i = 0; i < n; i++ ) {
+            idx = result.Count - i;
+            for ( int j = 0; j < i+1; j++ ) {
+              if ( j == 0 || j == i ) {
+                result.Add(1);
+              } else {
+                result.Add( result[ idx+j ] + result[ idx+j-1 ] );
+              }
+            }
+          }
+
+          return result;
+      }
+    }
+
+//Solution(s) I like(links):
+//1)  Best(25) !! https://www.codewars.com/kata/reviews/554cec78085cd84f27000074/groups/55508ab131c6f44dcc000011
+    using System;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static List<int> PascalsTriangle(int n) {
+
+        List<int> pt = new List<int>();
+
+        pt.Add(1);
+        for(int i = 1; i < n; i++)
+        {
+          for(int j = 0; j <= i; j++)
+          {
+            if(j == 0 || j == i)
+              pt.Add(1);
+            else
+            {
+              pt.Add(pt[pt.Count - i] + pt[pt.Count - (i + 1)]);
+            }
+          }
+        }
+
+        return pt;
+      }
+//2) Best(6) https://www.codewars.com/kata/reviews/554cec78085cd84f27000074/groups/5654babf0566b1a0c6000010
+    public static List<int> PascalsTriangle(int n)
+    {
+        List<int> result = new List<int>();
+        for (int i = 0; i < n; i++)
+        {
+            int element = 1;
+            for (int j = 0; j <= i; j++)
+            {
+                result.Add(element);
+                element = element * (i - j) / (j + 1);
+            }
+        }
+        return result;
+    }
+//3) Clever(4) https://www.codewars.com/kata/reviews/554cec78085cd84f27000074/groups/558169ca07bf82c47e000010
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static List<int> PascalsTriangle(int n)
+      {
+        if (n < 1) return null;
+        var workingList = new List<int> {1};
+        var result = new List<int>(workingList);
+
+        for (int i = 1; i < n; i++)
+        {
+            var addend = new List<int> {0};
+            addend.AddRange(workingList);
+            workingList.Add(0);
+            workingList = workingList.Zip(addend, (a, b) => a + b).ToList();
+            result.AddRange(workingList);
+        }
+
+        return result;
+      }
+    }
+#endregion
