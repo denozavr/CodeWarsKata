@@ -522,3 +522,56 @@ Description
         .reduce((current, prev) => current + prev, 0)
     }
 //#endregion
+
+
+//#region 5010 Sort arrays - 3
+/* 5010 Sort arrays - 3 (https://www.codewars.com/kata/sort-arrays-3/javascript)
+Description
+    This time the input is an array of course-ids that are formatted in the following way:
+      name-yymm
+    The return of the function shall first be sorted by yymm, then by the name (which varies in length).
+*/
+
+//My solution
+    // input: courses - array of course-names "name-yymm"
+    // output: sorted by "yymm", then "name"
+    sortme = function( courses ){
+      let data = (course) => {
+        course = course.split("-");
+        return course[1] + course[0]; //yymm-name
+      };
+      return courses.sort((x, y) => data(x) > data(y));
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/51f43f8dafadc31c2d0000d5/groups/5618fd4dc61724e719000068
+    const compare = (a, b) => a.slice(-4) - b.slice(-4) || a.localeCompare(b);
+    const sortme = (courses) => courses.sort(compare);
+//2) Best(2) https://www.codewars.com/kata/reviews/51f43f8dafadc31c2d0000d5/groups/5afdb02f4ca83b14d4005d55
+    function sortme(courses) {
+      const sortKey = s => s.slice(-4) + s.slice(0, -5);
+      return courses.sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+    }
+//3) Clever(3) https://www.codewars.com/kata/reviews/51f43f8dafadc31c2d0000d5/groups/5422eb79fb1d3cdd9a00078d
+    function sortme(courses) {
+      return courses.sort(function(a, b) {
+        a = a.split('-');
+        b = b.split('-');
+
+        return a[1] < b[1] ? -1
+          : a[1] > b[1] ? 1
+          : a[0].localeCompare(b[0]);
+      });
+    }
+//4) Clever(2) https://www.codewars.com/kata/reviews/51f43f8dafadc31c2d0000d5/groups/53c7c70faf7292882c0007c1
+    function sortme(courses) {
+      function swap(source) {
+          return source.replace(/(.*)-(.*)/, '$2-$1');
+      }
+
+      return courses.sort(function (a, b) {
+          return swap(a).localeCompare(swap(b));
+      });
+    }
+//#endregion
