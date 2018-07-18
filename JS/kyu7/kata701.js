@@ -615,3 +615,34 @@ Description:
 //2) Clever(8) https://www.codewars.com/kata/reviews/51f431c2afadc317f40000a7/groups/56d743cf736bd0980a00147d
     sortme = Array.sort;
 //#endregion
+
+
+//#region 7018 No oddities here
+/* 7018 No oddities here (https://www.codewars.com/kata/no-oddities-here)
+Description:
+  Write a small function that returns the values of an array that are not odd.
+  All values in the array will be integers. Return the good values in the order they are given.
+    function noOdds( values )
+*/
+
+//My solution
+    function noOdds( values ){
+      return values.filter( x => x%2 === 0);
+    }
+
+//Solution(s) I like(links):
+//1) Best(7)  https://www.codewars.com/kata/reviews/51fd6bc82bc150b28e0000d1/groups/55e889f209cc003ce70000c7
+    var noOdds = values => values.filter(x => !(x % 2));
+//2) Best(71) and Clever(35) !!Comments https://www.codewars.com/kata/reviews/51fd6bc82bc150b28e0000d1/groups/53831168051ca95b45000002
+    function noOdds( values ){
+      function isEven(number){
+      return number%2 == 0;
+      }
+
+      return values.filter(isEven);
+    }
+//3) Clever(2) https://www.codewars.com/kata/reviews/51fd6bc82bc150b28e0000d1/groups/55caa5cf6f57c78f7b00005b
+    function noOdds( values ){
+      return values.join('').match(/[24680]+/gm).map(Number)
+    }
+//#endregion
