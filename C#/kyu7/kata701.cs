@@ -606,3 +606,54 @@ Description:
       public static string[] SortMe(string[] names) => names.OrderBy(x => x).ToArray();
     }
 #endregion
+
+
+#region 7017 No oddities here
+/* 7017 No oddities here (https://www.codewars.com/kata/no-oddities-here)
+Description:
+  Write a small function that returns the values of an array that are not odd.
+  All values in the array will be integers. Return the good values in the order they are given.
+    NoOdds(int[] values)
+*/
+
+//My solution
+    using System;
+    using System.Linq;
+
+    public class NoOddities
+    {
+        public static int[] NoOdds(int[] values)
+        {
+            return values.Where(x => (x % 2 == 0)).ToArray();
+        }
+    }
+
+//Solution(s) I like(links):
+//1) Best(3)  https://www.codewars.com/kata/reviews/599e3b82802d6a14db0032ce/groups/599ea745e50047f488002a02
+    using System.Linq;
+
+    public class NoOddities
+    {
+        public static int[] NoOdds(int[] values) =>
+          values.Where(v => v % 2 == 0).ToArray();
+    }
+//2) Clever(1) https://www.codewars.com/kata/reviews/599e3b82802d6a14db0032ce/groups/59a30f2ef7033047d4000be2
+    using System.Collections.Generic;
+
+    public class NoOddities
+    {
+        public static int[] NoOdds(int[] values)
+        {
+            // Code??
+            List<int> list = new List<int>();
+
+            foreach(var i in values){
+              if(i % 2 == 0)
+              {
+                list.Add(i);
+              }
+            }
+            return list.ToArray();
+        }
+    }
+#endregion
