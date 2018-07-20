@@ -575,3 +575,60 @@ Description
       });
     }
 //#endregion
+
+
+//#region 5011 Calculate age in years
+/* 5011 Calculate age in years (https://www.codewars.com/kata/calculate-age-in-years)
+    Description
+    Complete the following function that will return the difference in years (age) for a birthdate, and optionally a "now" date. Both arguments to the function are expected to be Date objects. The returned difference can be either positive or negative.
+
+      getAge(new Date('1980/01/01')) === 33 // assuming today's date is 2013/08/01
+      getAge(new Date('1913/01/01'), new Date('2013/01/01') === 100
+      getAge(new Date('2008/02/29'), new Date('2032/03/01')) === 24
+      getAge(new Date('2008/01/01'), new Date('2000/01/01')) === -8
+*/
+
+//My solution
+    function getAge(birthDate, nowDate = new Date()) {
+      let years = (nowDate.getFullYear() - birthDate.getFullYear());
+
+      //if birtmonth > current, then less then year
+      // same if the same month but birthday > current day
+      if (nowDate.getMonth() < birthDate.getMonth() ||
+              (nowDate.getMonth() == birthDate.getMonth() && nowDate.getDate() < birthDate.getDate())) {
+              years--;
+      }
+
+      return years;
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/521660e064dc2ccdd9000090/groups/568c332e51ac93e72c00005e
+    function getAge(birthDate, nowDate) {
+      var currentDate = nowDate || new Date();
+
+      var differenceInMs = currentDate - birthDate;
+      var years = Math.round(differenceInMs/1000) / 31536000;
+      var currentMonth = currentDate.getMonth();
+      var birthMonth = birthDate.getMonth();
+      var currentDay = currentDate.getDate();
+      var birthDay = birthDate.getDate();
+
+      //if both birth month and birth day are less than current month and current day, subtract one from age
+      if (currentDay < birthDay && currentMonth === birthMonth) {
+          years--;
+      }
+      return Math.round(years);
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/521660e064dc2ccdd9000090/groups/56ac06539f22f5bca300004c
+    function getAge(birthDate, nowDate) {
+      nowDate = nowDate || new Date();
+      var b = birthDate.getFullYear();
+      var n = nowDate.getFullYear();
+      birthDate.setYear(n);
+      if(birthDate <= nowDate)
+        return n-b;
+      else
+        return n-b-1;
+    }
+//#endregion
