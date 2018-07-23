@@ -976,3 +976,51 @@ Description:
     }
 //5) Clever(25) https://www.codewars.com/kata/reviews/5226eb41316b56c8d5000312/groups/53860d2ec25c8a4743000eb3
 //#endregion
+
+
+//#region 6018 Convert string to camel case
+/* 6018 Convert string to camel case (https://www.codewars.com/kata/convert-string-to-camel-case)
+Description:
+   Complete the method/function so that it converts dash/underscore delimited words into camel casing. The first word within the output should be capitalized only if the original word was capitalized.
+   Examples
+      toCamelCase("the-stealth-warrior") // returns "theStealthWarrior"
+      toCamelCase("The_Stealth_Warrior") // returns "TheStealthWarrior"
+*/
+
+//My solution
+    function toCamelCase(str){
+      //use regex - OR _ in split
+      let str2=str.split(/-|_/).map( (el,i) => i!==0 ? capitalize(el) : el);
+      return str2.join('');
+    }
+
+    function capitalize(s)
+    {
+        return s && s[0].toUpperCase() + s.slice(1); //check that s NOT undefined
+    }
+
+//Solution(s) I like(links):
+//1) Best(117) and Clever(172) !!Comments https://www.codewars.com/kata/reviews/517ac19d203167a17e000003/groups/53fef64ad5679b33da001542
+    function toCamelCase(str){
+      var regExp=/[-_]\w/ig;
+      return str.replace(regExp,function(match){
+            return match.charAt(1).toUpperCase();
+      });
+    }
+//2) Best(38) and Clever(137) !!Comments  https://www.codewars.com/kata/reviews/517ac19d203167a17e000003/groups/55cec7d68e58cbe04e00002c
+    function toCamelCase(str){
+      return str.replace(/[-_](.)/g, (_, c) => c.toUpperCase());
+    }
+//3) Best(6) Comments https://www.codewars.com/kata/reviews/517ac19d203167a17e000003/groups/58547b40ebb06fa14b000cee
+  function toCamelCase(str){
+    return str.split(/-|_/g).map((w, i) => (i > 0 ? w.charAt(0).toUpperCase() : w.charAt(0)) + w.slice(1)).join('');
+  }
+//4) Best(6) Comment https://www.codewars.com/kata/reviews/517ac19d203167a17e000003/groups/58c93ae3b85ea08f32000dd3
+    function toCamelCase(str){
+      return str.replace(/([-_])(\w)/g, function(match,dash,letter) { return letter.toUpperCase() });
+    }
+//5) Clever(10) https://www.codewars.com/kata/reviews/517ac19d203167a17e000003/groups/54593a4dcbae2ac6bd000b14
+    function toCamelCase(str) {
+      return str.replace(/[_-][A-Za-z]/g, function(match) {return match[1].toUpperCase();});
+    }
+//#endregion
