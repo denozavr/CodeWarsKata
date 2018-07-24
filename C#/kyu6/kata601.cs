@@ -788,3 +788,66 @@ Description:
       }
     }
 #endregion
+
+#region 6014 Convert string to camel case
+/* 6014 Convert string to camel case (https://www.codewars.com/kata/convert-string-to-camel-case)
+Description:
+   Complete the method/function so that it converts dash/underscore delimited words into camel casing. The first word within the output should be capitalized only if the original word was capitalized.
+   Examples
+      Kata.ToCamelCase("the-stealth-warrior") // returns "theStealthWarrior"
+      Kata.ToCamelCase("The_Stealth_Warrior") // returns "TheStealthWarrior"
+*/
+
+//My solution
+    using System;
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+      public static string ToCamelCase(string str)
+      {
+        return Regex.Replace(str, "(_|-).", m => m.ToString().ToUpper().Substring(1));
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(50) and Clever(92) https://www.codewars.com/kata/reviews/56a1b59095c3754fe3000076/groups/56a1b59095c3754fe300007b
+    using System;
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+      public static string ToCamelCase(string str)
+      {
+        return Regex.Replace(str, @"[_-](\w)", m => m.Groups[1].Value.ToUpper());
+      }
+    }
+//2) Best(24) and Clever(19) https://www.codewars.com/kata/reviews/56a1b59095c3754fe3000076/groups/56a4eea88cf57eb68900004f
+  using System;
+  using System.Linq;
+
+  public class Kata
+  {
+    public static string ToCamelCase(string str)
+    {
+      return string.Concat(str.Split('-','_').Select((s, i) => i > 0 ? char.ToUpper(s[0]) + s.Substring(1) : s));
+    }
+  }
+//3) Best(11) https://www.codewars.com/kata/reviews/56a1b59095c3754fe3000076/groups/577e5261d648a185c7000396
+    using System;
+    using System.Text;
+
+    public class Kata
+    {
+      public static string ToCamelCase(string str)
+      {
+        var sb = new StringBuilder();
+        for (int i = 0; i < str.Length; i++)
+        {
+          if (str[i] != '-' && str[i] != '_') sb.Append(str[i]);
+          else sb.Append(char.ToUpper(str[++i]));
+        }
+        return sb.ToString();
+      }
+    }
+#endregion
