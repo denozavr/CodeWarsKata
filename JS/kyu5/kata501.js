@@ -632,3 +632,64 @@ Description
         return n-b-1;
     }
 //#endregion
+
+
+//#region 5012 Object extend
+/* 5012 Object extend (https://www.codewars.com/kata/object-extend)
+    Description
+    Let's make a function that returns a new object, containing all of the properties of any objects passed in as parameters.
+    The returned object should include the first instance of each property seen on any parameter object, and any other instance of that property should be ignored.
+    Also, if any parameter is not an object, it should be ignored. You can use the function isObject(object) to determine if a parameter is an object or not (it will return true or false).
+
+      extend( {a: 1, b: 2}, {c: 3} ) // should === {a: 1, b: 2, c: 3}
+      extend( {a: 1, b: 2}, {c: 3}, {d: 4} ) // should === {a: 1, b: 2, c: 3, d: 4}
+      extend( {a: 1, b: 2}, {a: 3, c: 3} ) // should  === {a: 1, b: 2, c: 3}
+      extend( {a: false, b: null}, {a: true, b: 2, c: 3} ) // should  === {a: false, b: null, c: 3}
+*/
+
+//My solution
+    let extend = function() {
+      let args = Array.from(arguments);
+      //args = args.filter(obj => isObject(obj));
+      //null and array is also objects, so we will exclude them just in case
+      args = args.filter(obj => typeof obj === "object" && obj !== null && !Array.isArray(obj));
+      return Object.assign({},...args.reverse()); //reverse to change objects places 1,2 to 2,1 so then
+      //2nd object don't rewrite 1st object values
+    }
+
+//Solution(s) I like(links):
+//1) Best(7) and Clever(27) https://www.codewars.com/kata/reviews/51f9d3a6e5a42591ae0001ee/groups/56f697e89400f5b7d8000b25
+    function extend(...args) {
+      return Object.assign({}, ...args.filter(Object.isObject).reverse());
+    }
+//2) Clever(31) https://www.codewars.com/kata/reviews/51f9d3a6e5a42591ae0001ee/groups/53bf2eb336c1e88745000339
+    var extend = function() {
+      var combined = {};
+      Array.prototype.slice.call(arguments).filter(isObject).reduceRight(function(i,obj){
+        Object.keys(obj).forEach(function(k){combined[k] = obj[k]})
+      },null);
+      return combined;
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/51f9d3a6e5a42591ae0001ee/groups/581818b2d4f64fdbfe000013
+    const extend = function(...args) {
+      const result = args
+          .reverse()
+          .reduce((acc, next) => {
+              return typeof next === 'object'
+                  ? Object.assign(acc, next)
+                  : acc;
+          }, {});
+      return result;
+    }
+//4) Best(2) https://www.codewars.com/kata/reviews/51f9d3a6e5a42591ae0001ee/groups/522f6ac8a4f4ea637e0000ef
+    var extend = function() {
+      var ret = {};
+      for (var i=0, n=arguments.length; i < n; i++) {
+        if (!isObject(arguments[i])) continue;
+        for (var j in arguments[i]) {
+          if (!(j in ret)) ret[j] = arguments[i][j];
+        }
+      }
+      return ret;
+    }
+//#endregion
