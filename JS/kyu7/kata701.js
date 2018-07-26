@@ -646,3 +646,35 @@ Description:
       return values.join('').match(/[24680]+/gm).map(Number)
     }
 //#endregion
+
+
+//#region 7019 Limit string length - 1
+/* 7019 Limit string length - 1 (https://www.codewars.com/kata/limit-string-length-1)
+Description:
+  Complete the solution, so that it returns the truncated version of the string followed by '...'.
+
+  Example:
+    solution('Testing String',3) // should return 'Tes...'
+    solution('Testing String',8) // should return 'Testing ...'
+    solution('Test',8) // should return 'Test'
+*/
+
+//My solution
+    const solution = (str,limit) => {
+      let x = str.substr(0,limit);
+      return str.length > limit ? x + '...' : x;
+    };
+
+//Solution(s) I like(links):
+//1) Best(36) Comment https://www.codewars.com/kata/reviews/5208fc3cb613bc725f000145/groups/5208fc3cb613bc725f000144
+    function solution(string,limit){
+      return string.length > limit ? string.substr(0,limit) + "..." : string;
+    }
+//2) Best(8) https://www.codewars.com/kata/reviews/5208fc3cb613bc725f000145/groups/526084359a0022cfa2001608
+    function solution(string, limit){
+      return string.length > limit ? string.slice(0, limit) + '...' : string;
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/5208fc3cb613bc725f000145/groups/59845b8d472d85db7900008f
+    const solution=(s,l)=>(s.length<=l)?s:s.substr(0,l)+'...';
+
+//#endregion
