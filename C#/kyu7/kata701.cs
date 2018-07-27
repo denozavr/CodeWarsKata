@@ -657,3 +657,42 @@ Description:
         }
     }
 #endregion
+
+#region 7018 Limit string length - 1
+/* 7018 Limit string length - 1 (https://www.codewars.com/kata/limit-string-length-1)
+Description:
+  Complete the solution, so that it returns the truncated version of the string followed by '...'.
+
+  Example:
+    solution('Testing String',3) // should return 'Tes...'
+    solution('Testing String',8) // should return 'Testing ...'
+    solution('Test',8) // should return 'Test'
+*/
+
+//My solution
+    public class Kata
+    {
+      public static string Limit(string text, int limit)
+      {
+        return text.Length > limit ? text.Substring(0,limit)+"...": text;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Clever(1) https://www.codewars.com/kata/reviews/5990b46635fd2f1876000104/groups/5abab912ad6ce807fa000075
+    using System.Linq;
+
+    public class Kata
+    {
+      public static string Limit(string text, int limit)
+      {
+        return string.Concat(text.Take(limit)) + (limit < text.Length ? "..." : "");
+      }
+    }
+//2) Best(1) https://www.codewars.com/kata/reviews/5990b46635fd2f1876000104/groups/5ac52bddcd661b4d520012d7
+    public static string Limit(string text, int limit)
+    {
+      return text == null || text.Length <= limit ? text : text.Substring(0, limit) + "...";
+    }
+
+#endregion
