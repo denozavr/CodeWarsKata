@@ -647,3 +647,28 @@ Description:
     }
 
 //#endregion
+
+
+//#region 8020 Convert boolean values to strings 'Yes' or 'No'.
+/* 8020 Convert boolean values to strings 'Yes' or 'No'. (https://www.codewars.com/kata/convert-boolean-values-to-strings-yes-or-no)
+Description:
+    Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.
+*/
+
+//My solution
+    function boolToWord( bool ){
+      return bool ? 'Yes' : 'No';
+    }
+
+//Solutions I like:
+//1) Best(19) Comment https://www.codewars.com/kata/reviews/54a59ef00c96357db90000e9/groups/55c218f58eac0bb52f00003a
+    let boolToWord = bool => bool ? 'Yes' : 'No'; //USE CONST for functions
+    const boolToWord = bool => bool ? 'Yes' : 'No';
+//2)Clever(75) !!Comment https://www.codewars.com/kata/reviews/54a59ef00c96357db90000e9/groups/54af3d12512faf268b0016bb
+    function boolToWord( bool ){
+      return ['No','Yes'][+bool];
+    }
+
+//#endregion
+
+
