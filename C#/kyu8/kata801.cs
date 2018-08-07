@@ -445,3 +445,40 @@ Description:
         return String.Format("Hello, {0}! Welcome to {1}, {2}!", String.Join(" ", name), city, state);
     }
 #endregion
+
+#region 8015 Convert boolean values to strings 'Yes' or 'No'.
+/* 8015 Convert boolean values to strings 'Yes' or 'No'. (https://www.codewars.com/kata/convert-boolean-values-to-strings-yes-or-no)
+Description:
+    Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.
+*/
+
+//My solution
+    using System;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static string boolToWord(bool word)
+      {
+        return word ?  "Yes" : "No";
+      }
+    }
+
+//Solutions I like:
+//1) Best(5) https://www.codewars.com/kata/reviews/5516e34e236c88afb300002c/groups/56fd0402c5957ce7b50008e1
+    public static string boolToWord(bool word) => word ? "Yes": "No";
+//2)Clever(2) https://www.codewars.com/kata/reviews/5516e34e236c88afb300002c/groups/551712f2236c88ba110003b1
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string boolToWord(bool word)
+      {
+        var dict = new Dictionary<bool,string>{{true,"Yes"},{false,"No"}};
+        return dict[word];
+      }
+    }
+
+#endregion
