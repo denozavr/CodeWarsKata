@@ -678,3 +678,54 @@ Description:
     const solution=(s,l)=>(s.length<=l)?s:s.substr(0,l)+'...';
 
 //#endregion
+
+//#region 7020 Adding useful functional functionality to JavaScript arrays
+/* 7020 Adding useful functional functionality to JavaScript arrays (https://www.codewars.com/kata/adding-useful-functional-functionality-to-javascript-arrays)
+Description:
+    The JavaScript standard now includes functional additions to array like map, filter and reduce, but sadly is missing the convenience functions range and sum . Implement a version of range and sum (which you can then copy and use in your future Kata to make them smaller).
+
+    Array.range(start, count) should return an array containing 'count' numbers from 'start' to 'start + count' Example: Array.range(0, 3) returns [0, 1, 2]
+
+    Array.sum() return the sum of all numbers in the array Example: [0, 1, 2].sum() returns 3 Example: Array.range(-1,4).sum() should return 2
+
+    While not forbidden try to write both function without using a for loop
+*/
+
+//My solution
+    Array.range = function(start, count) {
+      return new Array(count).fill(0).map((_,i)=> start+i);
+    }
+
+    Array.prototype.sum = function() {
+      return this.reduce((a,b) => a+b,0); //0 is inital array value
+    }
+
+//Solution(s) I like(links):
+//1) Best(24) https://www.codewars.com/kata/reviews/52195c9bb576caf142000082/groups/5385ef73c25c8a6c79000b1f
+    Array.range = function(start, count) {
+      return Array.apply(null, Array(count)).map(function(e, i) {
+        return start + i;
+      });
+    }
+
+    Array.prototype.sum = function() {
+      return this.reduce(function(prev, next) {
+        return prev + next;
+      }, 0);
+    }
+//2) Best(7) https://www.codewars.com/kata/reviews/52195c9bb576caf142000082/groups/545047c32433c328a7000828
+    Array.range = function(start, count) {
+      var arr = [];
+      while (count >0){
+          arr.push(start++);
+          count--;
+      }
+      return arr;
+    };
+
+    Array.prototype.sum = function() {
+      return this.reduce(function(a,b){
+          return a + b;
+      }, 0);
+    };
+//#endregion
