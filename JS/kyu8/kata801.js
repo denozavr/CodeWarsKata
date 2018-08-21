@@ -672,3 +672,38 @@ Description:
 //#endregion
 
 
+//#region 8021 A function within a function
+/* 8021 A function within a function (https://www.codewars.com/kata/a-function-within-a-function)
+Description:
+    Given an input n, write a function always that returns a function which returns n. Ruby should return a lambda or a proc.
+
+      var three = always(3);
+      three(); // returns 3
+*/
+
+//My solution
+    // return a function that returns n
+    function always (n) {
+      return () => n; // return function() {return n;}
+    }
+
+//Solutions I like:
+//1) Best(126) Comment https://www.codewars.com/kata/reviews/5384415edc18463de10003c5/groups/53848671cd619eff1f000007
+    function always(n) {
+
+      return function () { return n };
+
+    }
+//2) Best(11) https://www.codewars.com/kata/reviews/5384415edc18463de10003c5/groups/55fdc7476731f6caf00000ad
+    let always = n => () => n;
+//3) Clever(3) Comment https://www.codewars.com/kata/reviews/5384415edc18463de10003c5/groups/53f79b570b04a0c8eb0001d2
+    function always (n) {
+      function reallyAlways () {
+        return n;
+      }
+    return reallyAlways;
+    }
+// 4) Clever(4) https://www.codewars.com/kata/reviews/5384415edc18463de10003c5/groups/570ba20302379938f400156a
+    var always=L=>O=>L
+//#endregion
+
