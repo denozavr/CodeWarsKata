@@ -482,3 +482,41 @@ Description:
     }
 
 #endregion
+
+#region 8016 A function within a function
+/* 8016 A function within a function (https://www.codewars.com/kata/a-function-within-a-function)
+Description:
+    Given an input n, write a function always that returns a function which returns n. Ruby should return a lambda or a proc.
+
+      Func<int> three = Kata.Always(3);
+      three(); // returns 3
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static Func<int> Always(int n)
+      {
+        Func<int> innerFunc = () => n; // Func<int> innerFunc = () => {return n;};
+        return innerFunc;
+      }
+}
+
+//Solutions I like:
+//1) Best(4) https://www.codewars.com/kata/reviews/5995891e7c6af8db99002934/groups/5995893a7c6af8db9900293a
+    public static Func<int> Always(int n) =>
+        () => n;
+//2) Best(2) https://www.codewars.com/kata/reviews/5995891e7c6af8db99002934/groups/5a066978b908205991000ac5
+      public static Func<int> Always(int n)
+      {
+        Func<int> second = delegate()
+        {
+          return n;
+        };
+        return second;
+      }
+//3) Clever(1) https://www.codewars.com/kata/reviews/5995891e7c6af8db99002934/groups/5a197d6681a2aea9560003d6
+    public static Func<int> Always(int n) => delegate() {return n;};
+#endregion
