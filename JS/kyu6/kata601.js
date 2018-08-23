@@ -1067,3 +1067,59 @@ Description:
 //3) Clever(3)    https://www.codewars.com/kata/reviews/523878615b438c1c450003bd/groups/5885433465fc9c5e99001806
     swapper = (a, b) => [b, a]
 //#endregion
+
+
+//#region 6020 Complete Fibonacci Series
+/* 6020 Complete Fibonacci Series (https://www.codewars.com/kata/complete-fibonacci-series)
+Description:
+  The function 'fibonacci' should return an array of fibonacci numbers. The function takes a number as an argument to decide how many no. of elements to produce. If the argument is less than or equal to 0 then return empty array
+
+  Example:
+      fibonacci(4); // should return [0,1,1,2]
+      fibonacci(-1); // should return []
+*/
+
+//My solution
+    function fibonacci(n) {
+      if(n<=0) return [];
+
+      let fibArr = [0, 1]
+      for (let i = 2; i < n; i++ ) {
+        fibArr.push( fibArr[i - 1] + fibArr[i - 2] )
+      }
+      return fibArr;
+    }
+
+
+
+//Solution(s) I like(links):
+//1)  Clever(26) Comment https://www.codewars.com/kata/reviews/5239f06d20eeab9deb00049e/groups/53a723963d87dd9660000d78
+    function fibonacci(n) {
+      if (n <= 0) return [];
+      if (n == 1) return [0];
+      if (n == 2) return [0,1];
+      var res = fibonacci(n-1);
+      res.push(res[res.length-1] + res[res.length-2]);
+      return res;
+  }
+//2) Best(5) https://www.codewars.com/kata/reviews/5239f06d20eeab9deb00049e/groups/54730e174481cff8c3000aaa
+    function fibonacci(n) {
+      if (n > 0) {
+        var results = [0]
+        for (var _i = 1; _i <= n -1; _i += 1) {
+          if (_i > 2) {
+            results.push(results[_i - 1] + results[_i - 2]);
+          } else {
+            results.push(1);
+          }
+        }
+        return results;
+      } else {
+        return [];
+      }
+    }
+//3) Clever(8) Comment https://www.codewars.com/kata/reviews/5239f06d20eeab9deb00049e/groups/53876feb92a539f1250000a6
+  function fibonacci(n) {
+    return [0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765].slice(0,n>0?n:0);
+  }
+//#endregion
