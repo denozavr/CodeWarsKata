@@ -729,3 +729,63 @@ Description:
       }, 0);
     };
 //#endregion
+
+//#region 7021 True Min
+/* 7021 True Min (https://www.codewars.com/kata/true-min)
+Description:
+  The Math.min function has stopped working, so we have to use our own function. We are off to a good start, but this function doesn't seem to handle everything properly. Add in the proper checks to return NaN for anything that isn't an actual number, except treat null like 0.
+  Note: This min function need not handle more than two arguments.
+
+      function min(a, b){
+        return (a<b)?a:b;
+      }
+*/
+
+//My solution
+    function min(a, b){
+      //Use === everywhere, otherwise Kata won't pass
+      if(a === null) a=0;
+      if(b === null) b=0;
+
+      return ( (isNaN(a) || isNaN(b)) || (typeof a === 'undefined' || typeof b === 'undefined') )
+              ? NaN : (a<b )?a:b;
+    }
+
+//Solution(s) I like(links):
+//1) Best(10) Comment https://www.codewars.com/kata/reviews/52378b3ee72f21e1ea000048/groups/531745f8a2741ee852000b8e
+    function min(a, b){
+      return (isNaN(a) || isNaN(b)) ? NaN : ((a < b) ? +a : +b);
+    }
+//2) Best(10) and Clever (15) !Comments https://www.codewars.com/kata/reviews/52378b3ee72f21e1ea000048/groups/53c328e8415a703ed4000285
+    function min(a, b){
+      a === null && (a = 0);
+      b === null && (b = 0);
+      if (isNaN(a) || isNaN(b)) { return NaN; }
+      return (a < b) ? a : b;
+    }
+//3) Best(3) https://www.codewars.com/kata/reviews/52378b3ee72f21e1ea000048/groups/53a991eda9198e4f4c000e88
+    function min(a, b){
+      if(a === null){
+        a = 0;
+      }
+      if(b === null){
+        b = 0;
+      }
+
+      if(typeof a === "number" && typeof b === "number"){
+        if(!isNaN(a) && !isNaN(b)){
+          return (a < b) ? a : b
+        }
+      }
+
+      return NaN;
+    }
+//4) Clever(2) !Comments https://www.codewars.com/kata/reviews/52378b3ee72f21e1ea000048/groups/524e3d4f77e06bdc01000470
+    function min(a, b){
+      return !isNaN(a) && !isNaN(b) ? ((a<b)?a:b)+0 : 'NaN';
+    }
+//5) Clever(3) Comment https://www.codewars.com/kata/reviews/52378b3ee72f21e1ea000048/groups/524e702877e06bac89000709
+    min = function(a, b) {
+      return -Math.max(-a, -b);
+    }
+//#endregion
