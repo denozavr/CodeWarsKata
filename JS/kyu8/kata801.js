@@ -707,3 +707,48 @@ Description:
     var always=L=>O=>L
 //#endregion
 
+//#region 8022 Swap Values
+/* 8022 Swap Values (https://www.codewars.com/kata/swap-values)
+Description:
+  I would like to be able to pass an array with two elements to my swapValues function to swap the values. However it appears that the values aren't changing.
+
+  Can you figure out what's wrong here?
+  function swapValues() {
+    var args = Array.prototype.slice.call(arguments);
+    var temp = args[0];
+    args[0] = args[1];
+    args[1] = temp;
+  }
+*/
+
+//My solution
+    function swapValues(args) { //!!args should be as argument, otherwise don't pass
+      //ES 6(2015) swapping
+      [args[0], args[1]] = [args[1], args[0]]
+    }
+
+//Solutions I like:
+//1) Best(45) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/53891be4443aae967d0012c4
+    function swapValues(args) {
+      var temp = args[0];
+      args[0] = args[1];
+      args[1] = temp;
+    }
+//2) Clever(151) !!COmment(7) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/5388f479443aae9042001081
+    function swapValues() {
+      return arguments[0].reverse();
+    }
+//3) Best(6) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/53890cab0b24c5058400119c
+    function swapValues() {
+      var args = arguments[0];
+      var temp = args[0];
+      args[0] = args[1];
+      args[1] = temp;
+    }
+//4) Clever(25) Comment(2) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/53aa198a5f136177a600069c
+    function swapValues(args) {
+      args[1] = [args[0], args[0] = args[1]][0];
+    }
+//5) Clever(7) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/538bec531779e3ffab00012e
+    function swapValues(a){a.reverse()}
+//#endregion
