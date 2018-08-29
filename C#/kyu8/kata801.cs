@@ -520,3 +520,94 @@ Description:
 //3) Clever(1) https://www.codewars.com/kata/reviews/5995891e7c6af8db99002934/groups/5a197d6681a2aea9560003d6
     public static Func<int> Always(int n) => delegate() {return n;};
 #endregion
+
+#region 8017 Swap Values
+/* 8017 Swap Values (https://www.codewars.com/kata/swap-values)
+Description:
+  I would like to be able to pass an array with two elements to my swapValues function to swap the values. However it appears that the values aren't changing.
+
+  Can you figure out what's wrong here?
+*/
+//Original code
+    public class Swapper
+    {
+        public object[] Arguments { get; private set; }
+
+        public Swapper(object[] args)
+        {
+            Arguments = args;
+        }
+
+        public void SwapValues()
+        {
+            object[] args = new[] { Arguments[0], Arguments[1] };
+
+            object temp = args[0];
+            args[0] = args[1];
+            args[1] = temp;
+        }
+    }
+
+
+//My solution
+    public class Swapper
+    {
+        public object[] Arguments { get; private set; }
+
+        public Swapper(object[] args)
+        {
+            Arguments = args;
+        }
+
+        public void SwapValues()
+        {
+          object[] args = new[] { Arguments[0], Arguments[1] };
+
+            object temp = args[0];
+            args[0] = args[1];
+            args[1] = temp;
+
+            Arguments = args; //this line solve the error
+        }
+    }
+
+//Solutions I like:
+//1) Best(5) https://www.codewars.com/kata/reviews/57e40912bb57574d00000037/groups/57e40913bb57574d0000003b
+    public void SwapValues()
+    {
+        object temp = Arguments[0];
+        Arguments[0] = Arguments[1];
+        Arguments[1] = temp;
+    }
+//2) Clever(3) https://www.codewars.com/kata/reviews/57e40912bb57574d00000037/groups/580a9f9a9be619494a0014a8
+    public void SwapValues()
+    {
+        System.Array.Reverse(Arguments);
+    }
+//3) Clever(1) https://www.codewars.com/kata/reviews/57e40912bb57574d00000037/groups/5a3d51738ce8c87e04000e63
+    using System.Linq;
+
+    public class Swapper
+    {
+        public object[] Arguments { get; private set; }
+
+        public Swapper(object[] args)
+        {
+            Arguments = args;
+        }
+
+        public void SwapValues()
+        {
+            Arguments = Arguments.Reverse().ToArray();
+        }
+    }
+//4) Best(1) https://www.codewars.com/kata/reviews/57e40912bb57574d00000037/groups/5977ace1abe74a997100030d
+    public void SwapValues()
+    {
+        object[] args = new[] { Arguments[0], Arguments[1] };
+
+        Arguments[0] = args[1];
+        Arguments[1] = args[0];
+    }
+
+#endregion
