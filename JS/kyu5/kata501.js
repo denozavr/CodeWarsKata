@@ -693,3 +693,55 @@ Description
       return ret;
     }
 //#endregion
+
+
+//#region 5013 Compose functions (T Combinator)
+/* 5013 Compose functions (T Combinator) (https://www.codewars.com/kata/compose-functions-t-combinator)
+Description
+  Let's make a function called compose that accepts a value as a parameter, as well as any number of functions as additional parameters.
+
+  The function will return the value that results from the first parameter being used as a parameter for all of the accepted function parameters in turn. So:
+
+      var doubleTheValue = function(val) { return val * 2; }
+      var addOneToTheValue = function(val) { return val + 1; }
+
+      compose(5, doubleTheValue) // should === 10
+      compose(5, doubleTheValue, addOneToTheValue) // should === 11
+  If only a single parameter is passed in, return that parameter.
+*/
+
+//My solution
+    var compose = function() {
+      var args = [...arguments];
+
+      if(arguments.length==1) { return args[0]; }
+
+      for(let i=1; i <arguments.length; i++) {
+        args[0]=arguments[i](args[0]);
+      }
+      return args[0];
+    }
+
+//Solution(s) I like(links):
+//1) Best(23) https://www.codewars.com/kata/reviews/51f9d729e5a42566ee00020c/groups/521ad6b3423f17a625000047
+    var compose = function(value) {
+      for(var i = 1 ; i< arguments.length ; i++) {
+        value = arguments[i](value);
+      }
+      return value;
+    }
+//2) Clever(20) https://www.codewars.com/kata/reviews/51f9d729e5a42566ee00020c/groups/55be076bbf426225e1000034
+    const compose = (x, ...fs) => fs.reduce((a, f) => f(a), x);
+//3) Best(14) https://www.codewars.com/kata/reviews/51f9d729e5a42566ee00020c/groups/5219493ba54c32453a000058
+    var compose = function(input) {
+      return [].slice.call(arguments, 1)
+        .reduce(function (acc, fn) {
+          return fn(acc);
+        }, input);
+    }
+//4) Clever(3) https://www.codewars.com/kata/reviews/51f9d729e5a42566ee00020c/groups/544e7f732d7b7611820006c0
+  function compose(val) {
+    [].slice.call(arguments, 1).forEach(function(fn) {val = fn(val);});
+    return val;
+  }
+//#endregion
