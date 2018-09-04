@@ -1123,3 +1123,46 @@ Description:
     return [0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765].slice(0,n>0?n:0);
   }
 //#endregion
+
+//#region 6021 Array.diff
+/* 6021 Array.diff (https://www.codewars.com/kata/array-dot-diff)
+Description:
+  Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+  It should remove all values from list a, which are present in list b.
+      array_diff([1,2],[1]) == [2]
+  If a value is present in b, all of its occurrences must be removed from the other:
+
+      array_diff([1,2,2,2,3],[2]) == [1,3]
+*/
+
+//My solution
+    function array_diff(a, b) {
+      //ES7 Include method
+      return  a.filter(x => !b.includes(x));
+    }
+
+//Solution(s) I like(links):
+//1) Best(292) And Clever(191) !!Comment https://www.codewars.com/kata/reviews/523f5d21c841566fde00000c/groups/52403dca0f1d9c4fe100017b
+    function array_diff(a, b) {
+      return a.filter(function(x) { return b.indexOf(x) == -1; });
+    }
+//2) Best(25) https://www.codewars.com/kata/reviews/523f5d21c841566fde00000c/groups/54d5a7362a5e54cf97000a09
+    function array_diff(a, b) {
+
+      var arr = new Array();
+
+      for(var i = 0;i<a.length;i++){
+          if(b.indexOf(a[i])<0){
+              arr.push(a[i]);
+          }
+      }
+
+      return arr;
+    }
+//3) Best(15) & Clever(9) https://www.codewars.com/kata/reviews/523f5d21c841566fde00000c/groups/58a8cdf460bde0d33b00144a
+    function array_diff(a, b) {
+      b = new Set(b)
+      return a.filter(v => !b.has(v))
+      //return a.map(x => !set.has(x) ? x : null).filter(x => x);
+    }
+//#endregion
