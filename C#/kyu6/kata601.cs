@@ -851,3 +851,70 @@ Description:
       }
     }
 #endregion
+
+#region 6015 Array.diff
+/* 6015 Array.diff (https://www.codewars.com/kata/array-dot-diff)
+Description:
+  Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+  It should remove all values from list a, which are present in list b.
+      Kata.ArrayDiff(new int[] {1, 2}, new int[] {1}) => new int[] {2}
+  If a value is present in b, all of its occurrences must be removed from the other:
+      Kata.ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
+*/
+
+//My solution
+    using System.Linq;
+
+    public class Kata
+    {
+      public static int[] ArrayDiff(int[] a, int[] b)
+      {
+        return a.Where(x => !b.Contains(x)).ToArray();
+        // int[] c = a.Except<int>(b).ToArray(); ///this will return a SET of elements from A that are not in B
+        //return a.Where(p => c.Contains(p)).ToArray();
+      }
+    }
+//Solution(s) I like(links):
+//1) Best(12) And Clever(36)  https://www.codewars.com/kata/reviews/59aae2e33490695eae001027/groups/59aae2f53490695eae00102b
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Kata
+    {
+      public static int[] ArrayDiff(int[] a, int[] b)
+      {
+        // With a hashset, we won't have to iterate over b for every item in a.
+        // Instead, we can check if an item exists in constant time
+        HashSet<int> bSet = new HashSet<int>(b);
+
+        return a.Where(v => !bSet.Contains(v)).ToArray();
+      }
+    }
+//2) Best(6) https://www.codewars.com/kata/reviews/59aae2e33490695eae001027/groups/5a218a9dd1fb30910a001eaa
+    using System;
+    using System.Collections.Generic;
+
+    public class Kata
+    {
+      public static int[] ArrayDiff(int[] a, int[] b)
+      {
+        var sb = new HashSet<int>(b);
+        return Array.FindAll(a, x => !sb.Contains(x));
+      }
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/59aae2e33490695eae001027/groups/5b739471ff788c714b002ac1
+    using System.Linq;
+    public class Kata
+    {
+      public static int[] ArrayDiff(int[] a, int[] b)
+      {
+        var result = a.ToList();
+                foreach(var single in b)
+                {
+                    result.RemoveAll(x => x.Equals(single));
+                }
+                return result.ToArray();
+      }
+    }
+
+#endregion
