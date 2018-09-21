@@ -789,3 +789,45 @@ Description:
       return -Math.max(-a, -b);
     }
 //#endregion
+
+
+//#region 7022 (Don't) Make Me Repeat Myself
+/* 7022 (Don't) Make Me Repeat Myself (https://www.codewars.com/kata/dont-make-me-repeat-myself)
+Description:
+  You're working on some interesting console application and you want to line up some of your lines just right. A lot of your data is nested down so you've got code like this all over:
+
+      console.log('Root ->');
+      console.log('    Sub-node');
+      console.log('    Sub-node->');
+      console.log('        Sub-sub-node');
+      ...
+  but that just looks terrible and doesn't scale well for variable levels of nesting. Oh, if only you could write something more like:
+
+      console.log('Root->');
+      console.log(' '.repeat(4) + 'Sub-node');
+      console.log(' '.repeat(4) + 'Sub-node->');
+      console.log(' '.repeat(8) + 'Sub-sub-node');
+      ...
+  Oh, that's right. You can.
+
+  for loops are cool, I guess. Other kinds of solutions are a lot cooler.
+*/
+
+//My solution
+    String.prototype.repeat = function(count) {
+      if (count < 1) return '';
+      return Array(count+1).join(this); //empty elements so last 1 dissapear durin JOIN (so count+1)
+    };
+
+//Solution(s) I like(links):
+//0) almost same as mine https://www.codewars.com/kata/reviews/5241de3d8d333fefe30006a4/groups/52421baf8fb2a8d8e60003ce
+//1) Clever(33) Comment https://www.codewars.com/kata/reviews/5241de3d8d333fefe30006a4/groups/524300418fb2a8cf13000b2b
+    String.prototype.repeat = function(count) {
+      return count ? this + this.repeat(--count) : '';
+    };
+//2) Clever (2) https://www.codewars.com/kata/reviews/5241de3d8d333fefe30006a4/groups/567c1cc7e8e8e3e7bb00003b
+    String.prototype.repeat = function(count) {
+      return Array.apply(null, {length: count}).map(e=>this).join('');
+    };
+
+//#endregion
