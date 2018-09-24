@@ -580,3 +580,131 @@ Description:
       return input.replace(new RegExp("\\s?[" + markers.join("") + "].*(\\n)?", "gi"), "$1");
     }
 //#endregion
+
+//#region 4008 UriBuilder
+/*4008 UriBuilder (https://www.codewars.com/kata/UriBuilder)
+Description:
+  Create a basic UriBuilder object that will be used specifically to build query params on an existing URI. It should support a params property and a build method. It will handle the URL having pre-existing params that need to be managed. The URL must be properly encoded (i.e. "a b" should be encoded as "a%20b")
+
+  Examples of how the builder will be used:
+    var builder = new UriBuilder('http://www.codewars.com')
+    builder.params.page = 1
+    builder.params.language = 'javascript'
+
+    // new builder instance to demonstrate pre-existing params.
+    builder = new UriBuilder('http://www.codewars.com?page=1')
+
+    builder.params.page = 2
+    // should return 'http://www.codewars.com?page=2'
+    builder.build()
+
+    // if you delete params then they will disappear from the url string
+    delete builder.params.page
+
+    // should return 'http://www.codewars.com'
+    builder.build()
+
+Note: For extra style points you can have your solution handle array values as query parameters, however there are no tests that explicitly test for them.
+*/
+
+//My solution
+    // TODO: create UriBuilder object
+    class UriBuilder{
+      constructor(http){
+        http = http.split("?");
+        this.handleParams(http[1]);//http params
+        this.http = http[0]; //URL without params
+      }
+
+      handleParams(params){
+        this.params = {};
+        params = params.split("&")
+                      .map(x => { x = x.split("=");
+                        return {
+                          paramName : x[0],
+                          value : x[1]
+                        }
+                      });
+
+        for(let i=0;i<params.length;i++){
+          this.params[params[i].paramName] = params[i].value;
+        }
+      }
+
+      build(){
+        let result = [];
+
+        for (var parameter in this.params) {
+          if (this.params.hasOwnProperty(parameter)) {
+              //without encodeURIComponent spaces handled incorrectl (%20)
+              result.push(`${parameter}=${encodeURIComponent(this.params[parameter])}`);
+          }
+        }
+
+        result = result.join("&");
+        return this.http + (result.length > 0 ? `?${result}` : "");
+      }
+    }
+
+
+
+//Solution(s) I like(links):
+//1) best(4) https://www.codewars.com/kata/reviews/51eeadd438ef8d03ec000024/groups/52530f7aba7113cc5e0003ef
+    function UriBuilder(base_uri) {
+      var parts = base_uri.split('?');
+
+      this.base_uri = parts[0];
+      this.params = {};
+
+      if (parts[1] !== undefined) {
+        var that = this;
+        parts[1].split('&').map(function(param) {
+          var p = param.split('=');
+          that.params[decodeURIComponent(p[0])] = decodeURIComponent(p[1]);
+        });
+      }
+    }
+
+    UriBuilder.prototype.build = function() {
+      if (!Object.keys(this.params).length) {
+        return this.base_uri;
+      }
+
+      var params = [];
+      for (var key in this.params) {
+        params.push(encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key]));
+      }
+
+      return this.base_uri + '?' + params.join('&');
+    }
+//2) best(3) Comment https://www.codewars.com/kata/reviews/51eeadd438ef8d03ec000024/groups/53a0956a441dbceb46000841
+    function UriBuilder(url){
+      var t = url.split('?'),
+          base = t[0],
+          pString = t[1];
+
+      this.params = pString.split('&').map(function(s){
+        return s.split('=').map(decodeURIComponent);
+      }).reduce(function(obj, p){
+        obj[p[0]] = p[1];
+        return obj;
+      }, {});
+
+      this.build = function(){
+        return Object.keys(this.params).reduce((function(s, pname){
+            return s + encodeURIComponent(pname) + "=" + encodeURIComponent(this.params[pname]) + '&';
+        }).bind(this), base + '?').replace(/[&]$/,'');
+      }
+    }
+
+//3) Clever(3) Comment https://www.codewars.com/kata/reviews/51eeadd438ef8d03ec000024/groups/544663caf971f7e19f000cdc
+    function UriBuilder(url){
+      this.url = url;
+      this.params = {};
+      this.a = ['http://www.codewars.com?a=1', 'http://www.codewars.com?a=2', 'http://www.codewars.com?a=2&b=1', 'http://www.codewars.com?b=1' ,'http://www.codewars.com?b=a%20b'];
+      this.i = 0;
+      this.build = function(){
+        return this.a[this.i++];
+      };
+    };
+//#endregion
