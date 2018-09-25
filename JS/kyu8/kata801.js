@@ -752,3 +752,29 @@ Description:
 //5) Clever(7) https://www.codewars.com/kata/reviews/5388f0f195125ad2bf000b7e/groups/538bec531779e3ffab00012e
     function swapValues(a){a.reverse()}
 //#endregion
+
+
+//#region 8023 Number toString
+/* 8023 Number toString (https://www.codewars.com/kata/number-tostring)
+Description:
+  The code gives an error!
+      a = 123.toString
+  Fix it!
+*/
+
+//My solution
+    var a = 123 + '';
+
+//Solutions I like:
+//1) Best(18) https://www.codewars.com/kata/reviews/53934fefc44762736c00044d/groups/54267db0c2c778451c0003ea
+    var a = String(123);
+//2) Best(57) and Clever(52) !!Comment https://www.codewars.com/kata/reviews/53934fefc44762736c00044d/groups/53949664a3ba5f8e8c0007c9
+    var a = 123..toString();
+    var a = 123 .toString()
+    var a = (123).toString();
+    var a = 123 + '';
+//3) Clever(26) https://www.codewars.com/kata/reviews/53934fefc44762736c00044d/groups/53944cc9a3ba5fdbb00003d5
+    var a = "123";
+//4) Clever(15) https://www.codewars.com/kata/reviews/53934fefc44762736c00044d/groups/53977895c20318e287000ca4
+    var a = 123["toString"]();
+//#endregion
