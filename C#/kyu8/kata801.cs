@@ -611,3 +611,26 @@ Description:
     }
 
 #endregion
+
+#region 8018 Number toString
+/* 8018 Number toString (https://www.codewars.com/kata/number-tostring)
+Description:
+  The code gives an error!
+      Kata.A = 123.ToSTring();
+  Fix it!
+*/
+
+//My solution
+    public class Kata
+    {
+      public static string A = "123";  //123.ToString();
+      //Convert.ToString(123);
+    }
+
+//Solutions I like:
+//1) Best(3) https://www.codewars.com/kata/reviews/59958b0d7c6af8c3df002959/groups/5aa196db10b783fbe9000f1b
+    static int num=123;
+    public static string A = num.ToString();
+//2) Clever(1) https://www.codewars.com/kata/reviews/59958b0d7c6af8c3df002959/groups/5b3969c2ea182ca0b8000004
+    public static string A = 123+"";
+#endregion
