@@ -831,3 +831,83 @@ Description:
     };
 
 //#endregion
+
+
+
+//#region 7023 Honey to the Bee
+/* 7023 Honey to the Bee (https://www.codewars.com/kata/honey-to-the-bee)
+Description:
+  Find out why the amount of honey in the hive is not increasing.
+*/
+
+//My solution
+    function Bee(capacity, hive) {
+      this.capacity = capacity;
+      this.hive = hive;
+    }
+
+    function Hive() {
+      this.pollen = 100;
+    }
+
+    //TODO: The amount of honey in the hive is not increasing.
+    Hive.prototype.addPollen = function(pollen) {
+      this.pollen += pollen;
+    }
+
+    Hive.prototype.getPollen = function() {
+      return this.pollen;
+    }
+
+    Bee.prototype.unloadPollen = function() {
+      //add this. to hive.addPollen(this.capacity);
+      this.hive.addPollen(this.capacity);
+    }
+
+//Solution(s) I like(links):
+//1) Best(1) https://www.codewars.com/kata/reviews/52437f32636a67edb00002fa/groups/5ba1715c69e0b9878d00072a
+    class Bee {
+      constructor(capacity, hive) {
+        Object.assign(this, { capacity, hive })
+      }
+
+      unloadPollen() {
+        const { hive, capacity } = this
+        hive.addPollen(capacity)
+      }
+    }
+
+    class Hive {
+      constructor() {
+        this.pollen = 100
+      }
+
+      addPollen(pollen) {
+        this.pollen += pollen
+      }
+
+      getPollen() {
+        return this.pollen
+      }
+    }
+//2) Best(1)
+    function Bee(capacity, hive) {
+      this.capacity = capacity;
+      this.hive = hive;
+    }
+
+    function Hive() {
+      this.pollen = 100;
+      this.addPollen = function(pollen) {
+        this.pollen += pollen;
+      }
+    }
+
+    Hive.prototype.getPollen = function() {
+      return this.pollen;
+    }
+
+    Bee.prototype.unloadPollen = function() {
+      this.hive.addPollen(this.capacity);
+    }
+//#endregion
