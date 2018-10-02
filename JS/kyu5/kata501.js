@@ -745,3 +745,72 @@ Description
     return val;
   }
 //#endregion
+
+
+//#region 5014 ISBN-10 Validation
+/* 5014 ISBN-10 Validation (https://www.codewars.com/kata/isbn-10-validation)
+Description
+  ISBN-10 identifiers are ten digits. The first nine digits are on the range 0 to 9. The last digit can be either on the range 0 to 9 or the letter 'X' used to indicate a value of 10.
+  For an ISBN-10 to be valid, the sum of the digits multiplied by their position has to equal zero modulo 11. For example, the ISBN-10: 1112223339 is valid because:
+    (((1*1)+(1*2)+(1*3)+(2*4)+(2*5)+(2*6)+(3*7)+(3*8)+(3*9)+(9*10)) % 11) == 0
+  Complete the validISBN10() function.
+
+    validISBN10('1112223339') ; should return true
+    validISBN10('1234554321') ; should return true
+    validISBN10('1234512345') ; should return false
+*/
+
+//My solution
+    function validISBN10(isbn) {
+      // TODO: return true if (and only if) isbn is a valid 10-digit ISBN.
+      let isRegex = /[\d]{9}(\d|X){1}/g.test(isbn);
+      return isRegex && checkMoulo11(isbn);
+    }
+
+    function checkMoulo11(isbn) {
+      var chars = isbn.split('');
+      if(chars[9] && chars[9].toUpperCase() === 'X'){
+        chars[9] = 10;
+      }
+      var sum = 0;
+      for (var i = 0; i < chars.length; i++) {
+        sum += ((10-i) * parseInt(chars[i],10));
+      };
+      return (sum % 11) === 0;
+    };
+
+//Solution(s) I like(links):
+//1) Best(7) https://www.codewars.com/kata/reviews/51fc12de24a9d8cb0e000004/groups/539770b4afebea1670000b09
+    function validISBN10(isbn) {
+      var len = isbn.length;
+
+      if (len !== 10) {
+          return false;
+      }
+
+      return isbn.split('')
+          .map(function (num, index) {
+            return (num === 'X' && index === len - 1 ? 10 : parseInt(num, 10)) * (index + 1);
+          })
+          .reduceRight(function (a, b) {
+              return a + b;
+          }, 0) % 11 === 0;
+    }
+//2) Clever(6) https://www.codewars.com/kata/reviews/51fc12de24a9d8cb0e000004/groups/5661baacb587eea593000009
+    const validISBN10 = isbn => isbn.length == 10 && isbn.split("").reduce((a, b, i) => a + (((b == "X") && (i == 9)) ? 10 : b) * (i + 1), 0) % 11 == 0;
+//3) Best(3) https://www.codewars.com/kata/reviews/51fc12de24a9d8cb0e000004/groups/53b5a6733bafcd33ee00075a
+    function validISBN10(string){
+      var array = string.split('');
+      array.push(array.pop().replace(/X/, 10));
+      return string.length == 10 && array.reduce(function(prev, value, index){
+        return prev + value * (index + 1);
+      }, 0) % 11 == 0;
+    }
+//4) Best(2) https://www.codewars.com/kata/reviews/51fc12de24a9d8cb0e000004/groups/5405b7bd00ab3989cf0009bf
+    function validISBN10(isbn) {
+      var r =  isbn.split('').reduce(function(a, b, i){
+        return a + (b == 'X' && i === 9 ? 10 : b) * (i + 1);
+      }, 0);
+      return r % 11 === 0 && isbn.length === 10;
+    }
+//#endregion
