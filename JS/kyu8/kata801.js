@@ -778,3 +778,34 @@ Description:
 //4) Clever(15) https://www.codewars.com/kata/reviews/53934fefc44762736c00044d/groups/53977895c20318e287000ca4
     var a = 123["toString"]();
 //#endregion
+
+
+//#region 8024 Are You Playing Banjo?
+/* 8024 Are You Playing Banjo? (https://www.codewars.com/kata/are-you-playing-banjo)
+Description:
+  Create a function which answers the question "Are you playing banjo?".
+  If your name starts with the letter "R" or lower case "r", you are playing banjo!
+  The function takes a name as its only argument, and returns one of the following strings:
+
+    name + " plays banjo"
+    name + " does not play banjo"
+  Names given are always valid strings.
+*/
+
+//My solution
+    function areYouPlayingBanjo(name) {
+      return name[0].toLowerCase() === 'r' ?
+          name + ' plays banjo' :
+          name + ' does not play banjo';
+    }
+
+//Solutions I like:
+//1) Best(88) !!Comment https://www.codewars.com/kata/reviews/53af2ba0bbec0e2805000976/groups/53af55ff61023f507e0000ff
+    function areYouPlayingBanjo(name) {
+      return name + (name[0].toLowerCase() == 'r' ? ' plays' : ' does not play') + " banjo";
+    }
+//2) Clever(43) https://www.codewars.com/kata/reviews/53af2ba0bbec0e2805000976/groups/540edfb6a7d43dcd2c000481
+    function areYouPlayingBanjo(name) {
+      return name + (/^r/i.test(name) ? " plays " : " does not play ") + "banjo";
+    }
+//#endregion
