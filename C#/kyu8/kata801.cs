@@ -634,3 +634,46 @@ Description:
 //2) Clever(1) https://www.codewars.com/kata/reviews/59958b0d7c6af8c3df002959/groups/5b3969c2ea182ca0b8000004
     public static string A = 123+"";
 #endregion
+
+
+#region 8019 Are You Playing Banjo?
+/* 8019 Are You Playing Banjo? (https://www.codewars.com/kata/are-you-playing-banjo)
+Description:
+  Create a function which answers the question "Are you playing banjo?".
+  If your name starts with the letter "R" or lower case "r", you are playing banjo!
+  The function takes a name as its only argument, and returns one of the following strings:
+
+    name + " plays banjo"
+    name + " does not play banjo"
+  Names given are always valid strings.
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static string AreYouPlayingBanjo(string name)
+      {
+        var banjoString = (name.Substring(0,1).ToLower() == "r" ?  " plays" : " does not play") + " banjo";
+        return name + banjoString;
+      }
+    }
+
+//Solutions I like:
+//1) Best(14) https://www.codewars.com/kata/reviews/55dc9934c50465a0c8000045/groups/55eecf9e00ae4afdfe0000e6
+    public static string AreYouPlayingBanjo(string name)
+    {
+      return string.Format("{0} {1} banjo", name, char.ToLower(name[0]) == 'r' ? "plays" : "does not play");
+    }
+//2) Best(8) https://www.codewars.com/kata/reviews/55dc9934c50465a0c8000045/groups/55de69cf2a70d7fbe6000011
+    public static string AreYouPlayingBanjo(string name)
+    {
+      return name.ToLower()[0] == 'r' ? name + " plays banjo" : name + " does not play banjo";
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/55dc9934c50465a0c8000045/groups/574e0d382be0e277150004f7
+    public static string AreYouPlayingBanjo(string name)
+    {
+      return $"{name} {(name[0] == 'R' || name[0] == 'r')? "plays banjo" : "does not play banjo"}";
+    }
+#endregion
