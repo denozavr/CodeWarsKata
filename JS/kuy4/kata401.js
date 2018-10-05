@@ -708,3 +708,88 @@ Note: For extra style points you can have your solution handle array values as q
       };
     };
 //#endregion
+
+//#region 4009 Most frequently used words in a text
+/* 4009 Most frequently used words in a text (https://www.codewars.com/kata/most-frequently-used-words-in-a-text)
+Description:
+    Write a function that, given a string of text (possibly with punctuation and line-breaks), returns an array of the top-3 most occurring words, in descending order of the number of occurrences.
+
+Assumptions:
+  A word is a string of letters (A to Z) optionally containing one or more apostrophes (') in ASCII. (No need to handle fancy punctuation.)
+  Matches should be case-insensitive, and the words in the result should be lowercased.
+  Ties may be broken arbitrarily.
+  If a text contains fewer than three unique words, then either the top-2 or top-1 words should be returned, or an empty array if a text contains no words.
+  Examples:
+      top_3_words("In a village of La Mancha, the name of which I have no desire to call to
+      mind, there lived not long since one of those gentlemen that keep a lance
+      in the lance-rack, an old buckler, a lean hack, and a greyhound for
+      coursing. An olla of rather more beef than mutton, a salad on most
+      nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
+      on Sundays, made away with three-quarters of his income.")
+      # => ["a", "of", "on"]
+
+      top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")
+      # => ["e", "ddd", "aa"]
+
+      top_3_words("  //wont won't won't")
+      # => ["won't", "wont"]
+
+  Bonus points (not really, but just for fun):
+  Avoid creating an array whose memory footprint is roughly as big as the input text.
+  Avoid sorting the entire array of unique words.
+*/
+
+//My solution
+    function topThreeWords(text) {
+      let dict = new Map();
+      // don't replace ' (single quote)
+      text = text.toLowerCase().replace(/[\,\.\:\/]/g, '');
+
+      //if text with replaced punctuation and spaces is empty, return empty array
+      if( !text.replace(/\W/g,'') ) return [];
+
+      //split words and don't select spaces
+      let words = text.split(' ').filter(x => x.length>0);
+
+      for(let word of words) {
+        if(dict.has(word)) {
+          let value = dict.get(word);
+          dict.set(word, value+1);
+        } else
+          dict.set(word, 1);
+      }
+
+      let sortedDict =[...dict].sort( (a,b) => b[1] - a[1]);
+
+      return sortedDict.slice(0,3).map(word => word[0]);
+    }
+
+//Solution(s) I like(links):
+//1) best(5) https://www.codewars.com/kata/reviews/51e056fe544cf36c410000ff/groups/5b92e143986d6e2e0e0009b5
+    // 07.09.2018
+    let topThreeWords = text => {
+      let dict = new Map();
+      text.replace(/[A-z']+(?=[ ]+|$)/g, match => {
+          let word = match.toLowerCase();
+          dict.set(word, dict.has(word) ? dict.get(word) + 1 : 1);
+      });
+      dict.delete("'");
+      return [...dict].sort((a, b) => b[1] - a[1]).map(a => a[0]).slice(0, 3);
+    };
+//2) Clever(2) Comment https://www.codewars.com/kata/reviews/51e056fe544cf36c410000ff/groups/5b92e246f0a3b25f22000036
+    Object.defineProperty( Function.prototype, "on", { value: function on(fn) { return (...a) => a.map(fn).reduce(this) ; } } );
+    Object.defineProperty( Function.prototype, "down", { get: function down() { return (v,w) => this(w,v) ; } } );
+    const fst = ([fst]) => fst ;
+    const snd = ([,snd]) => snd ;
+    const compare = (v,w) => Number(v>w) - Number(v<w) ;
+    const topThreeWords = text =>
+      Array.from( (  text.toLowerCase()
+                        .match( /[a-z]['a-z]*|['a-z]*[a-z]/gi )
+                  || []
+                  ).reduce( (z,v) => z.set( v, z.get(v) + 1 || 1 ) , new Map )
+                )
+          .sort(compare.down.on(snd))
+          .slice(0,3)
+          .map(fst)
+          ;
+//#endregion
