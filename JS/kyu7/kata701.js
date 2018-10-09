@@ -911,3 +911,54 @@ Description:
       this.hive.addPollen(this.capacity);
     }
 //#endregion
+
+
+//#region 7024 generateRules
+/* 7024 generateRules (https://www.codewars.com/kata/generaterules)
+Description:
+  While creating IPtables rules to protect your server you want to write a function generateRules to help you with this. The function generateRules should take two arguments:
+    1  a function which takes 1 port argument and creates a single IPtables rule
+    2 an array with the ports for which the IPtables rules should be generated.
+  The generateRules function should return one string with the iptables commands.
+  This is how the generateRules function will be used:
+
+      var myrules = generateRules(makeTCPRule, [22,80,443]);
+  For this example the result would be this string (without linebreakings!):
+
+    "iptables -I INPUT -p tcp --dport 22 -j ACCEPT ;
+    iptables -I INPUT -p tcp --dport 80 -j ACCEPT ;
+    iptables -I INPUT -p tcp --dport 443 -j ACCEPT ;"
+  The makeTCPRule function is already provided for you and looks like this:
+
+    function makeTCPRule(x){
+      return "iptables -I INPUT -p tcp --dport " + x + " -j ACCEPT ;";
+    }
+*/
+
+//My solution
+    function generateRules(func,portList){
+      let result="";
+      for(let port of portList) {
+        result = result + makeTCPRule(port); //was func on codewars site
+      }
+      return result;
+    }
+
+    //func is this function
+    function makeTCPRule(x){
+      return "iptables -I INPUT -p tcp --dport " + x + " -j ACCEPT ;";
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(5) Comment
+    function generateRules(func,portList){
+      return portList.map(func).join('');
+    }
+//2) Clever(1) https://www.codewars.com/kata/reviews/5220b7f87e831a7e7900041a/groups/5afdb75b4ca83be5b6005e67
+    const generateRules = (func, ports) => ports.map(func).join('');
+//3) Clever(1) https://www.codewars.com/kata/reviews/5220b7f87e831a7e7900041a/groups/5b6436841b98fbee96001589
+    function generateRules(func, portList) {
+      return portList.reduce((a, b) => a + func(b), '');
+    }
+//#endregion
