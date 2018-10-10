@@ -696,3 +696,81 @@ Description:
     }
 
 #endregion
+
+
+//#region 7019 generateRules
+/* 7019 generateRules (https://www.codewars.com/kata/generaterules)
+Description:
+  While creating IPtables rules to protect your server you want to write a function generateRules to help you with this. The function generateRules should take two arguments:
+  a function which takes 1 port argument and creates a single IPtables rule
+  an array with the ports for which the IPtables rules should be generated.
+  The generateRules function should return one string with the iptables commands.
+  This is how the generateRules function will be used:
+    string myrules = Kata.GenerateRules(MakeTcpRule, new List<uint> {22, 80, 443});
+  For this example the result would be this string (without linebreakings!):
+
+    "iptables -I INPUT -p tcp --dport 22 -j ACCEPT ;
+    iptables -I INPUT -p tcp --dport 80 -j ACCEPT ;
+    iptables -I INPUT -p tcp --dport 443 -j ACCEPT ;"
+  The makeTCPRule function is already provided for you and looks like this:
+
+    string MakeTcpRule(uint port) => $"iptables -I INPUT -p tcp --dport {port} -j ACCEPT ;";
+*/
+
+//My solution
+    using System;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string GenerateRules(Func<uint, string> func, List<uint> portList)
+      {
+          var result="";
+          foreach(var port in portList) {
+            result = result + func(port);
+          }
+          return result;
+      }
+    }
+
+    //func is MakeTcpRule
+    static string MakeTcpRule(uint port) => $"iptables -I INPUT -p tcp --dport {port} -j ACCEPT ;";
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/59e83ec529b999dfa700093c/groups/5a241b4c387bf30f5100115b
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static string GenerateRules(Func<uint, string> func, List<uint> portList)
+      {
+        return string.Concat(portList.Select(func));
+        //  return string.Concat(portList.Select(p => func(p)));
+      }
+    }
+
+//2) Clever(2) https://www.codewars.com/kata/reviews/59e83ec529b999dfa700093c/groups/5a54bd9fd421cb7c0c000949
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string GenerateRules(Func<uint, string> func, List<uint> portList)
+      {
+        return string.Join("", portList.Select(func));
+      }
+    }
+//3) CLever(1) https://www.codewars.com/kata/reviews/59e83ec529b999dfa700093c/groups/5b1fbff04504f9f46d00102a
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public static class Kata
+    {
+      public static string GenerateRules(Func<uint, string> func, List<uint> portList) => portList.Aggregate(new StringBuilder(), (a, b) => a.Append(func(b))).ToString();
+    }
+#endregion
