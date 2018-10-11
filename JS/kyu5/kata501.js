@@ -814,3 +814,53 @@ Description
       return r % 11 === 0 && isbn.length === 10;
     }
 //#endregion
+
+
+//#region 5015 Lazy Repeater
+/* 5015 Lazy Repeater (https://www.codewars.com/kata/lazy-repeater)
+Description
+  The makeLooper() function (make_looper in Python) takes a string (of non-zero length) as an argument. It returns a function. The function it returns will return successive characters of the string on successive invocations. It will start back at the beginning of the string once it reaches the end.
+  For example:
+
+    var abc = makeLooper('abc');
+    abc(); // should return 'a' on this first call
+    abc(); // should return 'b' on this second call
+    abc(); // should return 'c' on this third call
+    abc(); // should return 'a' again on this fourth call
+*/
+
+//My solution
+    function makeLooper(str) {
+      // TODO: return a function that loops through 'str' on successive invocations
+      let array = str.split('');
+
+      return function() {
+        //could you shift()
+        let result = array.splice(0,1); // remove 1st element of array and put it in variable
+        array.push(result); // and push it to the end of initial array os on 4th iteration 's' will be returned
+        return result;
+      };
+    }
+
+//Solution(s) I like(links):
+//1) Clever(7) https://www.codewars.com/kata/reviews/51fc3beb41ecc97ee20000c6/groups/53873ccc4c454094080013d7
+    function makeLooper(str) {
+      var counter = 0;
+      return function(){
+        return str[counter++ % str.length];
+      }
+      //return () => str[counter++%str.length];
+    }
+//2) Clever(6) https://www.codewars.com/kata/reviews/51fc3beb41ecc97ee20000c6/groups/5b204b3d6e22d4183f0015c7
+    makeLooper = (s,i=0) => () => s[i++ % s.length]
+//3) Clever(1) https://www.codewars.com/kata/reviews/51fc3beb41ecc97ee20000c6/groups/5ba8bc8811db8b2dd9000421
+    function lazyRepeater(){
+      this.count%=this.name.length;
+      return this.name.charAt(this.count++);
+    }
+
+    function makeLooper(str) {
+      return lazyRepeater.bind({name: str, count: 0});
+    }
+
+//#endregion
