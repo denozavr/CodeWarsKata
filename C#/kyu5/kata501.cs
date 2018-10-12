@@ -269,3 +269,71 @@ Description
     }
 //1)  Best(2)
 #endregion
+
+
+
+#region 5004 Lazy Repeater
+/* 5004 Lazy Repeater (https://www.codewars.com/kata/lazy-repeater)
+Description
+  The makeLooper() function (make_looper in Python) takes a string (of non-zero length) as an argument. It returns a function. The function it returns will return successive characters of the string on successive invocations. It will start back at the beginning of the string once it reaches the end.
+  For example:
+
+    var abc = makeLooper('abc');
+    abc(); // should return 'a' on this first call
+    abc(); // should return 'b' on this second call
+    abc(); // should return 'c' on this third call
+    abc(); // should return 'a' again on this fourth call
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static Func<char> MakeLooper(string str)
+      {
+          int i = 0;
+          var abc = new Func<char>(() =>
+          {
+            if(i > str.Length - 1) i = 0;
+            return str[i++];
+          });
+
+          return abc;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(9) https://www.codewars.com/kata/reviews/599e3b6e802d6a14db0032c4/groups/599e3b70802d6a14db0032c8
+    using System;
+
+    public class Kata
+    {
+      public static Func<char> MakeLooper(string str)
+      {
+        int idx = 0;
+
+        return () => str[idx++ % str.Length];
+      }
+    }
+//2) Clever(1) https://www.codewars.com/kata/reviews/599e3b6e802d6a14db0032c4/groups/59a00daf34bcdcfa79000616
+    using System;
+
+    public class Kata
+    {
+            static int _offset = 0;
+            static string _str;
+
+            public static Func<char> MakeLooper(string str)
+            {
+                _str = str;
+                return PrivateFunc;
+            }
+            static char PrivateFunc()
+            {
+                char res = _str[_offset];
+                _offset = (_offset + 1) % _str.Length;
+                return res;
+            }
+    }
+#endregion
