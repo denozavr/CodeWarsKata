@@ -809,3 +809,58 @@ Description:
       return name + (/^r/i.test(name) ? " plays " : " does not play ") + "banjo";
     }
 //#endregion
+
+//#region 8025 Grader
+/*8025 Grader (https://www.codewars.com/kata/grader)
+Description:
+  Create a function that takes a number as an argument and returns a grade based on that number.
+  Score	Grade
+  Anything greater than 1 or less than 0.6	'F'
+  0.9 or greater	"A"
+  0.8 or greater	"B"
+  0.7 or greater	"C"
+  0.6 or greater	"D"
+
+  Examples:
+    grader(0.9) == 'A'
+    grader(0.3) == 'F'
+    grader(234) == 'F'
+    grader(0.75) == 'C'
+*/
+
+//My solution
+    function grader(score) {
+      let result='F';
+      if(score >= 0.6 && score < 0.7) result ='D';
+      else if(score >= 0.7 && score < 0.8) result ='C';
+      else if(score >= 0.8 && score < 0.9) result ='B';
+      else if(score >= 0.9 && score <= 1) result ='A';
+
+      return result;
+    }
+
+//Solutions I like:
+//1) Best(12) https://www.codewars.com/kata/reviews/59a23df987c603320d000996/groups/59a2d014f70330d3840002f3
+    function grader(score) {
+      if (score>1||score<0.6) return 'F'
+      if (score<0.7) return 'D'
+      if (score<0.8) return 'C'
+      if (score<0.9) return 'B'
+      return 'A'
+    }
+//2) CLever(4) https://www.codewars.com/kata/reviews/59a23df987c603320d000996/groups/59aed003981e2954820009f7
+    grader = s => s > 1 || s < 0.6 ? 'F' : s < 0.7 ? 'D' : s < 0.8 ? 'C' : s < 0.9 ? 'B' : 'A';
+//3) CLever(3) https://www.codewars.com/kata/reviews/59a23df987c603320d000996/groups/5a0db13116e65b531300210a
+    function grader(score) {
+      if (score === 1) return "A";
+      return ["D", "C", "B", "A"][Math.floor(score*10) - 6] || "F";
+    }
+//4) Best(3) https://www.codewars.com/kata/reviews/59a23df987c603320d000996/groups/59a2b165f70330c55f0001d3
+    function grader(score) {
+      if (score > 1 || score < 0.6) return 'F';
+      else if (score >= 0.9) return 'A';
+      else if (score >= 0.8) return 'B';
+      else if (score >= 0.7) return 'C';
+      else if (score >= 0.6) return 'D';
+    }
+//#endregion
