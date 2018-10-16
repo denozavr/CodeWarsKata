@@ -677,3 +677,74 @@ Description:
       return $"{name} {(name[0] == 'R' || name[0] == 'r')? "plays banjo" : "does not play banjo"}";
     }
 #endregion
+
+#region 8019 Grader
+/*8019 Grader (https://www.codewars.com/kata/grader)
+Description:
+  Create a function that takes a number as an argument and returns a grade based on that number.
+  Score	Grade
+  Anything greater than 1 or less than 0.6	'F'
+  0.9 or greater	"A"
+  0.8 or greater	"B"
+  0.7 or greater	"C"
+  0.6 or greater	"D"
+
+  Examples:
+    Grader(0.9) == 'A'
+    Grader(0.3) == 'F'
+    Grader(234) == 'F'
+    Grader(0.75) == 'C'
+*/
+
+//My solution
+    public class Kata
+    {
+      public static char Grader(double score)
+      {
+        var result='F';
+        if(score < 0.6 || score > 1) result ='F';
+        else if(score >= 0.9) result ='A';
+        else if(score >= 0.8) result ='B';
+        else if(score >= 0.7) result ='C';
+        else if(score >= 0.6) result ='D';
+
+        return result;
+      }
+    }
+
+
+//Solutions I like:
+//1) Best(2) https://www.codewars.com/kata/reviews/59a217edce67ef21c900062b/groups/5ac2985ea0d651bb0c001a19
+    public class Kata
+    {
+      public static char Grader(double score)
+      {
+        switch ((int)(score*10))
+        {
+          case 6: return 'D';
+          case 7: return 'C';
+          case 8: return 'B';
+          case 9: return 'A';
+          default: return (score == 1.0) ? 'A' : 'F';
+        }
+      }
+    }
+//2) CLever(6) https://www.codewars.com/kata/reviews/59a23df987c603320d000996/groups/59aed003981e2954820009f7
+    public class Kata
+    {
+      public static char Grader(double v) => v > 1 || v < 0.6 ? 'F' : v >= 0.9 ? 'A' : v >= 0.8 ? 'B' : v >= 0.7 ? 'C' : 'D';
+    }
+//4) Best(2) https://www.codewars.com/kata/reviews/59a217edce67ef21c900062b/groups/5bb78432b6dfbb5060002d31
+    public class Kata
+    {
+      public static char Grader(double score)
+      {
+        return score > 1.0 ? 'F'
+            : score >= 0.9 ? 'A'
+            : score >= 0.8 ? 'B'
+            : score >= 0.7 ? 'C'
+            : score >= 0.6 ? 'D'
+            : 'F';
+      }
+    }
+#endregion
