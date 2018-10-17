@@ -962,3 +962,71 @@ Description:
       return portList.reduce((a, b) => a + func(b), '');
     }
 //#endregion
+
+
+//#region 7025 Manipulate URL Parameters
+/* 7025 Manipulate URL Parameters (https://www.codewars.com/kata/manipulate-url-parameters)
+Description:
+  You need to write a function ( addOrChangeUrlParameter(url, keyValueParameter) ) that can manipulate URL parameters.
+  It should be able to
+  add a parameter to an existing URL,
+  but also to
+  change a parameter if it already exists.
+  Example:
+
+    addOrChangeUrlParameter("www.example.com", "key=value")
+    // -> 'www.example.com?key=value' (adds a parameter).
+
+    addOrChangeUrlParameter("www.example.com?key=value", "key2=value2" )
+    // -> 'www.example.com?key=value&key2=value2' (adds another parameter).
+
+    addOrChangeUrlParameter("www.example.com?key=oldValue`", "key=newValue" )
+    // ->'www.example.com?key=newValue' (changes the parameter).
+*/
+
+//My solution
+    /**
+     * Play with URLs
+     * @param {string} url - The URL that's we want to manipulate
+     * @param {string} param - The parameter that we want to change or add
+     * @returns {string} The result URL.
+     */
+    function addOrChangeUrlParameter (url, param) {
+      if (!param) { return url; }
+      let urlArr = url.split('?');
+      //if URL params empty/undefined return [] otherwise split them
+      let paramArr = (!urlArr[1]) ? [] : urlArr[1].split('&');
+      let isFound = false;
+
+      url = urlArr[0];
+
+      paramArr = paramArr.map( (value) => (value.split('=')[0] === param.split('=')[0])
+              ? (isFound = true, param) : value
+      );
+
+      if (!isFound)  paramArr.push(param);
+
+      return `${url}?${paramArr.join('&')}`;
+    }
+
+//Solution(s) I like(links):
+//1) Clever(27) Comment https://www.codewars.com/kata/reviews/524300d5add6f657e2000902/groups/52550ca20e60476501000211
+    function addOrChangeUrlParameter (url, param) {
+      url = url.replace(new RegExp(param.split('=')[0]+'=[^&]*'), param);
+      return url + (url.indexOf(param) >= 0 ? '' : (url.indexOf('?')>=0?'&':'?')+param);
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/524300d5add6f657e2000902/groups/5b5b2e24f81bc652c5002e83
+    function addOrChangeUrlParameter (url, param) {
+      var main = url.match(/.+?(?=\?|$)/)[0];
+      var params = {};
+      url.replace(main,"").replace("?","").split("&").map((x)=>{params[x.split('=')[0]]=x.split('=')[1]});
+      (param||"").split("&").map((x)=>{params[x.split('=')[0]]=x.split('=')[1]});
+
+      return main += Object.keys(params).reduce((tot,x)=>{if(x){return tot += x + "=" + params[x]+"&"}else{return tot;}},"?").replace(/(&$)|(\?$)/,'');
+    }
+//3) Clever(3) https://www.codewars.com/kata/reviews/524300d5add6f657e2000902/groups/59c8ffa6e921ec84c000286c
+    function addOrChangeUrlParameter (url, param) {
+      var reg = new RegExp(param.replace(/=[^&]+/, '')+'=[^&]+');
+      return reg.test(url) ? url.replace(reg, param) : /\?/.test(url) ? url+'&'+param : url+ (param ? '?'+param : '');
+    }
+//#endregion
