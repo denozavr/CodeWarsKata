@@ -1359,3 +1359,79 @@ Description:
     });
 
 //#endregion
+
+//#region 6024 Extract the IDs from the data set
+/* 6024 Extract the IDs from the data set (https://www.codewars.com/kata/extract-the-ids-from-the-data-set)
+Description:
+  Complete the method so that it returns an array of all ID's passed in. The data structure will be similar to the following:
+
+    var data = {
+      id: 1,
+      items: [
+        {id: 2},
+        {id: 3, items: [
+          {id: 4},
+          {id: 5}
+        ]}
+      ]
+    }
+
+    extractIds(data) // should return [1,2,3,4,5]
+
+  The method should be able to handle the case of empty data being passed in.
+  Note: The only arrays that need to be traversed are those assigned to the "items" property.
+*/
+
+//My solution
+//Stupid because Codewars glitched a lot during this kata
+    function extractIds(data){
+      let result = [];
+      getStupidIds(data,result);
+      return result;
+    }
+
+    function getStupidIds(data, result){
+      if(data.id) {
+          result.push(data.id);
+      }
+      if (data.items) {
+        data.items.forEach(v => getStupidIds(v, result));
+      }
+
+    }
+
+//Solution(s) I like(links):
+//1) Best(8) https://www.codewars.com/kata/reviews/516f30257c907a79f20003c4/groups/57be0dd9160ce938ae000299
+    function extractIds(data) {
+      let ids  = []
+      if ('id' in data) ids.push(data.id);
+      if ('items' in data) data.items.forEach(item => ids = ids.concat(extractIds(item)));
+      return ids;
+    }
+//2) Best(3) https://www.codewars.com/kata/reviews/516f30257c907a79f20003c4/groups/55e39d196861f50fca0000d9
+  function extractIds(data, ids = []){
+    let search = (item) => {
+      for(var key in item){
+        if(key == 'id')
+          ids.push(item[key]);
+        if(typeof item[key] === 'object')
+          search(item[key]);
+      }
+    };
+    return search(data), ids;
+  }
+//3) Clever(27) https://www.codewars.com/kata/reviews/516f30257c907a79f20003c4/groups/53d89a1322fd987a3700009d
+    function extractIds(data){
+      return [].concat.apply([], Object.keys(data).map(function(item) {
+        return item === 'id' ? data[item] : extractIds(data[item]);
+      }));
+    }
+//4) Clever(9) Comment https://www.codewars.com/kata/reviews/516f30257c907a79f20003c4/groups/57eca62af670e9bc7900158c
+    function extractIds(data){
+      return (JSON.stringify(data).match(/\d+/g)||[]).map(x=>+x)
+    }
+//5) Clever(7) https://www.codewars.com/kata/reviews/516f30257c907a79f20003c4/groups/538cef206ea5f6de1c000dc0
+    function extractIds(data){
+      return [].concat.apply([],data.id&&[data.id].concat((data.items||[]).map(extractIds))||[]);
+    }
+//#endregion
