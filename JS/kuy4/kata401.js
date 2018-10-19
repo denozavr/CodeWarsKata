@@ -793,3 +793,83 @@ Assumptions:
           .map(fst)
           ;
 //#endregion
+
+
+//#region 4010 Nesting Structure Comparison
+/* 4010 Nesting Structure Comparison (https://www.codewars.com/kata/nesting-structure-comparison)
+Description:
+  Complete the function/method (depending on the language) to return true/True when its argument is an array that has the same nesting structure as the first array.
+  For example:
+
+      // should return true
+      [ 1, 1, 1 ].sameStructureAs( [ 2, 2, 2 ] );
+      [ 1, [ 1, 1 ] ].sameStructureAs( [ 2, [ 2, 2 ] ] );
+
+      // should return false
+      [ 1, [ 1, 1 ] ].sameStructureAs( [ [ 2, 2 ], 2 ] );
+      [ 1, [ 1, 1 ] ].sameStructureAs( [ [ 2 ], 2 ] );
+
+      // should return true
+      [ [ [ ], [ ] ] ].sameStructureAs( [ [ [ ], [ ] ] ] );
+
+      // should return false
+      [ [ [ ], [ ] ] ].sameStructureAs( [ [ 1, 1 ] ] );
+  For your convenience, there is already a function 'isArray(o)' declared and defined that returns true if its argument is an array, false otherwise.
+*/
+
+//My solution
+    Array.prototype.sameStructureAs = function (other) {
+      // Return 'true' if and only if 'other' has the same
+      // nesting structure as 'this'.
+
+      // Note: You are given a function isArray(o) that returns
+      // whether its argument is an array.
+      return checkStruct(this) === checkStruct(other);
+    };
+
+    function checkStruct(arr) {
+      return Array.isArray(arr) ? `[ ${arr.map(checkStruct)}]` : '';
+    }
+
+//Solution(s) I like(links):
+//1) best(11) !!Comment https://www.codewars.com/kata/reviews/520446778469526ec0000004/groups/54b83bcd9e13a683c4000101
+    Array.prototype.sameStructureAs = function (other) {
+      if (!Array.isArray(other) || this.length != other.length)
+        return false;
+
+      for(var i = 0; i < this.length; ++i) {
+        if (Array.isArray(this[i])) {
+          if (!this[i].sameStructureAs(other[i])) {
+            return false;
+          }
+        } else if (Array.isArray(other[i])) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+//2) Best(24) and Clever(113) !!Comment https://www.codewars.com/kata/reviews/520446778469526ec0000004/groups/53d24e5f7e03ccfe9b0005a9
+    Array.prototype.sameStructureAs = function (other) {
+      return (this.length === other.length) ? this.every(function(el, i){
+        return Array.isArray(el) ? el.sameStructureAs(other[i]) : true;
+      }) : false;
+    };
+//3) best(4) https://www.codewars.com/kata/reviews/520446778469526ec0000004/groups/54cb9823cb2a5b857f0001ef
+  Array.prototype.sameStructureAs = function (other) {
+    return isArray(other) && this.length == other.length && this.every(function (a, i) {
+      var b = other[i];
+      return isArray(a) ? a.sameStructureAs(b) : isArray(a) == isArray(b);
+    });
+  };
+//4) Clever(3) Comment https://www.codewars.com/kata/reviews/520446778469526ec0000004/groups/564b49efac8a7ca4cc000051
+    Array.prototype.sameStructureAs = function (other) {
+      if (!isArray(other)) return false;
+
+      return this.join("").replace(/[^.,]/g, 1) === other.join("").replace(/[^.,]/g, 1);
+    };
+//5) Clever(4) https://www.codewars.com/kata/reviews/520446778469526ec0000004/groups/587719784ddfd8c3ba0006ad
+    Array.prototype.sameStructureAs = function (o) {
+      return isArray(o)&&JSON.stringify(this).replace(/"(\[|\])"/g,"x").replace(/[^\[,'\]]/g,"") === JSON.stringify(o).replace(/"(\[|\])"/g,"x").replace(/[^\[,'\]]/g,"")
+    };
+//#endregion
