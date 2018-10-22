@@ -864,3 +864,158 @@ Description
     }
 
 //#endregion
+
+
+//#region 5016 Imperfect Network #2 (out-of-order messages)
+/* 5016 Imperfect Network #2 (out-of-order messages) (https://www.codewars.com/kata/imperfect-network-number-2-out-of-order-messages)
+Description
+  You are given the outline of a network client. The network client as it is assumes that the network will never corrupt any data, will never lose any data, will never duplicate any data, and will always deliver data in the order it was sent.
+  For the purposes of this Kata, assume that the network will never corrupt any data, will never lose any data, but that it may not deliver data in the order it was sent, and that it may send duplicate data. Ensure that the callback function is invoked with the data in-order and without duplicates. Note: there will be two instances of the network client. You should not try to coordinate order between the clients. You should only guarantee that client B invokes its callback in the same order that client A sends and vice-versa.
+  The data sent into the network client's send() method will always be a string. The data sent into the sendFunction must also be a string. That data eventually will be received by the peer one or more times in this Kata.
+  Here is an example of a perfect network that would use your network class:
+
+      function PerfectNetwork(callbackA, callbackB) {
+          var network = this;
+          this.clientA = new NetworkClient(
+              function (data) { network.clientB.recv(data); }, callbackA);
+          this.clientB = new NetworkClient(
+              function (data) { network.clientA.recv(data); }, callbackB);
+      };
+
+      var network = new PerfectNetwork(
+          function (data) { console.log("CLIENT-A Got: " + data); },
+          function (data) { console.log("CLIENT-B Got: " + data); }
+      );
+
+      network.clientA.send("abcd");
+      network.clientA.send("wxyz");
+      network.clientB.send("1234");
+      network.clientA.send("EOF");
+  This would output:
+
+      CLIENT-B Got: abcd
+      CLIENT-B Got: wxyz
+      CLIENT-A Got: 1234
+      CLIENT-B Got: EOF
+  In this Kata, the naive client outline could very well produce the following output with a less-than-perfect network for that same sequence of send calls:
+
+      CLIENT-B Got: abcd
+      CLIENT-A Got: 1234
+      CLIENT-A Got: 1234
+      CLIENT-B Got: EOF
+      CLIENT-B Got: wxyz
+      CLIENT-B Got: EOF
+*/
+
+//My solution
+    function NetworkClient (sendFunction, callback) {
+      this.sendFunction = sendFunction;
+      this.callback = callback;
+      this.count = 0;
+      this.last = 0;
+      this.queue = [];
+    }
+
+    NetworkClient.prototype.send = function (data) {
+      // Could wrap data with extra information to send
+      let dataObj = { id: this.count++, data: data};
+      this.sendFunction(JSON.stringify(dataObj));
+    };
+
+    NetworkClient.prototype.recv = function (data) {
+      // Could unpack data and validate
+      let dataObj = JSON.parse(data);
+      let i = this.last;
+      this.queue[dataObj.id] = dataObj.data;
+      while(this.queue[i]) { /// not undefined
+          this.callback(this.queue[i]);
+          i++;
+      }
+      this.last = i;
+    };
+
+//Solution(s) I like(links):
+//1) Best(14) Comment https://www.codewars.com/kata/reviews/52094b0673c32d3fc5000068/groups/5518f055a73e70693c00043e
+    function NetworkClient (sendFunction, callback) {
+      this.sendFunction = sendFunction;
+      this.callback = callback;
+      this.sendCount = this.lastSeen = 0;
+      this.received = [];
+    }
+
+    NetworkClient.prototype.send = function (data) {
+      this.sendFunction(JSON.stringify({index: this.sendCount++, payload: data}));
+    };
+
+    NetworkClient.prototype.recv = function (data) {
+      data = JSON.parse(data);
+      this.received[data.index] = data.payload;
+      for (var i = this.lastSeen; this.received[i] !== undefined; i++) this.callback(this.received[i]);
+      this.lastSeen = i;
+    };
+//2) Best(3) https://www.codewars.com/kata/reviews/52094b0673c32d3fc5000068/groups/543eab92386034e52f00255a
+    function NetworkClient (sendFunction, callback) {
+      this.sendFunction = sendFunction;
+      this.callback = callback;
+      this.send_count = 0;
+      this.bucket = [];
+      this.proc_count = 0;
+    }
+
+    NetworkClient.prototype.send = function (data) {
+      // Could wrap data with extra information to send
+      var pack = {
+        msg_id: this.send_count++,
+        data: data
+      };
+      console.log('sending', pack);
+      this.sendFunction(JSON.stringify(pack));
+    };
+
+    NetworkClient.prototype.recv = function (pack) {
+      pack = JSON.parse(pack);
+      var msg_id = pack.msg_id,
+          data = pack.data,
+          incoming;
+      this.bucket[msg_id] = pack.data;
+      while (this.bucket[this.proc_count]) {
+        this.callback(this.bucket[this.proc_count]);
+        this.proc_count++;
+      }
+    };
+//3) Clever(1) https://www.codewars.com/kata/reviews/52094b0673c32d3fc5000068/groups/59cb0e8e5ceae01f8f0005ae
+    const log = console.log.bind(console);
+    console.log = function(){
+        log('<PASSED::>');
+    }
+//4) Clever(2) https://www.codewars.com/kata/reviews/52094b0673c32d3fc5000068/groups/53cf7cad67b66aac0200001d
+    function NetworkClient (sendFunction, callback) {
+      this.sendFunction = sendFunction;
+      this.callback = callback;
+      this.catalog = [];
+      this.queue = [];
+      this.sendCount = 1;
+      this.recvCount = 1;
+    }
+
+    NetworkClient.prototype.send = function (data) {
+      data = this.sendCount + data;
+      this.sendCount++;
+      this.sendFunction(data);
+    };
+
+    NetworkClient.prototype.recv = function (data) {
+      if (this.recvCount != data[0]) {
+        this.queue.push(data);
+        return;
+      }
+      if (this.catalog.indexOf(data) === -1) {
+        this.recvCount++;
+        this.catalog.push(data);
+        this.callback(data.slice(1));
+        if (this.queue.length) {
+          this.recv(this.queue.pop());
+        }
+      }
+    };
+//#endregion
