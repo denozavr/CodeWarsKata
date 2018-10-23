@@ -864,3 +864,33 @@ Description:
       else if (score >= 0.6) return 'D';
     }
 //#endregion
+
+//#region 8026 Even or Odd
+/*8026 Even or Odd (https://www.codewars.com/kata/even-or-odd)
+Description:
+    Create a function (or write a script in Shell) that takes an integer as an argument and returns "Even" for even numbers or "Odd" for odd numbers.
+*/
+
+//My solution
+    // function even_or_odd(number) {
+    //   return !(number % 2) ? 'Even' : 'Odd';
+    // }
+
+    //if return 0 then Even, but negate it with ! to get true ('Even')
+    const even_or_odd = (number) => !(number % 2) ? 'Even' : 'Odd';
+
+    //const even_or_odd = number => number % 2 === 0 ? 'Even' : 'Odd';
+
+//Solutions I like:
+//1) Best(433) Comment https://www.codewars.com/kata/reviews/5425fedf430ca265ea00033e/groups/54260ed060d7776515001ba0
+function even_or_odd(number) {
+  return number % 2 ? "Odd" : "Even"
+}
+//2) Clever(47) Comment https://www.codewars.com/kata/reviews/5425fedf430ca265ea00033e/groups/55ccfb7266869a848a00005f
+    var even_or_odd = n => n & 1 ? 'Odd' : 'Even'
+//3) Clever(20) https://www.codewars.com/kata/reviews/5425fedf430ca265ea00033e/groups/54260e98d5df9a72f7001aa0
+    function even_or_odd(number) {
+      return ["Even", "Odd"][Math.abs(number) % 2]
+    }
+
+//#endregion
