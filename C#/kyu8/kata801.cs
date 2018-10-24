@@ -748,3 +748,69 @@ Description:
       }
     }
 #endregion
+
+
+#region 8020 Even or Odd
+/*8020 Even or Odd (https://www.codewars.com/kata/even-or-odd)
+Description:
+    Create a function (or write a script in Shell) that takes an integer as an argument and returns "Even" for even numbers or "Odd" for odd numbers.
+*/
+
+//My solution
+    using System;
+
+    namespace Solution
+    {
+      public class SolutionClass
+      {
+        public static string EvenOrOdd(int number)
+        {
+          return number % 2 == 0 ? "Even" : "Odd";
+        }
+      }
+    }
+
+
+//Solutions I like:
+//1) Best(4) https://www.codewars.com/kata/reviews/5772a0baa95d046e1400018a/groups/5775a295f656b7275d000184
+    public class SolutionClass
+    {
+      public static string EvenOrOdd(int number)
+      {
+        if(number % 2 == 0)
+        {
+          return "Even";
+        }
+        return "Odd";
+      }
+    }
+
+//2) Clever(12) https://www.codewars.com/kata/reviews/5772a0baa95d046e1400018a/groups/57b013137f75b57c28000217
+        public static Func<int,string> EvenOrOdd = (x) => x % 2 == 0 ? "Even" : "Odd";
+//3) Clever(11) https://www.codewars.com/kata/reviews/5772a0baa95d046e1400018a/groups/57c002324f5f01ffa70001d9
+    public static string EvenOrOdd(int number)
+    {
+      //return Convert.ToBoolean(number & 1) ? "Odd":"Even";
+      return (number & 1) ==  0 ? "Even" :  "Odd"; // return (number & 0x01) > 0 ? "Odd" : "Even";
+    }
+
+//4) Clever(7) https://www.codewars.com/kata/reviews/5772a0baa95d046e1400018a/groups/581b7bad9ad9ffe2f500033e
+    public static string EvenOrOdd(int number)
+    {
+      return new string[] {"Even", "Odd"}[number % 2];
+    }
+//5) Clever(5) https://www.codewars.com/kata/reviews/5772a0baa95d046e1400018a/groups/58b329e96f4276ae300009e9
+    using System.Reflection;
+
+    namespace Solution
+    {
+      public class SolutionClass
+      {
+          public static string EvenOrOdd(int number)
+          {
+              var magic = MethodBase.GetCurrentMethod().Name;
+              return number % 2 == 0 ? magic.Substring(0, 4) : magic.Substring(6);
+          }
+      }
+    }
+#endregion
