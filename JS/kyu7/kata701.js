@@ -1030,3 +1030,65 @@ Description:
       return reg.test(url) ? url.replace(reg, param) : /\?/.test(url) ? url+'&'+param : url+ (param ? '?'+param : '');
     }
 //#endregion
+
+//#region 7026 Javascript Namespacing
+/*  7026 Javascript Namespacing (https://www.codewars.com/kata/javascript-namespacing)
+Description:
+  Define a class named MyClass inside a namespace MyNamespace. The class constructor should accept a single string argument. It should also have a function named sayHello that returns the string passed into the constructor.
+
+  Example:
+    var myObject = new MyNamespace.MyClass('Hello!');
+    var phrase = myObject.sayHello(); // phrase should be 'Hello!'
+
+  The interesting part is that MyClass should only be accessible via the namespace and should not define any extra global variables. Code should not redefine an existing namespace, but should also function if the namespace is not previously defined.
+*/
+
+//My solution
+    // Define MyNamespace ...
+    if(!MyNamespace) {
+      let MyNamespace = {};
+    }
+
+    MyNamespace.MyClass = class MyClass {
+      constructor(val) {
+        this.val = val;
+      }
+
+      sayHello() {
+        return this.val;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(19) !!COmment https://www.codewars.com/kata/reviews/524c6a2e55025e3fba000212/groups/524d881e6966f96f2300025b
+    var MyNamespace = MyNamespace || {};
+
+    MyNamespace.MyClass = function(phrase){
+      this.phrase = phrase;
+    };
+
+    MyNamespace.MyClass.prototype.sayHello = function(){
+      return this.phrase;
+    };
+
+//2) Clever(3) Comment https://www.codewars.com/kata/reviews/524c6a2e55025e3fba000212/groups/53d85f39e584ddc5520006ec
+    var MyNamespace;
+
+    MyNamespace.MyClass = function(msg) {
+      this.msg = msg;
+      this.sayHello = function() {
+        return this.msg;
+      };
+    };
+//3) Clever(2) https://www.codewars.com/kata/reviews/524c6a2e55025e3fba000212/groups/53888e20443aaecbf3000967
+    (function (root) {
+      var MyNamespace = root.MyNamespace = (root.MyNamespace || {} )
+
+      var MyClass = MyNamespace.MyClass = function (str) {
+        this.str = str;
+        this.sayHello = function () { return this.str; };
+      }
+
+
+      })(this);
+//#endregion
