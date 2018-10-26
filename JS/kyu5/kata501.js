@@ -1019,3 +1019,45 @@ Description
       }
     };
 //#endregion
+
+//#region 5017 ISBN-10 Validation
+/* 5014 ISBN-10 Validation (https://www.codewars.com/kata/simple-pig-latin)
+Description
+  Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
+  Examples
+    pigIt('Pig latin is cool'); // igPay atinlay siay oolcay
+    pigIt('Hello world !');     // elloHay orldway !
+*/
+
+//My solution
+    function pigIt(str){
+      let words = str.split(' ');
+      let wordsPig = words.map( (word) =>
+          word.match(/\w+/) ? //without it not work when sentence ends with ! or ?
+          word.slice(1) + word[0] + 'ay' :
+          word);
+      return wordsPig.join(' ');
+    }
+
+
+//Solution(s) I like(links):
+//1) Clever(589) and Best(118) !!Comments https://www.codewars.com/kata/reviews/520b9d2bd5c0050411000012/groups/537e36abdb521fb8e1000047
+    function pigIt(str){
+      return str.replace(/(\w)(\w*)(\s|$)/g, "\$2\$1ay\$3") //str.replace( /(\w)([\w-]*)\b/g, '$2$1ay' )
+      //str.replace( /(\w{1})(\w+)/g, "$2$1ay")
+    }
+  //3 groups: 1) first letter, 2) rest of the word, then 3) either space or end of the string. The "g" in the end of it means that it has not to stop at the first match, but it has to find all the (non overlapping) occurrences of it.
+//2) Best(6) !!Comment https://www.codewars.com/kata/reviews/520b9d2bd5c0050411000012/groups/5273f778d8108aed91000b67
+    function pigIt(str){
+      //Code here
+      return str.replace(/\b(\w)(\w*)\b/g,"$2$1ay");
+    }
+//3) Best(5) https://www.codewars.com/kata/reviews/520b9d2bd5c0050411000012/groups/5814cbee303d12084d0000f4
+    function pigIt(str) {
+      return str.replace(/\w+/g, (w) => {
+        return w.slice(1) + w[0] + 'ay';
+      });
+    }
+
+
+//#endregion
