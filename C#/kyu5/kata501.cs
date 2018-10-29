@@ -337,3 +337,91 @@ Description
             }
     }
 #endregion
+
+
+#region 5005 Simple Pig Latin
+/* 5005 Simple Pig Latin (https://www.codewars.com/kata/simple-pig-latin)
+Description
+  Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
+  Examples
+    Kata.PigIt("Pig latin is cool"); // igPay atinlay siay oolcay
+    Kata.PigIt("Hello world !");     // elloHay orldway !
+*/
+
+//My solution
+    using System;
+    using System.Linq;
+
+    public class Kata
+    {
+      public static string PigIt(string str)
+      {
+        var words = str.Split(' ').Select(w => w.Remove(0,1) + w[0] + "ay");
+        //Regex.Split(str, @"([^a-zA-Z])" ).Select(w => w.Length<=1 ? w : w.Substring(1) + w[0] + "ay");
+        return String.Join(' ',words);
+      }
+    }
+
+
+//Solution(s) I like(links):
+//1) Clever(60) and Best(31) https://www.codewars.com/kata/reviews/56a1b57eb8433c6f3c00006c/groups/56a3aaec51594f25cb000008
+    using System;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    public class Kata
+    {
+      public static string PigIt(string str)
+      {
+        //solution 1:
+        return string.Join(" ",str.Split().Select(x=>x.Substring(1)+x[0]+"ay"));
+        //solution 2:
+        return Regex.Replace(str,"(?<=^| )(\\w)(\\w+)",m=>m.Groups[2].Value+m.Groups[1].Value+"ay"); //Regex.Replace(str, @"(\w)(\w+)", @"$2$1ay");
+      }
+    }
+//2) Best(15) https://www.codewars.com/kata/reviews/56a1b57eb8433c6f3c00006c/groups/57869f0bba5c4bdaee0008e4
+    using System;
+    using System.Text;
+
+    public class Kata
+    {
+        public static string PigIt(string str)
+        {
+            var words = str.Split(' ');
+            var sb = new StringBuilder();
+            for (int i = 0; i < words.Length; i++)
+            {
+                sb.Append(words[i].Substring(1));
+                sb.Append(words[i][0]);
+                sb.Append("ay ");
+            }
+
+            return sb.ToString().TrimEnd(' ');
+        }
+    }
+//3) Best(4) https://www.codewars.com/kata/reviews/56a1b57eb8433c6f3c00006c/groups/58557e461f237fe9a4000b6c
+    using System;
+    using System.Linq;
+
+    public class Kata
+    {
+      public static string PigIt(string str)
+      {
+          return str
+              .Split(new char[] { ' ' })
+              .Select(word => word.Substring(1)+word.ElementAt(0)+"ay")
+              .Aggregate((current, next) => current + " " + next);
+      }
+    }
+//4) CLever(9) https://www.codewars.com/kata/reviews/56a1b57eb8433c6f3c00006c/groups/58557b3ba6aebd694e0000d7
+    using System;
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+      public static string PigIt(string str)
+      {
+        str =  Regex.Replace(str, @"(\w)(\w*)(\s|$)", "$2$1ay$3");
+        return str;
+      }
+    }
+#endregion

@@ -1020,8 +1020,8 @@ Description
     };
 //#endregion
 
-//#region 5017 ISBN-10 Validation
-/* 5014 ISBN-10 Validation (https://www.codewars.com/kata/simple-pig-latin)
+//#region 5017 Simple Pig Latin
+/* 5017 Simple Pig Latin (https://www.codewars.com/kata/simple-pig-latin)
 Description
   Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
   Examples
@@ -1058,6 +1058,4 @@ Description
         return w.slice(1) + w[0] + 'ay';
       });
     }
-
-
 //#endregion
