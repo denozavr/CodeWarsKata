@@ -1435,3 +1435,60 @@ Description:
       return [].concat.apply([],data.id&&[data.id].concat((data.items||[]).map(extractIds))||[]);
     }
 //#endregion
+
+//#region 6025 Object Search and Replace
+/* 6025 Object Search and Replace (https://www.codewars.com/kata/object-search-and-replace)
+Description:
+  Given an object with an arbitrary number of properties, any number of which may be objects or arrays, replace all values which are strictly equal to the string: "dynamic" with a given string occurring anywhere in that object or a child object or array.
+  Your solution should be recursive.
+  Your solution should be "in place" meaning it return the original object, not a copy.
+  Your solution should also include some type safety. If a value that isn't an object or array is passed as the first argument, it should just return whatever was passed in.
+*/
+
+//My solution
+    function solution (data, replace) {
+      //Replace all values of "dynamic" with replace
+      for(let key in data) {
+          if(typeof data[key] === 'object') {
+            solution(data[key], replace);
+          }
+          else if (data[key] === 'dynamic') {
+            data[key] = replace;
+          }
+      }
+      return data;
+    }
+
+//Solution(s) I like(links):
+//1) Best(4) https://www.codewars.com/kata/reviews/5244b0588978473f9500002e/groups/543d567cf10e604bc90010bd
+    function solution(data, replace) {
+      if (typeof data == 'object') {
+        for (var p in data) {
+          data[p] = solution(data[p], replace);
+        }
+      } else if (data == 'dynamic') {
+        return replace;
+      }
+
+      return data;
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/5244b0588978473f9500002e/groups/5668b2bd650627ab5800002f
+    function solution(data, replace) {
+      let isValid = n => Array.isArray(n) || Object.prototype.toString.call(data) === '[object Object]';
+      if (!isValid(data)) return data;
+      for (let prop in data) {
+        if (data[prop] === 'dynamic') data[prop] = replace;
+        if (isValid(data)) solution(data[prop], replace);
+      }
+      return data;
+    }
+//3) Best(1) https://www.codewars.com/kata/reviews/5244b0588978473f9500002e/groups/5bacc888484fcd462b001d42
+    function solution(data,replace) {
+      if (!data || typeof data != 'object') return data;
+      Object.keys(data).forEach(k => {
+          if (data[k] === 'dynamic') data[k] = replace;
+          else if (typeof data == 'object') solution(data[k],replace)
+      });
+      return data;
+    }
+//#endregion
