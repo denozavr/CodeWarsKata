@@ -1492,3 +1492,90 @@ Description:
       return data;
     }
 //#endregion
+
+//#region 6026 Adjacent pairs in a string
+/* 6026 Adjacent pairs in a string (https://www.codewars.com/kata/adjacent-pairs-in-a-string)
+Description:
+  You know how sometimes you write the the same word twice in a sentence, but then don't notice that it happened? For example, you've been distracted for a second. Did you notice that "the" is doubled in the first sentence of this description?
+  As as aS you can see, it's not easy to spot those errors, especially if words differ in case, like "as" at the beginning of the sentence.
+  Write a function countAdjacentPairs that counts the number of adjacent pairs in a string. It should be case-insenstive. A word in this kata is a sequence of non-whitespace characters enclosed by whitespace, so the string "dog dog." contains the two words "dog" and "dog.", which differ. The occurence of two or more equal words next after each other count as one.
+
+  Example:
+
+    countAdjacentPairs "dog cat"       == 0
+    countAdjacentPairs "dog dog cat"   == 1
+    countAdjacentPairs "apple dog cat" == 0
+    countAdjacentPairs "pineapple apple dog cat" == 0
+    countAdjacentPairs "apple     apple dog cat" == 1
+    countAdjacentPairs "apple dog apple dog cat" == 0
+    countAdjacentPairs "dog dog dog dog dog dog" == 1
+    countAdjacentPairs "dog dog dog dog cat cat" == 2
+    countAdjacentPairs "cat cat dog dog cat cat" == 3
+    //returns 0
+    countAdjacentPairs('')
+
+    // returns 1
+    countAdjacentPairs('cat dog dog')
+
+    // returns 1 (The first pair has been matched, and will be ignored from then on).
+    countAdjacentPairs('dog dog dog')
+
+    // returns 2
+    countAdjacentPairs('cat cat dog dog cat')
+*/
+
+
+//My solution
+    function countAdjacentPairs(searchString) {
+    //   let words = searchString.toLowerCase().split(' ');//
+        let words = searchString.split(' ').map(w => w.toLowerCase());
+
+        if (words.length < 2) return 0;
+
+        //filter only values where next 1 equal to previous one and delete duplicates via Set
+        let count = new Set(words.filter((value,i) => words[i+1] === value));
+
+        return [...count].length;
+    }
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/5245a9138ca049e9a10007bb/groups/537e3908537f386c85000076
+    function countAdjacentPairs(searchString) {
+      var adjacent = 0;
+      var remember = undefined;
+      searchString.split(" ").forEach(function(el) {
+        if((remember && remember.toLowerCase()) === el.toLowerCase()) {
+          adjacent++;
+          remember = undefined;
+        }
+        else {
+          remember = el;
+        }
+      });
+      return adjacent;
+    }
+//2) Clever(28) Comment https://www.codewars.com/kata/reviews/5245a9138ca049e9a10007bb/groups/539c60e9b9de00f8500003fb
+    function countAdjacentPairs(searchString) {
+    //countAdjacentPairs(' test testing ') should return 0, but this solution incorrectly returns 1.    And extra \b after the \1 should fix this
+      var result = searchString.match(/(\b\w+)\s\1/ig);
+      return result == null ? 0 : result.length;
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/5245a9138ca049e9a10007bb/groups/53af023861023fa2e700063c
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+
+    function countAdjacentPairs(searchString) {
+    var pairs = searchString.toLowerCase().match(/\b(\w+)\b \b\1\b/g) || [];
+    return pairs.filter(onlyUnique).length;
+    }
+//4) Clever(3) https://www.codewars.com/kata/reviews/5245a9138ca049e9a10007bb/groups/5380eb320fcd7c6b0e000cc2
+    function countAdjacentPairs(searchString) {
+      var m = (' '+searchString+' ').match(/ (\w+) \1 /ig);
+      return m ? m.length : 0;
+    }
+//5) Clever(3) https://www.codewars.com/kata/reviews/5245a9138ca049e9a10007bb/groups/525b1f27eb636f24c600008f
+    function countAdjacentPairs(searchString) {
+      return (searchString.match(/\b(\w+)\s\1\b/ig) || []).length;
+    }
+//#endregion
