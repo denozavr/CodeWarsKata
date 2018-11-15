@@ -1092,3 +1092,48 @@ Description:
 
       })(this);
 //#endregion
+
+
+//#region 7027 Flatten
+/* 7027 Flatten (https://www.codewars.com/kata/flatten-1)
+Description:
+  Write a function that flattens an Array of Array objects into a flat Array. Your function must only do one level of flattening.
+
+    flatten([1,2,3]) // => [1,2,3]
+    flatten([[1,2,3],["a","b","c"],[1,2,3]])  // => [1,2,3,"a","b","c",1,2,3]
+    flatten([[[1,2,3]]]) // => [[1,2,3]]
+ */
+
+//My solution
+    var flatten = function (array){
+      return [].concat(...array);
+    }
+
+//Solution(s) I like(links):
+//1) Best(22) COmment  https://www.codewars.com/kata/reviews/5251f603dc71afdb4f0002d5/groups/537e1c8bbf6c94c0e0000616
+    var flatten = function (array){
+      return array.reduce(function(a,z) {
+        return a.concat(z);
+      }, []);
+    }
+//2) Clever(179) & Best(82) !!Comment
+    var flatten = function (lol){
+      return [].concat.apply([],lol);
+    }
+//3) CLever(7) https://www.codewars.com/kata/reviews/5251f603dc71afdb4f0002d5/groups/5287757164abe1a5c5000347
+    var flatten = function (lol){
+      var arr = [];
+      lol.forEach(function(el){ arr = arr.concat(el);});
+      return arr;
+    }
+//4) Clever(4) https://www.codewars.com/kata/reviews/5251f603dc71afdb4f0002d5/groups/53b134903675e05fc20004c4
+    var flatten = function (array){
+      // TODO: Program me
+      var flat = [];
+
+      for (var i in array)
+        flat = flat.concat(array[i]);
+
+      return flat;
+    }
+//#endregion
