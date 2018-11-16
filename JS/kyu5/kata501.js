@@ -1059,3 +1059,79 @@ Description
       });
     }
 //#endregion
+
+
+//#region 5018 Return substring instance count - 2
+/* 5018 Return substring instance count - 2 (https://www.codewars.com/kata/return-substring-instance-count-2)
+Description
+  Complete the solution so that it returns the number of times the search_text is found within the full_text.
+    searchSubstr( fullText, searchText, allowOverlap = true )
+  so that overlapping solutions are (not) counted. If the searchText is empty, it should return 0. Usage examples:
+    searchSubstr('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up twice
+    searchSubstr('aaabbbcccc', 'bbb') # should return 1
+    searchSubstr( 'aaa', 'aa' ) # should return 2
+    searchSubstr( 'aaa', '' ) # should return 0
+    searchSubstr( 'aaa', 'aa', false ) # should return 1
+*/
+
+//My solution
+    function searchSubstr( fullText, searchText, allowOverlap ){
+      if(!fullText || !searchText) return 0;
+
+      let reg = new RegExp(searchText, "gi");
+      let count = 0;
+      let match;
+      while (match = reg.exec(fullText)) {
+        count++;
+        if(allowOverlap) {
+          reg.lastIndex = match.index+1;
+        }
+      }
+      return count;
+    }
+
+//Solution(s) I like(links):
+//1) Best(8) !!Comments https://www.codewars.com/kata/reviews/521916daf626d55cf8000236/groups/545d193561778ee9710007cd
+    function searchSubstr(fullText, searchText, allowOverlap) {
+      if(searchText == '') return 0;
+      var re = new RegExp(searchText, 'g');
+      if(allowOverlap) {
+        var count = 0;
+        while(re.exec(fullText)) {count++; re.lastIndex -= searchText.length - 1;}
+        return count;
+      } else return (fullText.match(re) || []).length || 0;
+    }
+//2) Best(4) https://www.codewars.com/kata/reviews/521916daf626d55cf8000236/groups/5290f5a2ba3417629b00058a
+    function searchSubstr( fullText, searchText, allowOverlap ){
+      if (allowOverlap === undefined) {
+        allowOverlap = true;
+      }
+      if (searchText == '') {
+        return 0;
+      }
+
+      var count = 0;
+      var index = fullText.indexOf(searchText);
+      while (index !== -1) {
+        count++;
+        if (allowOverlap) {
+          index = fullText.indexOf(searchText, index + 1);
+        } else {
+          index = fullText.indexOf(searchText, index + searchText.length);
+        }
+      }
+      return count;
+    }
+//3) Clever(24) !!Comment https://www.codewars.com/kata/reviews/521916daf626d55cf8000236/groups/53aa1a585f136177a60006a9
+    function searchSubstr( t, s, o ){
+      return(t.length===0||s.length===0)?0:t.match(new RegExp((o||(o==undefined))?"(?=("+s+"))":t,"g")).length;
+    }
+//4) Clever(3) https://www.codewars.com/kata/reviews/521916daf626d55cf8000236/groups/562b9846a388c9e7c00000d1
+    function searchSubstr(haystack, needle, allowOverlap) {
+      if (!needle)
+        return 0;
+      let s = RegExp.escape(needle);
+      let re = new RegExp(allowOverlap ? `(?=${s})` : s, "g");
+      return (haystack.match(re) || []).length;
+    }
+//#endregion
