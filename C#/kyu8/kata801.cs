@@ -814,3 +814,56 @@ Description:
       }
     }
 #endregion
+
+#region 8021 Reverse List Order
+/*8021 Reverse List Order (https://www.codewars.com/kata/reverse-list-order)
+Description:
+  In this kata you will create a function that takes in a list and returns a list with the reverse order.
+  Examples
+    Kata.ReverseList(new List<int> {1,2,3,4}) == new List<int> {4,3,2,1};
+    Kata.ReverseList(new List<int> {3,1,5,4}) == new List<int> {4,5,1,3};
+*/
+
+//My solution
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Kata
+    {
+      public static List<int> ReverseList(List<int> list)
+      {
+        return list.Reverse<int>().ToList();
+      }
+    // public static List<int> ReverseList(List<int> list) => list.AsEnumerable().Reverse().ToList();
+    }
+
+//Solutions I like:
+//1) Best(11) https://www.codewars.com/kata/reviews/5991c1063c5b647f37000004/groups/5991ee59583995efe0000a0c
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public class Kata
+    {
+      public static List<int> ReverseList(List<int> list)
+      {
+        return Enumerable.Reverse(list).ToList();
+      }
+    }
+//2) Best(3) https://www.codewars.com/kata/reviews/5991c1063c5b647f37000004/groups/5aaff96775d7379961000c4a
+    using System.Collections.Generic;
+
+    public class Kata
+    {
+      public static List<int> ReverseList(List<int> list)
+      {
+                List<int> yeniDizi = new List<int>();
+
+                for (int i = list.Count - 1; i >= 0; i--)
+                {
+                    yeniDizi.Add(list[i]);
+                }
+
+                return yeniDizi;
+      }
+    }
+#endregion
