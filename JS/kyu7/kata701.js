@@ -1137,3 +1137,89 @@ Description:
       return flat;
     }
 //#endregion
+
+
+//#region 7028 Sentences with Functions
+/* 7028 Sentences with Functions (https://www.codewars.com/kata/sentences-with-functions)
+Description:
+  Implement all required functions in order to create the following sentences by calling those functions:
+    Adam(has(a(dog()))); // must return "Adam has a dog."
+    The(name(of(the(dog(is(also(Adam()))))))); // must return "The name of the dog is also Adam."
+ */
+
+//My solution
+    function Adam(x) {return x  ? `Adam ${x}` : 'Adam.'}
+    function has(x) {return x ? `has ${x}` : 'has.'}
+    function a(x) {return x ? `a ${x}` : 'a.'}
+    function dog(x) {return x ? `dog ${x}` : 'dog.'}
+    function The(x) {return x ? `The ${x}` : 'The.'}
+    function name(x) {return x ? `name ${x}` : 'name.'}
+    function of(x) {return x ? `of ${x}` : 'of.'}
+    function the(x) {return x ? `the ${x}` : 'the.'}
+    function is(x) {return x ? `is ${x}` : 'is.'}
+    function also(x) {return x ? `also ${x}` : 'also.'}
+
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/52567c56cb6ac86b56000519/groups/52809895c9998ad790000754
+  function append(str, add) { return add + (str ? " " + str : "."); }
+  function Adam(str) { return append(str, "Adam"); }
+  function has(str) { return append(str, "has"); }
+  function a(str) { return append(str, "a"); }
+  function dog(str) { return append(str, "dog"); }
+  function The(str) { return append(str, "The"); }
+  function name(str) { return append(str, "name"); }
+  function of(str) { return append(str, "of"); }
+  function the(str) { return append(str, "the"); }
+  function is(str) { return append(str, "is"); }
+  function also(str) { return append(str, "also"); }
+
+//2) Clever(39) & Best(19) !!Comment https://www.codewars.com/kata/reviews/52567c56cb6ac86b56000519/groups/537df947989c706c4000041e
+  function getName(args) {
+    if (args.length==0) {return arguments.callee.caller.name +'.' }
+      return arguments.callee.caller.name +' '+ args[0];
+    };
+
+    function Adam() {return getName(arguments)}
+    function has() {return getName(arguments)}
+    function a() {return getName(arguments)}
+    function dog() {return getName(arguments)}
+    function The() {return getName(arguments)}
+    function name() {return getName(arguments)}
+    function of() {return getName(arguments)}
+    function the() {return getName(arguments)}
+    function is() {return getName(arguments)}
+    function also() {return getName(arguments)}
+//3) Clever(35) & Best(11) Comment https://www.codewars.com/kata/reviews/52567c56cb6ac86b56000519/groups/525da6a2a1b088df41001396
+    [
+      'Adam', 'has', 'a', 'dog', 'The', 'name', 'of', 'the', 'is', 'also'
+    ].map(function (word) {
+      this[word] = createWord(word);
+    }, this);
+
+    function createWord(word) {
+      return function (next) {
+        if (arguments.length) return word + ' ' + next;
+        return word + '.';
+      };
+    }
+//3) Clever(24) https://www.codewars.com/kata/reviews/52567c56cb6ac86b56000519/groups/53bd54928eb47701240009cc
+    _fn = function(name, str) {
+      return name + (str ? ' ' + str : '.');
+    }
+
+    'Adam has a The name of the dog is also'.split(' ').forEach(function(name) {
+      this[name] = _fn.bind(null, name);
+    })
+//4) Clever(4)  !!Comment https://www.codewars.com/kata/reviews/52567c56cb6ac86b56000519/groups/52567e9476c9b8f2df0002b1
+    function Adam() { return 'Adam has a dog.'; }
+    function has() {}
+    function a() {}
+    function dog() {}
+    function The() { return 'The name of the dog is also Adam.'; }
+    function name() {}
+    function of() {}
+    function the() {}
+    function is() {}
+    function also() {}
+//#endregion
