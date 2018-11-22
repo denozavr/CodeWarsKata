@@ -1579,3 +1579,51 @@ Description:
       return (searchString.match(/\b(\w+)\s\1\b/ig) || []).length;
     }
 //#endregion
+
+//#region 6027 Hard Time Bomb
+/* 6027 Hard Time Bomb (https://www.codewars.com/kata/hard-time-bomb)
+Description:
+  A bomb has been set to go off! You have to find the wire and cut it in order to stop the timer. There is a global var that holds the numeric ID to which wire to cut. Find that and then you can Bomb.CutTheWire(wireKey);
+*/
+
+//My solution
+    let wireCode = Object.keys(global).find( (key) =>
+      typeof global[key] === 'number'
+    ); // Find the wire.
+    Bomb.CutTheWire(global[wireCode]);
+
+
+//Solution(s) I like(links):
+//1) Best(11) https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/555c0a77502e0345ce000049
+    Object
+      .keys(this)
+      .filter(function(key) {
+        return /boom\d+/.test(key);
+      })
+      .forEach(function(key) {
+        Bomb.CutTheWire(this[key])
+      });
+//2) Best(5) https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/54e9f88b87ed7f3d0f00029e
+for (var key in global) {
+  if (key.match(/^boom/)) Bomb.CutTheWire(global[key]);
+}
+//3) Clever(46) Comment https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/542799e96f30afe64d00031f
+    for (var name in this) {
+      if (typeof this[name] === 'number') {
+        Bomb.CutTheWire(this[name]);
+      }
+    }
+
+//4) Clever(10) https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/545fbb805bff82446a00056c
+    for (var i in global) if (i.indexOf('boom') === 0) Bomb.CutTheWire(global[i]);
+//5) Clever(3) https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/5753db4aaeb79299c3001308
+    for (let i in global) {
+      i.startsWith('boom') && Bomb.CutTheWire(global[i])
+    }
+//6) Clever(3) Comment https://www.codewars.com/kata/reviews/52532cc8e9ea83b89b00000b/groups/5632560bd65cb3ebe300005a
+    var wireCode = 1; // Find the wire.
+
+    boom0 = boom1 = boom2 = boom3 = boom4 = boom5 = boom6 = boom7 = boom8 = boom9 = 1;
+
+    Bomb.CutTheWire(wireCode);
+//#endregion
