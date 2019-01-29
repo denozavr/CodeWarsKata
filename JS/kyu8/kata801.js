@@ -921,3 +921,39 @@ Description:
       return list.reduce((reverseList, element) => [element, ...reverseList], []);
     }
 //#endregion
+
+
+//#region 8028 Sentence Smash
+/*8028 Sentence Smash (https://www.codewars.com/kata/sentence-smash)
+Description:
+  Write a method smash that takes an array of words and smashes them together into a sentence and returns the sentence. You can ignore any need to sanitize words or add punctuation, but you should add spaces between each word. Be careful, there shouldn't be a space at the beginning or the end of the sentence!
+
+  Example
+  var words = ['hello', 'world', 'this', 'is', 'great'];
+  smash(words); // returns "hello world this is great"
+
+  Assumptions
+  You can assume that you are only given words.
+  You cannot assume the size of the array.
+  You can assume that you will always get an array.
+  What We're Testing
+  We're testing basic loops and string manipulation. This is for beginners who are just learning loops and string manipulation.
+
+  Disclaimer
+  This is for beginners so we want to test basic loops and string manipulation. Advanced users should easily be able to do this in one line.
+*/
+
+//My solution
+    // Smash Words
+    function smash (words) {
+      "use strict";
+      return words.join(' ');
+    };
+//const smash = words => words.join(" ");
+
+//Solutions I like:
+//1) Best(146) & Clever(32) !!Comment https://www.codewars.com/kata/reviews/53dc23d121a252d19500007d/groups/53dc48ee2259ed51ef00064b
+    smash = function (words) {
+      return words.join(" ");
+    };
+//#endregion
