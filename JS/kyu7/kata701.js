@@ -1223,3 +1223,50 @@ Description:
     function is() {}
     function also() {}
 //#endregion
+
+
+//#region 7029 For the sake of argument
+/* 7029 For the sake of argument (https://www.codewars.com/kata/for-the-sake-of-argument)
+Description:
+  Write a function named numbers that returns true if all the parameters it is passed are of the Number type. Otherwise, the function should return false. The function should accept any number of parameters.
+
+  Example usage:
+    numbers(1, 4, 3, 2, 5); // true
+    numbers(1, "a", 3); // false
+    numbers(1, 3, NaN); // true
+ */
+
+//My solution
+const numbers = function (...nums){
+  return nums.every(x => typeof x === 'number');
+}
+//const numbers = (...nums) => nums.every(x => typeof x === "number");
+
+//Solution(s) I like(links):
+//1) Best(27) & Clever(40) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/53a49b19fcf6ef5e7a000307
+    function numbers() {
+      return [].every.call(arguments, function(value) {
+        return typeof value === "number";
+      });
+    }
+//2) Best(7) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/539e72256ef2b28d5700102f
+    function numbers () {
+      var params = Array.prototype.slice.call(arguments)
+
+      return params.every(isNumber);
+    }
+
+    function isNumber (arg) {
+      return typeof arg === 'number';
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/58ef876b9e8347829f000128
+    function numbers() {
+      return [...arguments].every(x => typeof x === "number");
+    }
+//4) Clever(12) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/537db773bf6c94a222000069
+    var numbers = function() {
+      return Array.prototype.filter.call(arguments, function(n) { return typeof n !== 'number'; }).length === 0;
+    }
+//5) Clever(3) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/570828ced531cd9495000a65
+    const numbers = (...arr) => arr.reduce((a, b) => a && typeof (b) == "number", true);
+//#endregion
