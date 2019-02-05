@@ -1627,3 +1627,64 @@ for (var key in global) {
 
     Bomb.CutTheWire(wireCode);
 //#endregion
+
+
+//#region 6028 Fibonacci Reloaded
+/* 6028 Fibonacci Reloaded (https://www.codewars.com/kata/fibonacci-reloaded)
+Description:
+  And here is Fibonacci again. This time we want to go one step further. Our fib() function must be faster! Can you do it?
+  In case you don't know, what the Fibonacci number is:
+  The nth Fibonacci number is defined by the sum of the two previous Fibonacci numbers. In our case: fib(1) == 0 and fib(2) == 1. With these initial values you should be able to calculate each following Fibonacci number.
+
+  Example:
+    fib(1); // === 0
+    fib(2); // === 1
+    fib(3); // === 1
+    fib(4); // === 2
+    fib(5); // === 3
+*/
+
+//My solution
+    function fib(n) {
+      let [x, y] = [0, 1];
+      for (let i = 1; i < n; i++) {
+      let temp = x;
+        x = x + y;
+        y = temp;
+      }
+      return x;
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/52549d3e19453df56f000101/groups/5a5c690e8333c8d3b8000b1a
+    function fib(n) {
+      var [x, y] = [0, 1];
+      for (let i = 1; i < n; i++) [x, y] = [y, x + y];
+      return x;
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/52549d3e19453df56f000101/groups/562c76835d25c45bba000061
+    function fib(n) {
+      var x = [ 0, 1 ];
+
+      while (--n)
+        x = [ x[1], x[0] + x[1] ];
+
+      return x[0];
+    }
+//3) Clever(9) https://www.codewars.com/kata/reviews/52549d3e19453df56f000101/groups/53d60d8383db277db1000516
+    function fib(n) {
+      return Math.round(Math.pow( 1.618033988749895   , n - 1)  / 2.23606797749979 );
+    }
+//4) Clever(5) https://www.codewars.com/kata/reviews/52549d3e19453df56f000101/groups/53b3a2fb549d32aae2000391
+    function fib(n) {
+      return Math.round(Math.pow(((1 + Math.sqrt(5)) / 2), n-1)/Math.sqrt(5));
+    }
+//5) Clever(2) https://www.codewars.com/kata/reviews/52549d3e19453df56f000101/groups/5b7b7c70450c443ddb001ef8
+    let map = {1: 0, 2: 1};
+
+    function fib(n) {
+      if(typeof map[n] === "number") return map[n];
+      return map[n] = fib(n-2) + fib(n-1);
+    }
+//#endregion
