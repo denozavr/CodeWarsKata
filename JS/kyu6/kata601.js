@@ -1688,3 +1688,78 @@ Description:
       return map[n] = fib(n-2) + fib(n-1);
     }
 //#endregion
+
+//#region 6029 Sequences and Series
+/* 6029 Sequences and Series (https://www.codewars.com/kata/sequences-and-series)
+Description:
+  Have a look at the following numbers.
+
+    n | score
+    ---+-------
+    1 |  50
+    2 |  150
+    3 |  300
+    4 |  500
+    5 |  750
+
+  Can you find a pattern in it? If so, then write a function getScore(n)/get_score(n)/GetScore(n) which returns the score for any positive number n:
+
+    int getScore(1) = return 50;
+    int getScore(2) = return 150;
+    int getScore(3) = return 300;
+    int getScore(4) = return 500;
+    int getScore(5) = return 750;
+*/
+
+//My solution
+    function getScore(n) {
+      return (50 + (n-1) * 25) * n;
+    }
+  // const getScore=n=>n*(n+1)*25;
+
+//Solution(s) I like(links):
+//1) Best(13) & Clever(24) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/5254bd1357d59fbbe90001ee
+    // base idea is to build the sum from 1 to n: n * (n + 1) / 2
+    // and then just multiply by 50
+    function getScore(n) {
+      return n * (n + 1) * 25;
+    }
+
+//2) Clever(3) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/54de0b32f56580786f00102d
+function getScore(n) {
+  return n *  50 + (!!n ? getScore(n-1) : 0);
+}
+//3) Best(2) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/5a2d479aeab24ddab600006f
+    function getScore(n) {
+      let res = 0, step = 50;
+
+      while (n--) {
+        res += step;
+        step += 50;
+      }
+
+      return res;
+    }
+//4) Clever(2) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/5444e8c7e1941cf2160006d0
+    function getScore(n)
+    {
+      if(n <= 1)
+        return 50;
+      else
+        return getScore(n - 1) + n * 50;
+    }
+//5) Clever(2) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/542cca500abda6ab03000269
+    function getScore(n) {
+      // do your magic here
+      var result = 0;
+      for (var i = 1; i <= n; i++) {
+        result += 50 * i;
+      }
+      return result;
+    }
+//6) Clever(2) https://www.codewars.com/kata/reviews/5254bd1357d59fbbe90001ef/groups/5297d40a65a8859582000942
+    function getScore(n) {
+      return n*((n* 25)+ 25);
+    }
+//#endregion
+
