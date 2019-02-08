@@ -918,3 +918,65 @@ Description:
     }
 
 #endregion
+
+#region 6016 Sequences and Series
+/* 6016 Sequences and Series (https://www.codewars.com/kata/sequences-and-series)
+Description:
+  Have a look at the following numbers.
+
+    n | score
+    ---+-------
+    1 |  50
+    2 |  150
+    3 |  300
+    4 |  500
+    5 |  750
+
+  Can you find a pattern in it? If so, then write a function getScore(n)/get_score(n)/GetScore(n) which returns the score for any positive number n:
+
+    int getScore(1) = return 50;
+    int getScore(2) = return 150;
+    int getScore(3) = return 300;
+    int getScore(4) = return 500;
+    int getScore(5) = return 750;
+*/
+
+//My solution
+    public class Sequence
+    {
+      public static long GetScore(long n)
+      {
+        return n * (n + 1) * 25;
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/599e8a99e50047cdf6001796/groups/59a04ea8d31906159200068e
+    public class Sequence
+    {
+      public static long GetScore(long n)
+      {
+        // do your magic here
+        return 50 * (n * (n + 1) / 2);
+      }
+    }
+
+//2) Clever(4) https://www.codewars.com/kata/reviews/599e8a99e50047cdf6001796/groups/59a04e4dc6aef528c90002c2
+    public class Sequence
+    {
+      public static long GetScore(long n)
+      {
+      const int initialValue = 50 ;
+        if(n==1)
+          return initialValue;
+        else
+        return GetScore(n-1) + n*initialValue;
+      }
+    }
+//3) Clever(2) https://www.codewars.com/kata/reviews/599e8a99e50047cdf6001796/groups/59bb96167df47e158f000084
+    public class Sequence
+    {
+      public static long GetScore(long n)
+        => n == 1 ? 50 : GetScore(n-1) + 50 * n;
+    }
+#endregion
