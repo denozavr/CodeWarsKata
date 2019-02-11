@@ -1763,3 +1763,40 @@ function getScore(n) {
     }
 //#endregion
 
+//#region 6030 Arabian String
+/* 6030 Arabian String (https://www.codewars.com/kata/arabian-string/javascript)
+Description:
+    You must create a method that can convert a string from any format into CamelCase. This must support symbols too.
+    Don't presume the separators too much or you could be surprised.
+    Tests
+      camelize("example name")   # => ExampleName
+      camelize("your-NaMe-here") # => YourNameHere
+      camelize("testing ABC")    # => TestingAbc
+*/
+
+//My solution
+    const camelize = str => str.toLowerCase()
+                .replace(/[^a-z0-9]/gi, ' ') // replace all not AlphanumericChars to " "
+                .trim()
+                .split(/\s+/) // create array using 1+ spaces as separator in string
+                .map(x => x[0].toUpperCase() + x.slice(1))
+                .join('');
+
+
+//Solution(s) I like(links):
+//1) Best(3) https://www.codewars.com/kata/reviews/525821ce8e7b0d240b002619/groups/54abaa0335adf4e07e0006cf
+    function camelize(str){
+      return str.match(/[a-z0-9]+/gi).map(function(word){
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
+      }).join('');
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/525821ce8e7b0d240b002619/groups/5afa955bac408e27f0002ae7
+    const camelize = s => s
+      .match(/[a-z0-9]+/gi)
+      .map(e => `${e[0].toUpperCase()}${e.slice(1).toLowerCase()}`)
+      .join``;
+//3) Best(2) https://www.codewars.com/kata/reviews/525821ce8e7b0d240b002619/groups/56dbaeac3e5dd60467000934
+    function camelize(str){
+      return str.toLowerCase().replace(/(^|[^a-z0-9])[a-z]/g,a=>a.slice(-1).toUpperCase()).replace(/[^a-z0-9]/ig,'');
+    }
+//#endregion
