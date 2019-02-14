@@ -1135,3 +1135,82 @@ Description
       return (haystack.match(re) || []).length;
     }
 //#endregion
+
+
+//#region 5019 (Ready for) Prime Time
+/* 5019 (Ready for) Prime Time (https://www.codewars.com/kata/ready-for-prime-time)
+Description
+    We need prime numbers and we need them now!
+    Write a method that takes a maximum bound and returns all primes up to and including the maximum bound.
+
+    For example:
+      prime(11);
+    Should return an array that looks like this:
+      [2, 3, 5, 7, 11]
+*/
+
+//My solution
+    function isPrime(num) {
+      let prime = true;
+
+      for (let i = 2; i < num; i++) {  // i <= Math.sqrt(num)
+        if (num % i === 0) {
+          prime = false;
+        }
+      }
+
+      return (num < 2) ? false : prime;
+    }
+
+    function prime(num) {
+      // Generate an array containing every prime number between 0 and the num specified (inclusive)
+      let primes = [];
+
+      for (let i = 1; i <= num; i++) {
+        if (isPrime(i)) {
+          primes.push(i);
+        }
+      }
+
+      return primes;
+    }
+
+//Solution(s) I like(links):
+//1) Best(13) & Clever(30) !!Comment https://www.codewars.com/kata/reviews/521ef597c106a935c000051c/groups/53d402ed2f2a213c9a000c94
+    // Generate an array containing every prime number between 0 and the num specified (inclusive)
+    function prime(num) {
+      var primes = [];
+      loop: for (var i = 2; i <= num; i++) {
+        for (var j = 0; j <= primes.length; j++)
+          if (i % primes[j] === 0) continue loop;
+        primes.push(i);
+      }
+      return primes;
+    }
+//2) Best(6) Comment https://www.codewars.com/kata/reviews/521ef597c106a935c000051c/groups/539dea04a540dbd3cd000620
+    function prime(num) {
+      if (num < 2) return []
+      var primes = [2]
+      for (candidate = 3; candidate <= num; candidate++)
+        if (primes.every(function (prime) { return candidate % prime !== 0 }))
+          primes.push(candidate)
+      return primes
+    }
+//3) Clever(4) https://www.codewars.com/kata/reviews/521ef597c106a935c000051c/groups/542873826f30afca93000e21
+    function prime(n) {
+      var arr = Array.apply(null, Array(n+1)).map(function (d,i) { return i })
+
+      function isPrime(number) {
+        if (number <= 1) return false
+
+        var limit = number >> 1
+        for (var i = 2; i <= limit; i++) {
+          if (number % i === 0) return false
+        }
+        return true
+      }
+
+      return arr.filter(isPrime)
+    }
+
+//#endregion
