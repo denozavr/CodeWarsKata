@@ -1270,3 +1270,53 @@ const numbers = function (...nums){
 //5) Clever(3) https://www.codewars.com/kata/reviews/5258b43fe6925df5ab003641/groups/570828ced531cd9495000a65
     const numbers = (...arr) => arr.reduce((a, b) => a && typeof (b) == "number", true);
 //#endregion
+
+
+//#region 7030 Reverse words
+/* 7030 Reverse words (https://www.codewars.com/kata/reverse-words)
+Description:
+    Complete the function that accepts a string parameter, and reverses each word in the string. All spaces in the string should be retained.
+
+    Examples
+      "This is an example!" ==> "sihT si na !elpmaxe"
+      "double  spaces"      ==> "elbuod  secaps"
+ */
+
+//My solution
+function reverseWords(str) {
+  let arr = str.split(' ');
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].split('').reverse().join('');
+  }
+  return arr.join(' ');
+}
+
+//Solution(s) I like(links):
+//1) Best(205) & Clever(95) !!Comment https://www.codewars.com/kata/reviews/5259b20d6021e9e14c0010d7/groups/5259b20d6021e9e14c0010d6
+    function reverseWords(str) {
+      return str.split(' ').map(function(word){
+        return word.split('').reverse().join('');
+      }).join(' ');
+    }
+
+    //Similar: https://www.codewars.com/kata/reviews/5259b20d6021e9e14c0010d7/groups/5635e3799f4af428e1000043
+    function reverseWords(str) {
+      return str.split(' ').map( str => str.split('').reverse().join('') ).join(' ');
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/5259b20d6021e9e14c0010d7/groups/5a0b4d821733983c51001e67
+    var reverseWords=s=>s.replace(/\S+/g,v=>[...v].reverse().join``)
+//3) Clever(131) Comment https://www.codewars.com/kata/reviews/5259b20d6021e9e14c0010d7/groups/525e5a9d91e2b8c04b000570
+    function reverseWords(str) {
+      // Go for it
+      //split words into seperate arrays
+      return str.split("").reverse().join("").split(" ").reverse().join(" ");
+    }
+//4) Clever(5) Comment https://www.codewars.com/kata/reviews/5259b20d6021e9e14c0010d7/groups/525c69b61515e6e768000158
+    function reverseWords(str) {
+      var newStr = "";
+      for (var i = str.length - 1; i >= 0; i--) {
+        newStr += str[i];
+      }
+      return newStr.split(" ").reverse().join(" ");
+    }
+//#endregion
