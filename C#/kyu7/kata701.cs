@@ -580,6 +580,7 @@ Description:
     public static bool Solution(string str, string ending) => str.EndsWith(ending);
 #endregion
 
+
 #region 7016 Sort arrays - 1
 /* 7016 Sort arrays - 1 (https://www.codewars.com/kata/sort-arrays-1)
 Description:
@@ -698,7 +699,7 @@ Description:
 #endregion
 
 
-//#region 7019 generateRules
+#region 7019 generateRules
 /* 7019 generateRules (https://www.codewars.com/kata/generaterules)
 Description:
   While creating IPtables rules to protect your server you want to write a function generateRules to help you with this. The function generateRules should take two arguments:
@@ -772,5 +773,95 @@ Description:
     public static class Kata
     {
       public static string GenerateRules(Func<uint, string> func, List<uint> portList) => portList.Aggregate(new StringBuilder(), (a, b) => a.Append(func(b))).ToString();
+    }
+#endregion
+
+#region 7020 Reverse words
+/* 7020 Reverse words (https://www.codewars.com/kata/reverse-words)
+Description:
+    Complete the function that accepts a string parameter, and reverses each word in the string. All spaces in the string should be retained.
+
+    Examples
+      "This is an example!" ==> "sihT si na !elpmaxe"
+      "double  spaces"      ==> "elbuod  secaps"
+ */
+
+//My solution
+    using System;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static string ReverseWords(string str)
+      {
+        char[] charArray = str.ToArray();
+        Array.Reverse(charArray);
+        var reverseString = new string(charArray);
+
+        var arr =  reverseString.Split(' ').Reverse();
+        return String.Join(" ", arr);
+      }
+    }
+
+//Solution(s) I like(links):
+//1) Best(4) https://www.codewars.com/kata/reviews/5995dbaff017e425c400089f/groups/5a54bffad421cbe15a001234
+    using System.Linq;
+    public static class Kata
+    {
+        public static string ReverseWords(string str) => string.Join(" ", str.Split().Select(x => string.Concat(x.Reverse())));
+    }
+
+//2) Best(3) https://www.codewars.com/kata/reviews/5995dbaff017e425c400089f/groups/5af7c262eefd85e3e9000398
+    using System;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string ReverseWords(string str)
+      {
+            List<string> sl= new List<string>();// List to hold the reversed words
+
+            string[] words = str.Split(' ');// convert str to string array
+
+            foreach(string s in words)  // loop through string array
+            {
+              char[] scharr= s.ToCharArray();//convert string to char array
+              Array.Reverse(scharr);//reverse char array
+
+              string sreverse= new string (scharr);// create string with char array
+
+              sl.Add(sreverse);//add string to the list
+            }
+
+            return string.Join(" ", sl.ToArray());//Return the list as a string
+      }
+    }
+//3) Clever(22) https://www.codewars.com/kata/reviews/5995dbaff017e425c400089f/groups/5996b75eb1a1cded1500274b
+    using System;
+    using System.Linq;
+
+    public static class Kata
+    {
+      public static string ReverseWords(string str)
+      {
+        return string.Join(" ", str.Split(' ').Select(i => new string(i.Reverse().ToArray())));
+      }
+    }
+//4) Best(2) https://www.codewars.com/kata/reviews/5995dbaff017e425c400089f/groups/5995dbc0f017e425c40008a3
+    using System;
+
+    public static class Kata
+    {
+      public static string ReverseWords(string str)
+      {
+        string[] wordArray = str.Split(' ');
+        string returnValue = String.Empty;
+        foreach(string w in wordArray) {
+          char[] array = w.ToCharArray();
+          Array.Reverse(array);
+          returnValue = String.Concat(returnValue, new string(array), " ");
+        }
+        return returnValue.Trim();
+      }
     }
 #endregion
