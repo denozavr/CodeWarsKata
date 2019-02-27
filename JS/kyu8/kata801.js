@@ -957,3 +957,59 @@ Description:
       return words.join(" ");
     };
 //#endregion
+
+//#region 8029 Sum Array
+/*8029 Sum Array (https://www.codewars.com/kata/sum-arrays)
+Description:
+    Write a method sum (sum_array in python, SumArray in C#) that takes an array of numbers and returns the sum of the numbers. These may be integers or decimals for Ruby and any instance of Num for Haskell. The numbers can also be negative. If the array does not contain any numbers then you should return 0.
+
+    Examples
+      numbers = [1, 5.2, 4, 0, -1]
+      puts sum(numbers)
+      9.2
+
+    Assumptions
+      You can assume that you are only given numbers.
+      You cannot assume the size of the array.
+      You can assume that you do get an array and if the array is empty, return 0.
+      What We're Testing
+      We're testing basic loops and math operations. This is for beginners who are just learning loops and math operations.
+
+    Disclaimer
+      This is for beginners so we want to test basic loops and math operations. Advanced users may find this extremely easy and can easily write this in one line.
+*/
+
+//My solution
+    // Sum Numbers
+    function sum(numbers) {
+      "use strict";
+      // 0 is initial value to which numbers will be summed
+      return numbers.reduce((accumulator, currentValue) =>
+        accumulator + currentValue, 0
+      );
+
+    };
+// const sum = (arr) => arr.reduce((prev,next) => prev += next, 0);  // or (sum, number)
+
+//Solutions I like:
+//1) Best(31) & Clever(11) !!Comment https://www.codewars.com/kata/reviews/53dc581021a252c4890000bc/groups/55a3d77cd1c9ec04e10000b3
+    function sum(numbers) {
+      return numbers.reduce((a, b) => a + b, 0);
+    }
+//2) Best(14) https://www.codewars.com/kata/reviews/53dc581021a252c4890000bc/groups/53e12d13a353ab02bf000745
+    // Sum Numbers
+    sum = function (numbers) {
+      "use strict";
+      var total = 0;
+      for(var i = 0; i < numbers.length; i++) {
+        total += numbers[i];
+      }
+      return total;
+    };
+ //3) Best(11)  https://www.codewars.com/kata/reviews/53dc581021a252c4890000bc/groups/53dc747b2259ed2c5f00090a
+    // Sum Numbers
+    sum = function (numbers) {
+      "use strict";
+      return numbers.reduce(function(prev, cur) { return prev + cur }, 0);
+    };
+//#endregion
