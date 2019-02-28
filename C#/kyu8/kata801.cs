@@ -907,3 +907,61 @@ Description:
         String.Join(" ", words);
     }
 #endregion
+
+//#region 8023 Sum Array
+/*8023 Sum Array (https://www.codewars.com/kata/sum-arrays)
+Description:
+    Write a method sum (sum_array in python, SumArray in C#) that takes an array of numbers and returns the sum of the numbers. These may be integers or decimals for Ruby and any instance of Num for Haskell. The numbers can also be negative. If the array does not contain any numbers then you should return 0.
+
+    Examples
+      Kata.SumArray(new int[] {1, 2, 3}) => 6
+
+    Assumptions
+      You can assume that you are only given numbers.
+      You cannot assume the size of the array.
+      You can assume that you do get an array and if the array is empty, return 0.
+      What We're Testing
+      We're testing basic loops and math operations. This is for beginners who are just learning loops and math operations.
+
+    Disclaimer
+      This is for beginners so we want to test basic loops and math operations. Advanced users may find this extremely easy and can easily write this in one line.
+*/
+
+//My solution
+    using System.Linq;
+
+    public class Kata
+    {
+      public static double SumArray(double[] array)
+      {
+        return array.Sum();
+      }
+    }
+//            var sum = from s in array select sum += s;
+
+//Solutions I like:
+//1) Best(4) & Clever(2) https://www.codewars.com/kata/reviews/5996efdc0b2b36bd930009e3/groups/5996efff0b2b36bd930009eb
+    using System.Linq;
+
+    public class Kata
+    {
+      public static double SumArray(double[] array) =>
+        array.Sum();
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/5996efdc0b2b36bd930009e3/groups/5c4c83c68183f40001aec4dc
+//Better performance
+    public class Kata
+    {
+        public static double SumArray(double[] array)
+        {
+            var result = 0.0;
+
+            foreach (var val in array)
+            {
+                result += val;
+            }
+
+          return  result;
+        }
+    }
+//#endregion
