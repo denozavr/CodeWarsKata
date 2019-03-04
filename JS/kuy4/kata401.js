@@ -873,3 +873,239 @@ Description:
       return isArray(o)&&JSON.stringify(this).replace(/"(\[|\])"/g,"x").replace(/[^\[,'\]]/g,"") === JSON.stringify(o).replace(/"(\[|\])"/g,"x").replace(/[^\[,'\]]/g,"")
     };
 //#endregion
+
+
+
+
+//#region 4011 Codewars style ranking system
+/* 4011 Codewars style ranking system (https://www.codewars.com/kata/codewars-style-ranking-system)
+Description:
+  Write a class called User that is used to calculate the amount that a user will progress through a ranking system similar to the one Codewars uses.
+
+  Business Rules:
+    A user starts at rank -8 and can progress all the way to 8.
+    There is no 0 (zero) rank. The next rank after -1 is 1.
+    Users will complete activities. These activities also have ranks.
+    Each time the user completes a ranked activity the users rank progress is updated based off of the activity's rank
+    The progress earned from the completed activity is relative to what the user's current rank is compared to the rank of the activity
+    A user's rank progress starts off at zero, each time the progress reaches 100 the user's rank is upgraded to the next level
+    Any remaining progress earned while in the previous rank will be applied towards the next rank's progress (we don't throw any progress away). The exception is if there is no other rank left to progress towards (Once you reach rank 8 there is no more progression).
+    A user cannot progress beyond rank 8.
+    The only acceptable range of rank values is -8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8. Any other value should raise an error.
+    The progress is scored like so:
+
+    Completing an activity that is ranked the same as that of the user's will be worth 3 points
+    Completing an activity that is ranked one ranking lower than the user's will be worth 1 point
+    Any activities completed that are ranking 2 levels or more lower than the user's ranking will be ignored
+    Completing an activity ranked higher than the current user's rank will accelerate the rank progression. The greater the difference between rankings the more the progression will be increased. The formula is 10 * d * d where d equals the difference in ranking between the activity and the user.
+
+  Logic Examples:
+    If a user ranked -8 completes an activity ranked -7 they will receive 10 progress
+    If a user ranked -8 completes an activity ranked -6 they will receive 40 progress
+    If a user ranked -8 completes an activity ranked -5 they will receive 90 progress
+    If a user ranked -8 completes an activity ranked -4 they will receive 160 progress, resulting in the user being upgraded to rank -7 and having earned 60 progress towards their next rank
+    If a user ranked -1 completes an activity ranked 1 they will receive 10 progress (remember, zero rank is ignored)
+
+  Code Usage Examples:
+      var user = new User()
+      user.rank // => -8
+      user.progress // => 0
+      user.incProgress(-7)
+      user.progress // => 10
+      user.incProgress(-5) // will add 90 progress
+      user.progress # => 0 // progress is now zero
+      user.rank # => -7 // rank was upgraded to -7
+
+    Note: Codewars no longer uses this algorithm for its own ranking system. It uses a pure Math based solution that gives consistent results no matter what order a set of ranked activities are completed at.
+*/
+
+//My solution
+    class User {
+
+      constructor() {
+        this.range = [-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8];
+        this.position = 0;
+        this.rank = this.range[this.position];
+        this.progress = 0;
+      }
+
+      incProgress(rank) {
+        if (rank === 0 || rank < -8 || rank > 8) throw new Error('error');
+        if (rank === this.rank) {
+          this.progress += 3;
+        }
+        if ((this.rank - rank === 1) || (this.rank === 1 && rank === -1)) {
+          this.progress += 1;
+        }
+        if (rank > this.rank) {
+          if (this.rank <= -1 && rank >= 1) {
+            this.progress += 10 * Math.pow((rank - this.rank - 1), 2);
+          } else {
+            this.progress += 10 * Math.pow((rank - this.rank), 2);
+          }
+        }
+        if (this.progress >= 100 && this.rank < 8) {
+          while (this.progress >= 100) {
+            this.position++;
+            this.rank = this.range[this.position];
+            this.progress -= 100;
+          }
+        }
+        if (this.rank === 8) {
+          this.progress = 0;
+        }
+      }
+
+    }
+
+  //Solution(s) I like(links):
+//1) best(25) https://www.codewars.com/kata/reviews/521679fd64dc2cdac0000140/groups/5250c16e1777d16198000409
+    var User = (function () {
+      ////////// Hidden //////////
+      var hierarchy = [ -8,-7,-6,-5,-4,-3,-2,-1, 1, 2, 3, 4, 5, 6, 7, 8 ];
+      var progress = { min: 0, max: 100 };
+      var rank = { min: hierarchy[0], max: hierarchy[hierarchy.length - 1] };
+
+      progress.acceleration = function (userRank, activityRank) {
+        var d = rank.difference(userRank, activityRank);
+        if (d === -1)       return 1;
+        else if (d === 0)   return 3;
+        else if (d > 0)     return 10 * d * d;
+        else                return 0;
+      };
+      progress.update = function (user, acceleration) {
+        user.progress += acceleration;
+        user.progress = (user.rank === rank.max) ? progress.min : user.progress % progress.max;
+      };
+      rank.difference = function (userRank, activityRank) {
+        return hierarchy.indexOf(activityRank) - hierarchy.indexOf(userRank);
+      };
+      rank.update = function (user, acceleration) {
+        var d = ~~((user.progress + acceleration) / progress.max);
+        var i = hierarchy.indexOf(user.rank) + d;
+        if (i >= hierarchy.length) i = hierarchy.length -1;
+        user.rank = hierarchy[i];
+      };
+      rank.valid = function (r) {
+        return hierarchy.indexOf(r) > -1;
+      };
+
+      ////////// Exposed //////////
+      var User = function () {
+        this.progress = progress.min;
+        this.rank = rank.min;
+      };
+      User.prototype.incProgress = function (activityRank) {
+        if (!rank.valid(activityRank)) throw new Error("Invalid activity rank given");
+        var accel = progress.acceleration(this.rank, activityRank);
+        rank.update(this, accel);
+        progress.update(this, accel);
+      };
+      return User;
+    }).call();
+//2) Clever(17) https://www.codewars.com/kata/reviews/521679fd64dc2cdac0000140/groups/543e049723ccbd9aac00106c
+    // it must support rank, progress and the incProgress(rank) method
+
+    var ranks = [-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8];
+
+    User = function() {
+      this._progress = 0;
+
+      this.incProgress = function(rank) {
+        if (rank > 8) throw Error();
+        if (rank == 0) throw Error();
+        if (rank < -8) throw Error();
+        if (rank > 0) rank--;
+        var thisrank = this.rank;
+        if (thisrank > 0) thisrank--;
+        var cmp = rank - thisrank;
+        if (cmp == 0) this._progress += 3;
+        if (cmp == -1) this._progress += 1;
+        if (cmp > 0) this._progress += 10 * cmp * cmp;
+      }
+
+      Object.defineProperty(this, "rank", { get: function () {
+        return ranks[Math.min(15,Math.floor(this._progress/100))];
+      }});
+
+      Object.defineProperty(this, "progress", { get: function () {
+        return Math.min(this._progress, 1500) % 100;
+      }});
+    }
+
+//3)Best(3) https://www.codewars.com/kata/reviews/521679fd64dc2cdac0000140/groups/58454f7afc7d0f10f60001bd
+    // it must support rank, progress and the incProgress(rank) method
+    class User{
+      constructor(){
+        this.RANK = [-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8];
+        this.pos=0;
+        this.rank = this.RANK[this.pos];
+        this.progress = 0;
+      }
+
+      incProgress(taskRank){
+        taskRank = this.RANK.indexOf(taskRank);
+        if(taskRank < 0) throw ("error");
+        let diff = taskRank - this.pos;
+
+            if(diff ==  0) this.progress+=3;
+        else if(diff >   0) this.progress += diff*diff*10;
+        else if(diff == -1) this.progress += 1;
+        // new rank & progress
+        this.pos += Math.floor(this.progress/100);
+        this.progress = this.progress%100;
+        if(this.pos >= 15) {this.pos = 15; this.progress = 0;}
+        this.rank = this.RANK[this.pos];
+      }
+
+    }
+
+//4) Clever(7) https://www.codewars.com/kata/reviews/521679fd64dc2cdac0000140/groups/538762a0ee24bfbac10015dd
+    function User(){
+      this.rank = -8;
+      this.progress = 0;
+      this.ranking = {
+        "-8": 0,
+        "-7": 1,
+        "-6": 2,
+        "-5": 3,
+        "-4": 4,
+        "-3": 5,
+        "-2": 6,
+        "-1": 7,
+        "1": 8,
+        "2": 9,
+        "3": 10,
+        "4": 11,
+        "5": 12,
+        "6": 13,
+        "7": 14,
+        "8": 15
+      };
+    };
+
+    User.prototype.addPoints = function(points){
+      this.progress += points;
+      var levels = Math.floor(this.progress / 100);
+      if(levels > 0){
+        for(;levels > 0; levels--){
+          this.rank += this.rank == -1?2:1;
+        }
+        this.progress = this.progress % 100;
+      }
+      if(this.rank == 8) this.progress = 0;
+    };
+
+    User.prototype.incProgress = function(rank){
+      if(rank < -8 || rank === 0 || rank > 8) throw error;
+      var diff = this.ranking[rank] - this.ranking[this.rank];
+
+      if(diff === 0){
+        this.addPoints(3);
+      }else if(diff > 0){
+        this.addPoints(10 * diff * diff);
+      }else if(diff === -1){
+        this.addPoints(1);
+      }
+    }
+//#endregion
