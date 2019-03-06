@@ -1800,3 +1800,80 @@ Description:
       return str.toLowerCase().replace(/(^|[^a-z0-9])[a-z]/g,a=>a.slice(-1).toUpperCase()).replace(/[^a-z0-9]/ig,'');
     }
 //#endregion
+
+
+//#region 6031 None shall pass
+/* 6031 None shall pass (https://www.codewars.com/kata/none-shall-pass)
+Description:
+    The black knight moves for no man.
+    However, you are no mere man; you are Arthur, King of the Britons.
+    You have no quarrel with good sir knight, but you must cross this bridge!
+
+    If this description does not make sense to you: the kata is a reference to Monty Python And The Holy Grail.
+*/
+
+//My solution
+    // The black knight will be more persistent depending on the difficulty you specify.
+    // Possible difficulties are easy, medium, hard, harder and impossible.
+    // Default is easy.
+    difficulty = 'easy';
+    // console.log(BlackKnight);
+    BlackKnight.chopOffArms();
+    BlackKnight.chopOffLegs();
+
+
+
+//Solution(s) I like(links):
+//1) Best(10) https://www.codewars.com/kata/reviews/525988ee6021e918e6000dd1/groups/544fb05a6ce469d89d000363
+    // Wtf is this kata ?
+    BlackKnight = {
+      letsYouPass : function(){
+        return true;
+      }
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/525988ee6021e918e6000dd1/groups/581da23ae411ca86510000ed
+    // A collection of functions to tackle different difficulties
+
+    // EASY
+    function easy() {
+      difficulty = 'easy';
+      BlackKnight.chopOffArms();
+      BlackKnight.chopOffLegs();
+    }
+
+    // MEDIUM
+    function medium() {
+      difficulty = 'medium';
+      BlackKnight.letsYouPass = () => true;
+    }
+
+    // HARD/HARDER
+    function hard() {
+      difficulty = 'hard';
+      Object.defineProperty(BlackKnight, 'letsYouPass', { value: () => true });
+    }
+
+    // IMPOSSIBLE
+    function impossible() {
+      let excalibur = Object.defineProperty;
+      Object.defineProperty = () => {};
+      difficulty = 'impossible';
+      BlackKnight = {};
+      excalibur(BlackKnight, 'letsYouPass', { value: () => true });
+    }
+
+    impossible();
+//3) Clever(15) https://www.codewars.com/kata/reviews/525988ee6021e918e6000dd1/groups/537e1065bf6c94afa6000564
+    var _o = Object.defineProperty;
+    Object.defineProperty = function(){};
+    difficulty = 'impossible';
+    _o(BlackKnight, 'letsYouPass', { value: function(){ return true; }});
+
+//4) Clever(6) https://www.codewars.com/kata/reviews/525988ee6021e918e6000dd1/groups/53beb2c163747df483000a64
+    difficulty = 'hard';
+
+    delete this.BlackKnight.letsYouPass
+    this.BlackKnight.letsYouPass = function (){
+      return true;
+    }
+//#endregion
