@@ -1013,3 +1013,30 @@ Description:
       return numbers.reduce(function(prev, cur) { return prev + cur }, 0);
     };
 //#endregion
+
+
+//#region 8030 You Can't Code Under Pressure #1
+/*8029 You Can't Code Under Pressure #1 (https://www.codewars.com/kata/sum-arrays)
+Description:
+  Code as fast as you can! You need to double the integer and return it.
+*/
+
+//My solution
+    function doubleInteger(i) {
+      // i will be an integer. Double it and return it.
+      return i * 2;
+    }
+// const doubleInteger = i => i * 2;
+
+//Solutions I like:
+//1) Clever(147) !COmment https://www.codewars.com/kata/reviews/53ee542f536dc10f64000110/groups/53ee5521f611ce4b61001207
+    function doubleInteger(i) {
+      return i << 1;
+    }
+//2) Clever(6) https://www.codewars.com/kata/reviews/53ee542f536dc10f64000110/groups/53efbe8ef646c3ca730000e0
+    function doubleInteger(i) {
+      // i will be an integer. Double it and return it.
+      return i+i;
+    }
+// doubleInteger=_=>_+_
+//#endregion
