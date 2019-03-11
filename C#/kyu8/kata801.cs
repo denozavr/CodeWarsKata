@@ -965,3 +965,33 @@ Description:
         }
     }
 //#endregion
+
+
+#region 8024 You Can't Code Under Pressure #1
+/*8024 You Can't Code Under Pressure #1 (https://www.codewars.com/kata/you-cant-code-under-pressure-number-1/)
+Description:
+  Code as fast as you can! You need to double the integer and return it.
+*/
+
+//My solution
+    using System;
+
+    public static class Kata
+    {
+      public static int DoubleInteger(int n)
+      {
+        return n + n; // OR n * 2;
+      }
+    }
+
+//Solutions I like:
+//1) Clever(14) https://www.codewars.com/kata/reviews/5990b31135fd2f187600000e/groups/59e3666eb4893fac6000002b
+    public static class Kata
+    {
+      public static int DoubleInteger(int n) =>n<<1;
+    }
+
+//2) Best(2) https://www.codewars.com/kata/reviews/5990b31135fd2f187600000e/groups/59ee0a7a941928882b001618
+    public static int DoubleInteger(int n) =>
+      n + n;
+#endregion
