@@ -1277,3 +1277,82 @@ Array.prototype.count = function(num) {
       return dice.reduce(function(s,d){ return s+d%2*(d-1) },0)
     }
 //#endregion
+
+
+//#region 5021 Sum of (Two) Squares
+/* 5021 Sum of (Two) Squares (https://www.codewars.com/kata/sum-of-two-squares)
+Description
+    Sum of (Two) Squares
+    We are asking for a function to take a positive integer value, and return a list of all positive integer pairs whose values - when squared- sum to the given integer.
+
+    For example, given the parameter 25, the function could return two pairs of 5,0 and 3,4 because 5^2 + 0^2 = 25 and 3^2 + 4^2 = 25.
+
+    We might express that in pseudo-code like this:
+
+        allSquaredPairs(25) == [[5,0],[3,4]];
+    Here are the requirements:
+
+    The return value should be a two dimensional array of positive integer pairs in any order.
+    A parameter value that is not the sum of any two squares should simply return an empty array
+    We will consider 5,0 and 0,5 to be equal pairs, disregarding the order. Do not list the same pair twice.
+    The upper bound of the parameter value will be 2,147,483,647
+*/
+
+//My solution
+    function allSquaredPairs(num) {
+      let [result,seen] = [[],{}];
+
+      const limit = Math.ceil(Math.sqrt(num))
+
+      for(let i = 0; i <= limit; i++){
+
+        let diff = Math.sqrt(num - (i*i));
+
+
+        if(!seen[diff] && diff === Math.floor(diff)){
+
+          seen[diff] = seen[i] = true;
+
+          result.push([i,diff]);
+        }
+      }
+      return result;
+    }
+
+//Solution(s) I like(links):
+//1) Best(6) https://www.codewars.com/kata/reviews/52217066578afbcc260002d3/groups/5358771e7762b19c3200030c
+    function allSquaredPairs(num) {
+      var pairs = [];
+      for (var i = 0; i <= Math.sqrt(num/2); i++) {
+        var j = Math.sqrt(num-i*i);
+        if (j % 1 == 0) {
+          pairs.push([i, j]);
+        }
+      }
+      return pairs;
+    }
+//2) Best(4) https://www.codewars.com/kata/reviews/52217066578afbcc260002d3/groups/53b9715c0008b417d400073d
+    function allSquaredPairs(num) {
+      var solutions = [], max = Math.sqrt(num / 2);
+      for (var a = 0; a <= max ; a++) {
+        var b = Math.sqrt(num - a*a);
+        if (b == (b | 0)) solutions.push([a,b]);
+      }
+      return solutions;
+    }
+//3) Bext(2) https://www.codewars.com/kata/reviews/52217066578afbcc260002d3/groups/5aa4023c7348a3551e0046dc
+    function allSquaredPairs(num) {
+      const pairs = [],
+            root = Math.sqrt(num/2)
+
+      for (i = 0; i <= root; i++) {
+        const factor = Math.sqrt(num - (i*i))
+
+        if (Number.isInteger(factor)) {
+          pairs.push([i, factor])
+        }
+      }
+    return pairs
+    }
+
+//#endregion
