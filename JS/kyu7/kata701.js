@@ -1320,3 +1320,70 @@ function reverseWords(str) {
       return newStr.split(" ").reverse().join(" ");
     }
 //#endregion
+
+
+//#region 7031 Javascript filter - 1
+/* 7031 Javascript filter - 1 (https://www.codewars.com/kata/525d9b1a037b7a9da7000905)
+Description:
+  While developing a website, you detect that some of the members have troubles logging in. Searching through the code you find that all logins ending with a "_" make problems. So you want to write a function that takes an array of pairs of login-names and e-mails, and outputs an array of all login-name, e-mails-pairs from the login-names that end with "_".
+
+  If you have the input-array:
+
+    [ [ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+  it should output
+
+    [ [ "bar_", "bar@bar.com" ] ]
+  You have to use the filter-method which returns each element of the array for which the filter-method returns true.
+
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+*/
+
+//My solution
+    function searchNames( logins ){
+      return logins.filter(function(login_name) {
+        // return emails that ends with '_'
+        return login_name[0].slice(-1) === '_';
+      });
+    }
+
+//Solution(s) I like(links):
+//1) Best(7) & Clever(16) https://www.codewars.com/kata/reviews/525d9b71037b7a0dd80008c4/groups/53975d71afebea81b50009cc
+    function searchNames( logins ){
+      return logins.filter(function(arr){
+        return arr[0].match(/_$/);});
+    }
+
+    //modern
+    function searchNames( logins ){
+      return logins.filter(a => a[0].match(/_$/));
+    }
+//2) Best(8) https://www.codewars.com/kata/reviews/525d9b71037b7a0dd80008c4/groups/5267de4e2406727d4a0006ff
+    function searchNames( logins ){
+      return logins.filter(function(entry) { return entry[0].lastIndexOf('_') == entry[0].length-1; });
+    }
+
+//3) Clever(3) https://www.codewars.com/kata/reviews/525d9b71037b7a0dd80008c4/groups/538e73f18ca4a385870014c5
+    function searchNames( logins ){
+      console.log(logins);
+        return logins.filter(function(x){return x[0].search(/\_$/) !== -1})
+      }
+//4) Best(3) https://www.codewars.com/kata/reviews/525d9b71037b7a0dd80008c4/groups/592e7da47f362b67c20001a7
+    function searchNames( logins ){
+      return logins.filter(a=>a[0].endsWith('_'));
+    }
+//5) Best(4) https://www.codewars.com/kata/reviews/525d9b71037b7a0dd80008c4/groups/538e2de38ca4a3a5f9001105
+    function searchNames( logins ){
+      var problemLogins = logins.filter(filterLastUnderscore);
+      return problemLogins
+    }
+
+    function filterLastUnderscore(login){
+      var name = login[0];
+      var lastChar = name.charAt(name.length - 1)
+      if (lastChar === '_'){
+        return true;
+      } else {
+        return false;
+      }
+    }
+//#endregion
