@@ -865,3 +865,81 @@ Description:
       }
     }
 #endregion
+
+
+#region 7021 Javascript filter - 1
+/* 7021 Javascript filter - 1 (https://www.codewars.com/kata/525d9b1a037b7a9da7000905)
+Description:
+  While developing a website, you detect that some of the members have troubles logging in. Searching through the code you find that all logins ending with a "_" make problems. So you want to write a function that takes an array of pairs of login-names and e-mails, and outputs an array of all login-name, e-mails-pairs from the login-names that end with "_".
+
+  If you have the input-array:
+
+    [ [ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+  it should output
+
+    [ [ "bar_", "bar@bar.com" ] ]
+  You have to use the filter-method which returns each element of the array for which the filter-method returns true.
+
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+*/
+
+//My solution
+    using System.Linq;
+
+    public class Kata
+    {
+        public static string[][] search_names(string[][] logins)
+        {
+            return logins.Where(x => x[0].EndsWith("_")).ToArray();
+        }
+    }
+
+//Solution(s) I like(links):
+//1) Best(4) & Clever(2) https://www.codewars.com/kata/reviews/5759b34c2307303c86000052/groups/5762488ce5cf425e3f000dd2
+    public static string[][] search_names(string[][] logins)
+    {
+        return logins.Where(o => o.First().EndsWith("_")).ToArray();
+    }
+//2) Clever(2) https://www.codewars.com/kata/reviews/5759b34c2307303c86000052/groups/59ba842622542cb1d40002c5
+    using System.Linq;
+
+    public class Kata
+    {
+        public static string[][] search_names(string[][] logins)
+        {
+            return logins.Where(IsProblematic).ToArray();
+        }
+
+        static bool IsProblematic(string[] login) => login[0].EndsWith("_");
+    }
+//3) Clever(2) https://www.codewars.com/kata/reviews/5759b34c2307303c86000052/groups/5761758ee1950f813300067c
+    using System.Linq;
+    using System.Text.RegularExpressions;
+
+    public class Kata
+    {
+        public static string[][] search_names(string[][] logins)
+        {
+            return logins.Where(l => Regex.IsMatch(l[0], @"\A.+_\z")).ToArray();
+        }
+    }
+//4) Clever(2) https://www.codewars.com/kata/reviews/5759b34c2307303c86000052/groups/58597576d88eaaaf1c000016
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+
+        public class Kata
+        {
+            public static string[][] search_names(string[][] logins)
+            {
+              List<string[]> list = new List<string[]>();
+                foreach (var array in logins)
+                {
+                  if(array.Any(el => new Regex("_$").IsMatch(el)))
+                        list.Add(array);
+                }
+                return list.ToArray();
+            }
+        }
+#endregion
