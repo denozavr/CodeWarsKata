@@ -1877,3 +1877,77 @@ Description:
       return true;
     }
 //#endregion
+
+//#region 6032 Calculate Hypotenuse of Right-angled Triangle
+/* 6032 Calculate Hypotenuse of Right-angled Triangle (https://www.codewars.com/kata/calculate-hypotenuse-of-right-angled-triangle/)
+Description:
+  To solve this Kata, complete the function, calculateHypotenuse(a,b), which will return the length of the hyptenuse for a right angled triangle with the other two sides having a length equal to the inputs. More details:
+
+  The returned value should be a number rounded to three decimal places
+  An error (ArgumentException in C#) should be thrown if an invalid input is provided (inputs should both be numbers that are above zero)
+
+    calculateHypotenuse(1,1); // returns 1.414
+    calculateHypotenuse(3,4); // returns 5
+    calculateHypotenuse(-2,1); // throws error
+    calculateHypotenuse("one", "two"); // throws error
+
+  For more information on the hypotenuse, visit: http://en.wikipedia.org/wiki/Hypotenuse
+*/
+
+//My solution
+    function calculateHypotenuse(a,b){
+      // TODO: complete calculateHypotenuse so that it returns the hypotenuse length
+      // for a triangle with sides of length a, b, and c, where c is the hypotenuse.
+      // The solution should verify that inputs are valid numbers (both above zero).
+      if( (a <= 0 || b <= 0) || (!isNumber(a) || !isNumber(b)) ) {
+        throw "error";
+      }
+      else {
+        return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)).toFixed(3);
+      }
+
+    }
+
+    function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+
+
+//Solution(s) I like(links):
+//1) Best(23) & Clever(23) Comment https://www.codewars.com/kata/reviews/525a3d6b85a9a47fcf00055d/groups/52707e57b1aa03f40a000050
+    function calculateHypotenuse(a,b){
+      if (!+a || !+b || typeof(a) != 'number' || typeof(b) != 'number' || a<0 || b<0) throw 'error';
+      return Math.sqrt(a*a + b*b).toFixed(3);
+    }
+//2) Best(14) https://www.codewars.com/kata/reviews/525a3d6b85a9a47fcf00055d/groups/53cab8d09bbf4ce28600109f
+    function calculateHypotenuse(a,b){
+      if (!a || !b){
+        throw "Inputs must have a value."
+      }
+      if (typeof a != 'number' || typeof b != 'number'){
+        throw "Inputs must be numbers."
+      }
+      if (a < 0 || b < 0){
+        throw "Inputs must be nonnegative."
+      }
+      return parseFloat(Math.sqrt(a*a + b*b).toFixed(3));
+    }
+//3) Best(3) https://www.codewars.com/kata/reviews/525a3d6b85a9a47fcf00055d/groups/5ba8eda6736e97d21e0020e4
+    const calculateHypotenuse = (a, b) => {
+      if (a > 0 && b > 0 && a === +a && b === +b)
+        return Math.sqrt(a * a + b * b).toFixed(3);
+      throw Error();
+    };
+//4) Clever(3) https://www.codewars.com/kata/reviews/525a3d6b85a9a47fcf00055d/groups/5577e9322c6f76e5c70000d7
+    function calculateHypotenuse(a,b){
+      if(a+''>0&&b+''>0)return Math.sqrt(a*a+b*b).toFixed(3);throw 0
+    }
+//5) Clever(3) https://www.codewars.com/kata/reviews/525a3d6b85a9a47fcf00055d/groups/52e503fbe0643613d200030f
+    function calculateHypotenuse(a,b){
+      if( typeof a === 'number'
+        && typeof b === 'number'
+        && a > 0 && b > 0 ) return (Math.sqrt(Math.pow(a,2) + Math.pow(b,2))).toFixed(3)
+        else throw("Something is wrong!");
+    }
+//#endregion
