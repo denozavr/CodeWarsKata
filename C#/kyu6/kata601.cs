@@ -980,3 +980,76 @@ Description:
         => n == 1 ? 50 : GetScore(n-1) + 50 * n;
     }
 #endregion
+
+#region 6017 Calculate Hypotenuse of Right-angled Triangle
+/* 6017 Calculate Hypotenuse of Right-angled Triangle (https://www.codewars.com/kata/calculate-hypotenuse-of-right-angled-triangle/)
+Description:
+  To solve this Kata, complete the function, calculateHypotenuse(a,b), which will return the length of the hyptenuse for a right angled triangle with the other two sides having a length equal to the inputs. More details:
+
+  The returned value should be a number rounded to three decimal places
+  An error (ArgumentException in C#) should be thrown if an invalid input is provided (inputs should both be numbers that are above zero)
+
+    Kata.CalculateHypotenuse(1,1)           // returns 1.414
+    Kata.CalculateHypotenuse(3,4)           // returns 5
+    Kata.CalculateHypotenuse(-2,1)          // throws ArgumentException
+    Kata.CalculateHypotenuse(2, Double.NaN) // throws ArgumentException
+
+  For more information on the hypotenuse, visit: http://en.wikipedia.org/wiki/Hypotenuse
+*/
+
+//My solution
+    using System;
+
+    public class Kata
+    {
+      public static double CalculateHypotenuse(double a, double b)
+      {
+        if((IsNumeric(a) && a>0) && (IsNumeric(b) && b>0) ) {
+          return  Math.Round( Math.Sqrt(a*a + b*b), 3);
+        } else {
+          throw new ArgumentException("Error");
+        }
+
+        // TODO: complete calculateHypotenuse so that it returns the hypotenuse length
+        // for a triangle with sides of length a, b, and c, where c is the hypotenuse.
+        // The solution should verify that inputs are valid numbers (both above zero).
+      }
+
+      public static bool IsNumeric(object Expression)
+      {
+          double retNum;
+
+          bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+          return isNum;
+      }
+
+    }
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/59962b56f580e3e33a000004/groups/599fcb2434bcdcfbb000015b
+    using System;
+    public class Kata
+    {
+      public static double CalculateHypotenuse(double a, double b)
+      {
+        if ( a <= 0 || b <= 0 || Double.IsNaN(a)  || Double.IsNaN(b))
+          throw new System.ArgumentException();
+          return Math.Round(Math.Sqrt(a * a + b * b), 3);
+      }
+    }
+//2) Best(1) https://www.codewars.com/kata/reviews/59962b56f580e3e33a000004/groups/5c2f606428c67d000104e0b9
+    using System;
+
+    public class Kata
+    {
+      public static double CalculateHypotenuse(double a, double b)
+      {
+      if(Double.IsNaN(a)||Double.IsNaN(b)||a<=0||b<=0) throw new ArgumentException("Must be bigger");
+    double result = Math.Sqrt(Math.Pow(a,2.0)+ Math.Pow(b,2.0));
+    double threeD = Convert.ToDouble(result.ToString("N3"));
+    return threeD;
+
+      }
+    }
+
+#endregion
