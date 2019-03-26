@@ -1356,3 +1356,89 @@ Description
     }
 
 //#endregion
+
+//#region 5022 Fibonacci Generator
+/* 5022 Fibonacci Generator (https://www.codewars.com/kata/fibonacci-generator/)
+Description
+    Create a function generator genfib() that returns a function fib() which always returns the next fibonacci number on each invocation (and returns 0 when being called the first time).
+
+    Example:
+
+      var fib = genfib();
+      fib(); // -> returns 0
+      fib(); // -> returns 1
+      fib(); // -> returns 1
+      fib(); // -> returns 2
+*/
+
+//My solution
+    function genfib(){
+      let arr = [0, 1];
+      let idx = 0;
+      return function fib(){
+        if(idx == 0){
+          idx++;
+          return 0;
+        } else if(idx == 1){
+          idx++;
+          return 1;
+        } else if(idx > 1){
+          arr[idx] = arr[idx - 1] + arr[idx - 2];
+          idx++;
+          return arr[arr.length - 1];
+        }
+      }
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(14) & Clever(13) https://www.codewars.com/kata/reviews/522498c9906b0cfcb40001ff/groups/5381f877bb819aec2c0008c5
+    function genfib(){
+      var a = 1, b = 0;
+      return function fib(){
+        var c = a + b;
+        a = b;
+        b = c;
+        return a;
+      }
+    }
+//2) Best(5) https://www.codewars.com/kata/reviews/522498c9906b0cfcb40001ff/groups/5a4a0b4ba7c21c655400003b
+    function *fibonacci(current = 0, next = 1) {
+      while (true) {
+        yield current;
+        [current, next] = [next, current + next];
+      }
+    }
+
+    function genfib() {
+      const sequence = fibonacci();
+
+      return function fib() {
+        return sequence.next().value;
+      }
+    }
+//3) Best(2) https://www.codewars.com/kata/reviews/522498c9906b0cfcb40001ff/groups/5c2b33bf0bf7e2000193c491
+    function genfib(){
+      let a = 1, b = 0;
+      return function fib(){
+        [a,b] = [b, b+a]
+        return a;
+      }
+    }
+//4) Clever(5) https://www.codewars.com/kata/reviews/522498c9906b0cfcb40001ff/groups/525f09ad91e2b860d30012d5
+    function genfib(){
+      var fibs = [0,1];
+      return function fib(){
+        fibs.push(fibs[0]+fibs[1]);
+        return fibs.shift();
+      }
+    }
+//5) Clever(3) https://www.codewars.com/kata/reviews/522498c9906b0cfcb40001ff/groups/559a883b832cf4411d00004d
+    function genfib(){
+      var a = 1, b = 0;
+
+      return function() {
+        return a = [b, b = a + b][0];
+      };
+    }
+//#endregion
