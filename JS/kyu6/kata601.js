@@ -1951,3 +1951,39 @@ Description:
         else throw("Something is wrong!");
     }
 //#endregion
+
+
+//#region 6033 Array.isArray
+/* 6033 Array.isArray (https://www.codewars.com/kata/525a4cab1650d76b8000084d)
+Description:
+  JavaScript 1.8.5 helpfully added the Array.isArray function, which can tell you whether its argument is an Array or not. Without it, checking whether something is an Array is rather tricky. How would you do it if you had to?
+*/
+
+//My solution (Comment)
+    function isArray(arr) {
+      // This is what we would like to do, but it's not allowed.
+      // return Array.isArray(arr);
+      return Object.prototype.toString.call(arr) === "[object Array]";
+    };
+// COMMENT https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/525a667c1650d7da10000933
+
+
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/5ad0a886ddb6e3ce1c003d32
+    const isArray = a => !!a.pop;
+//2) Best(2) https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/530efa2073d78bf78c00040c
+    function isArray(arr) {
+      return (arr instanceof Array || arr === Array.prototype) && arr.hasOwnProperty("length");
+    };
+//3) Clever(3) https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/59706af96b4db7dd07000955
+    const isArray = arr => /Array/.test(arr.constructor)
+//4) Clever(3) https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/59a4f93f0c119abd6a000074
+    function isArray(arr) {
+      return arr.push !== undefined;
+    };
+//5) Clever(2) https://www.codewars.com/kata/reviews/525a4cac1650d76b80000850/groups/525aca4a1650d70c00000e74
+    function isArray(arr) {
+      return /^\[.*\]$/.test(JSON.stringify(arr));
+    };
+//#endregion
