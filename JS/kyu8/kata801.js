@@ -1040,3 +1040,71 @@ Description:
     }
 // doubleInteger=_=>_+_
 //#endregion
+
+
+//#region 8031 Hello Happy Codevarrior!
+/*8031 Hello Happy Codevarrior! (https://www.codewars.com/kata/53f9ee9f64b19d4b1d0001ed)
+Description:
+  VVhat ?!?
+  None of zese codevarriors seemz to remember hiz ovvn name !
+  Kould you help ?
+
+    var albert = new Warrior("Al")
+    var boris  = new Warrior("Boris")
+
+    albert.toString() --> "Hi! my name's Boris" <-- ohoh..
+*/
+
+//My solution
+    function Warrior(n){
+      let name = n;  // was global variable (without let/var)
+      this.name = function(n){
+        if( n ) name=n;
+        return name;
+      }
+    }
+
+    Warrior.prototype.toString = function(){
+        return "Hi! my name's "+ this.name();
+    }
+
+
+//Solutions I like:
+//1) Best(10) https://www.codewars.com/kata/reviews/53f9eea849215e460d0000b9/groups/53fa54ce64b19dca64000469
+    function Warrior(n){
+      this.n = n;
+    }
+
+    Warrior.prototype.name = function(n){
+      if (n) this.n = n;
+      return this.n;
+    }
+
+    Warrior.prototype.toString = function(){
+      return "Hi! my name's " + this.n;
+    }
+
+//2) Clever(4) https://www.codewars.com/kata/reviews/53f9eea849215e460d0000b9/groups/5458640f0a80d2dbf1000fde
+    function Warrior(name){
+      this.name = function(n){
+        return (n ? name = n : name);
+      }
+    }
+
+    Warrior.prototype.toString = function(){
+        return "Hi! my name's "+this.name();
+    }
+//3) Clever(2) https://www.codewars.com/kata/reviews/53f9eea849215e460d0000b9/groups/5952e2a7df1d164744000023
+    class Warrior {
+      constructor(name) {
+        this.nameValue = name
+      }
+      name(name) {
+        if (name) this.nameValue = name
+        return this.nameValue
+      }
+      toString() {
+        return `Hi! my name's ${this.name()}`
+      }
+    }
+//#endregion
