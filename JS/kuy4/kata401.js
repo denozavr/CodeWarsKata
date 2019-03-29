@@ -1200,3 +1200,165 @@ Description:
       return [].concat(top, right, bottom, left, snail(inner));
     }
 //#endregion
+
+
+//#region 4013 Set - the card game
+/* 4013 Set - the card game (https://www.codewars.com/kata/522f421badceba9f8a0000a6)
+Description:
+  There is a game called SET, where the goal is to find 3 cards that match some criterias. Each card has 4 attributes:
+
+  count: 1, 2 or 3
+  colour: red, blue or green
+  shape: rectangular, oval or wave
+  filling: plain, shaded or empty
+  Every possible combination is represented (except if you loose a card, but this is a computer game, so no lost cards!), so in total there are 3 ^ 4 = 81 cards.
+
+  In order for 3 cards to form a set, EACH of the attributes of the three cards has to be either the same or completely different. So you can have for the color
+
+  red + red + red
+  red + green + blue
+  but NOT
+
+  red + red + blue
+  Some examples for all 4 attributes:
+
+  SET: 1 red plain rect + 2 red plain rect + 3 red plain rect
+  SET: 1 red plain rect + 1 green plain rect + 1 blue plain rect
+  NOT a SET: 1 red plain rect + 2 red plain rect + 3 red plain oval -> 2 rectangulars and 1 oval
+  NOT a SET: 1 red plain rect + 1 green plain rect + 1 blue shaded rect -> 2 plain and 1 shaded
+  In the game a total of 12 cards are laid on the table, in a 4 x 3 grid, and the goal is to find as many NON-OVERLAPPING SETS as possible.
+
+  A card is defined as
+
+  [ count, color, shape, filling ]
+  and every attribute is either 1, 2 or 3.
+
+  Your method has to take a 2D-array of cards and return an array of solutions. The 2D-array is set up as
+
+  cards[x][y]
+  with
+  0 <= x <= 3
+  and
+  0 <= y <= 2
+  and the result has to return [ x, y ] - tuples. Here are some possible results:
+
+  [] - no SET found
+  [ [ [ 0,0 ], [ 1,2 ], [1,3 ] ] ] - found 1 SET
+  [ [ [ 0,0 ], [ 1,2 ], [1,3 ] ], [ [ 2,2 ], [ 3,2 ], [1,1 ] ] ] - found 2 SETs
+  The following IS NOT A VALID RESULT, because the card at [1,2] is used twice!
+
+  [ [ [ 0,0 ], [ 1,2 ], [1,3 ] ], [ [ 2,2 ], [ 3,2 ], [1,2 ] ] ] - found 2 SETs
+  Take care to
+
+  not use cards twice
+  have as much solutions as possible (there are cases where you could have different number of solutions...)
+  make it simple ;)
+  The testing algorithm tries very hard to be fair, that is, to accept as many results as possible. Your solution for a given set is considered correct, if:
+
+  you return the maximum number of solutions
+  every given solution is correct
+  no card is used twice
+*/
+
+//My solution
+//Too huge and ugly in comparison with others
+
+
+//Solution(s) I like(links):
+//1) Best(2) https://www.codewars.com/kata/reviews/525985b3c76e591de2000d4c/groups/5939e8617e3d68fbab00008d
+    const unique = (p,i,a) => a.indexOf(p) == i
+
+    function getSolutions(cards){
+      let flat = cards.reduce((all,row) => all.concat(row)) // Flattened array makes everything easier (converted back at end)
+
+      let cardCombos = []
+      for (let a = 0; a < 12; a++)                          // Generate all combos of 3 cards
+        for (let b = a+1; b < 12; b++)
+          for (let c = b+1; c < 12; c++)
+            cardCombos.push([a,b,c])
+
+      let sets = cardCombos.map(id => id.map(i => flat[i]))                             // Map card indexes to card properties
+      .filter(set => set                                                                // Filter out invalid sets...
+        .reduce((mesh,card) => mesh.map((props,pi) => props.concat(card[pi])), [[],[],[],[]])  // Interlace properties
+        .every(prop => prop.every(p=>p==prop[0]) || prop.every(unique))                        // Compare/contrast properties
+      ).map(set => set.map(card => flat.indexOf(card)))   // Done with properties - all we care about now is card indexes
+
+      let setCombos = [];
+      let f = (list, s) => {                              // Generate all combos of valid sets
+        for (var i = 0; i < s.length; i++) {
+          let newList = [...list, s[i]]
+          setCombos.push(newList)
+          f(newList, s.slice(i+1))
+        }
+      }
+      f([], sets)
+
+      return setCombos
+      .filter(combo => combo.reduce((all,set) => all.concat(set)).every(unique))  // Filter out combos with dupe cards
+      .sort((a,b) => b.length - a.length)[0]              // Sort most sets first; grab first one
+      .map(set => set.map(i => [~~(i/3), i%3]))           // Map indexes back to [x,y] coordinates
+
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/525985b3c76e591de2000d4c/groups/56ce1671aa4ac727ed001742
+    function third(card1, card2){
+      return card1.split('')
+                  .map((x,i) => x==card2[i] ? x : [1,2,3].filter(y => y!=x && y!=card2[i])[0])
+                  .join('');
+    }
+    function sets(list){
+      var result = [];
+      for (var i1=0; i1<list.length; i1++)
+        for (var i2=i1+1; i2<list.length; i2++) {
+          var card1 = list[i1],
+              card2 = list[i2],
+              card3 = third(card1, card2),
+              i3 = list.indexOf(card3);
+          if (i3 > i2) {
+            var set = [card1, card2, card3],
+                rest = list.filter((_, i) => i!=i1&&i!=i2&&i!=i3),
+                tmp = [set].concat(sets(rest));
+            if (tmp.length > result.length) result = tmp;
+          }
+        }
+      return result;
+    }
+
+    function getSolutions( cards ){
+      var list = cards.reduce((x,y) => x.concat(y)).map((x, i) => x.join(''));
+      return sets(list).map(set => set.map(card => {
+        var i = list.indexOf(card);
+        return [i/3>>0, i%3];
+      }));
+    }
+//3) Clever(2) https://www.codewars.com/kata/reviews/525985b3c76e591de2000d4c/groups/542a558f909c97b1720002fb
+    function getSolutions(cards)
+    {
+      return (function (cards)
+      {
+        var r = [], ps, i, j, k;
+        for (i = 0; i < cards.length; i++)
+          for (j = i + 1; j < cards.length; j++)
+            for (k = j + 1; k < cards.length; k++)
+              if ([0, 1, 2, 3].every(function (a)
+              {
+                return cards[i][a] === cards[j][a] && cards[i][a] === cards[k][a] ||
+                cards[i][a] !== cards[j][a] && cards[i][a] !== cards[k][a] && cards[j][a] !== cards[k][a];
+              }) && ((ps = [[cards[i], cards[j], cards[k]]].concat(arguments.callee(cards.filter(function (a, n)
+              {
+                return n !== i && n !== j && n !== k;
+              }))))).length > r.length)
+                r = ps;
+        return r;
+      })(cards.reduce(function (r, a, x)
+      {
+        a.forEach(function (a, y)
+        {
+          a.x = x; a.y = y;
+        });
+        return r.concat(a);
+      }, [])).map(function (a)
+      {
+        return a.map(function (a) { return [a.x, a.y]; });
+      });
+    }
+//#region
