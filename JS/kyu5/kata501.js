@@ -1442,3 +1442,93 @@ Description
       };
     }
 //#endregion
+
+
+//#region 5023 uniq -c (UNIX style)
+/* 50223 uniq -c (UNIX style) (https://www.codewars.com/kata/52250aca906b0c28f80003a1)
+Description:
+  Implement the uniq_c() function which behaves like the 'uniq -c' command in UNIX. It takes as input an array and returns an array in which all duplicate elements following each other have been reduced to one instance together with the number of times a duplicate elements occurred in the original array.
+
+  Example:
+
+    var input = ['a','a','b','b','c','a','b','c'];
+    uniq_c(input); // -> returns [['a',2],['b',2],['c',1],['a',1],['b',1],['c',1]]
+*/
+
+//My solution
+    function uniq_c(a){
+      let prev = '';
+      let result = [];
+      let current = [];
+      for (let i = 0; i < a.length; i++){
+        if (a[i] !== prev){
+          result.push(current.slice());
+          prev = a[i];
+          current = [a[i], 1];
+        }
+        else {
+          current[1] = current[1] + 1;
+        }
+      }
+      result.push(current.slice());
+      result.shift();
+      return result;
+    }
+
+
+//Solution(s) I like(links):
+//1) Best(3) & Clever(1) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/54e3adbbebe1e597d8001160
+    function uniq_c(a){
+      return !a.length ? [] : a.reduce(function (acc, x) {
+        var last = acc[acc.length - 1];
+        if (last[0] == x) { last[1]++; } else { acc.push([x, 1]); }
+        return acc;
+      }, [[a[0], 0]]);
+    }
+//2) Best(2) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/59c31c4c4b02b0385e0018b6
+    const uniq_c = arr => {
+      if (arr.length === 0) { return []; }
+
+      let result = [];
+      let value = arr[0];
+      let count = 1;
+
+      for (let i = 1; i < arr.length; ++i) {
+        if (arr[i] !== value) {
+          result.push([value, count]);
+          value = arr[i];
+          count = 0;
+        }
+        ++count;
+      }
+
+      result.push([value, count]);
+      return result;
+    };
+//3) Best(2) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/545a89da61aa4c50c0000c2e
+    function uniq_c(a) {
+      var out = [];
+      a.forEach(function(v) {
+        if(out[out.length - 1] && out[out.length - 1][0] == v) out[out.length - 1][1]++;
+        else out.push([v, 1]);
+      });
+      return out;
+    }
+//4) Clever(7) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/53f64775c0c45dd140011545
+    function uniq_c(a,b){return b=[],a.join('').replace(/(\w)\1*/g,function(c){b.push([c[0],c.length]);}),b;}
+//5) Clever(3) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/561b4aed8568c29c6e000019
+    function uniq_c(a){
+      return a.length == 0? [] : a.join('').match(/(.)\1*/g).map( x => [x[0],x.length]);
+    }
+//6) Clever(3) https://www.codewars.com/kata/reviews/52250aca906b0c28f80003a4/groups/537e2b8c989c7021820006df
+    function uniq_c(a){
+      return a.reduce(function(a,b,ind,arr){
+        if (a.length && a[a.length -1][0] == b) {
+          a[a.length - 1][1]++;
+        } else {
+          a.push([b, 1]);
+        }
+        return a;
+      }, []);
+    }
+//#endregion
