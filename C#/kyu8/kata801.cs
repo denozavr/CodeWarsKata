@@ -995,3 +995,65 @@ Description:
     public static int DoubleInteger(int n) =>
       n + n;
 #endregion
+
+
+#region 8025 Regular Ball Super Ball
+/* 8025 Regular Ball Super Ball (https://www.codewars.com/kata/regular-ball-super-ball/csharp)
+Description:
+  Regular Ball Super Ball
+  Create a class Ball.
+
+  Ball objects should accept one argument for "ball type" when instantiated.
+
+  If no arguments are given, ball objects should instantiate with a "ball type" of "regular."
+
+    ball1 = new Ball();
+    ball2 = new Ball("super");
+
+    ball1.ballType     //=> "regular"
+    ball2.ballType     //=> "super"
+*/
+
+//My solution
+    // use of optional parameters
+    using System;
+
+    public class Ball {
+      public string ballType { get; set; }
+
+      public Ball(): this("regular"){}
+
+      public Ball(string ballType) {
+        this.ballType = ballType;
+      }
+    }
+
+//Solutions I like:
+//1) Best(58) GOOD Comment https://www.codewars.com/kata/reviews/550b098c5951380918000bb5/groups/550b1f74068151cce00019c6
+    using System;
+
+    public class Ball {
+      public string ballType { get; set; }
+
+      public Ball(string ballType = "regular") {
+        this.ballType = ballType;
+      }
+    }
+
+//2) Best(3) https://www.codewars.com/kata/reviews/550b098c5951380918000bb5/groups/550c0c5ddc217051b8000140
+    using System;
+
+    public class Ball {
+      private static string defaultType = "regular";
+      public string ballType { get; set; }
+      public Ball() : this(defaultType) {}
+      public Ball(string ballType) {
+        this.ballType = ballType;
+      }
+    }
+//3) Best(19) https://www.codewars.com/kata/reviews/53f0f96bef9ad427f9000120/groups/53f43ef05f9d319ada000996
+    var Ball = function(ballType) {
+      this.ballType = typeof ballType !== 'undefined' ? ballType : 'regular';
+      // this.ballType = ballType ? ballType : "regular";
+    };
+#endregion
