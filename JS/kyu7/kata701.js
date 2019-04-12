@@ -1387,3 +1387,80 @@ Description:
       }
     }
 //#endregion
+
+
+//#region 7032 Triangular Treasure
+/* 7032 Triangular Treasure (https://www.codewars.com/kata/525e5a1cb735154b320002c8)
+Description:
+  Triangular numbers are so called because of the equilateral triangular shape that they occupy when laid out as dots. i.e.
+
+    1st (1)   2nd (3)    3rd (6)
+    *          **        ***
+               *         **
+                         *
+  You need to return the nth triangular number. You should return 0 for out of range values:
+
+    triangular(0)==0,
+    triangular(2)==3,
+    triangular(3)==6,
+    triangular(-10)==0
+*/
+
+//My solution
+    function triangular(n) {
+      let sum = 0;
+      for(let i = 1; i <= n; i++){
+        sum += i;
+      }
+      return sum;
+    }
+
+//Solution(s) I like(links):
+//1) Best(72) & Clever(104) !Comment https://www.codewars.com/kata/reviews/525e5b2117c7cdc6d8000340/groups/52699cc3383e1c6aae001682
+    // Return the nth triangular number
+    function triangular( n ) {
+      return (n > 0) ? ((n * n) + n) / 2 : 0;
+    }
+//2) Best(17) & Clever(13) https://www.codewars.com/kata/reviews/525e5b2117c7cdc6d8000340/groups/5398d5bdc729dace170013ac
+    // Return the nth triangular number
+    var max_n = Math.floor(Math.sqrt(Number.MAX_VALUE));
+
+    function triangular(n) {
+      if (n < 1 || n >= max_n) return 0;
+
+      return (n * (n + 1)) / 2;
+    }
+//3) Clever(10) https://www.codewars.com/kata/reviews/525e5b2117c7cdc6d8000340/groups/53a7115a3d87dd1f8e000c73
+    // Return the nth triangular number
+    function triangular( n ) {
+      return n <= 0 ? 0 : (n * (n+1))>>1;
+    }
+//4) Clever(6)  https://www.codewars.com/kata/reviews/525e5b2117c7cdc6d8000340/groups/53a90155a9198e5304000605
+    // Return the nth triangular number
+    function triangular( n ) {
+      // edge cases: n <= 0 is already covered.
+
+      // number of stars to make triangle, aka the result
+      var sumStars = 0;
+      // To make the triangle, each row has one less star. The first row has n stars.
+      // So start from n, and add n-1, then n-2, then n-3, etc. stars
+      // Once we get to 0, we have our triangle
+      while (n > 0) {
+        sumStars += n;
+        n -= 1;
+      }
+      // The number of stars in traingle is result
+      return sumStars;
+    }
+//5) Clever(5) Comment https://www.codewars.com/kata/reviews/525e5b2117c7cdc6d8000340/groups/527715cf4ca29a409b000662
+    function triangular (n) {
+      if (n < 1) {
+        return 0;
+      } else if (n === 1) {
+        return 1;
+      } else {
+        return triangular (n - 1) + n;
+      }
+    }
+
+//#endregion
