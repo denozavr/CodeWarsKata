@@ -190,7 +190,37 @@ Empty arrays or null/nil values being passed into the method should result in an
     Kata.FormatWords(new string[] {}) => ""
 */
 
-//My solution
+//My solution (new)
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+
+    public static class Kata
+    {
+      public static string FormatWords(string[] words)
+      {
+          // Edge case guard condition (null, 0 words or all empty words)
+          string result = "";
+          if (words == null) return string.Empty;
+
+          var items = words.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+          
+          if (items.Length  == 1) result = items.First();
+          if (items.Length  == 2) result = string.Join(" and ", items);
+
+          if(items.Length  > 2) {
+            string allWordsButLast = string.Join(", ", items.Take(items.Length  - 1));
+            string lastWord = items.Last();
+            
+            result = $"{allWordsButLast} and {lastWord}";
+          }
+          
+
+          return result;
+      }
+    }
+
+//My solution (OLD 2017)
     using System.Linq;
 
     public static class Kata
